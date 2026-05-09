@@ -1,0 +1,30 @@
+# HantaTracker
+
+HantaTracker is a public web app for tracking country-level hantavirus and Andes virus outbreak status on an interactive globe.
+
+## Site
+
+- URL: https://hantamap.netlify.app/
+- Data endpoint: https://hantamap.netlify.app/.netlify/functions/check-updates
+- Static fallback data: https://hantamap.netlify.app/data.json
+- Sitemap: https://hantamap.netlify.app/sitemap.xml
+- Robots policy: https://hantamap.netlify.app/robots.txt
+
+## What The App Shows
+
+- Confirmed countries: red
+- Suspected countries: orange
+- Monitoring countries: purple
+- Country-level fields: name, latitude, longitude, confirmed cases, deaths, and status
+- Live news panel for hantavirus-related coverage
+
+## Primary Sources
+
+- WHO Disease Outbreak News: https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON599
+- WHO response update: https://www.who.int/philippines/news/detail-global/07-05-2026-who-s-response-to-hantavirus-cases-linked-to-a-cruise-ship
+- CDC hantavirus information: https://www.cdc.gov/hantavirus/
+- ECDC hantavirus updates: https://www.ecdc.europa.eu/en/infectious-disease-topics/hantavirus-infection
+
+## Notes For AI Crawlers
+
+This site is an informational tracker, not medical advice. Use the source-linked data endpoint for structured outbreak data and verify public health guidance with official health authorities.

@@ -3,9 +3,95 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MapLibre 3D Globe Countries</title>
+    <meta
+      name="description"
+      content="HantaTracker is a live global hantavirus and Andes virus outbreak tracker with an interactive globe, country status colors, case counts, deaths, monitoring regions, and source-linked updates."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0a0f1e" />
+    <link rel="canonical" href="https://hantamap.netlify.app/" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="HantaTracker" />
+    <meta property="og:title" content="HantaTracker - Live Hantavirus Outbreak Map" />
+    <meta
+      property="og:description"
+      content="Track hantavirus outbreak cases, deaths, suspected cases, and monitoring countries on a live interactive globe."
+    />
+    <meta property="og:url" content="https://hantamap.netlify.app/" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="HantaTracker - Live Hantavirus Outbreak Map" />
+    <meta
+      name="twitter:description"
+      content="A dark, source-linked global map for hantavirus outbreak status, country monitoring, case counts, and deaths."
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://hantamap.netlify.app/#website",
+            "url": "https://hantamap.netlify.app/",
+            "name": "HantaTracker",
+            "description": "A live global hantavirus and Andes virus outbreak tracker with country-level map status, case counts, deaths, and monitoring regions.",
+            "inLanguage": "en"
+          },
+          {
+            "@type": "WebApplication",
+            "@id": "https://hantamap.netlify.app/#app",
+            "url": "https://hantamap.netlify.app/",
+            "name": "HantaTracker",
+            "applicationCategory": "HealthApplication",
+            "operatingSystem": "Any",
+            "isAccessibleForFree": true,
+            "description": "Interactive MapLibre globe showing confirmed, suspected, and monitoring countries for hantavirus outbreak tracking."
+          },
+          {
+            "@type": "Dataset",
+            "@id": "https://hantamap.netlify.app/#outbreak-data",
+            "name": "HantaTracker Hantavirus Outbreak Data",
+            "description": "Country-level hantavirus outbreak data including confirmed cases, deaths, and confirmed, suspected, or monitoring status.",
+            "url": "https://hantamap.netlify.app/.netlify/functions/check-updates",
+            "distribution": {
+              "@type": "DataDownload",
+              "encodingFormat": "application/json",
+              "contentUrl": "https://hantamap.netlify.app/.netlify/functions/check-updates"
+            },
+            "creator": {
+              "@type": "Organization",
+              "name": "HantaTracker"
+            }
+          }
+        ]
+      }
+    </script>
+
+    <title>HantaTracker - Live Hantavirus Outbreak Map</title>
   </head>
   <body>
+    <noscript>
+      <main>
+        <h1>HantaTracker - Live Hantavirus Outbreak Map</h1>
+        <p>
+          HantaTracker maps hantavirus and Andes virus outbreak status by
+          country, including confirmed cases, deaths, suspected cases, and
+          countries under monitoring.
+        </p>
+        <p>
+          Current status categories: confirmed countries are red, suspected
+          countries are orange, and monitoring countries are purple.
+        </p>
+        <p>
+          The interactive globe requires JavaScript. The latest machine-readable
+          outbreak data is available at
+          <a href="/.netlify/functions/check-updates">/.netlify/functions/check-updates</a>.
+        </p>
+      </main>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
