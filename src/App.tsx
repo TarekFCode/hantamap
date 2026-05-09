@@ -10,7 +10,12 @@ import {
   OUTBREAK_STORAGE_EVENT,
   OUTBREAK_STORAGE_KEY,
 } from "./data/outbreakStorage";
-import { detectLanguage, getSavedLanguage, SupportedLanguage } from "./i18n";
+import {
+  detectLanguage,
+  getSavedLanguage,
+  SupportedLanguage,
+  translateUiText,
+} from "./i18n";
 
 const STYLE_URL = "https://demotiles.maplibre.org/globe.json";
 const COUNTRIES_URL =
@@ -543,21 +548,21 @@ export default function App() {
           <span className="live-badge">LIVE</span>
         </div>
         <a className="privacy-link" href="/privacy.html">
-          Privacy Policy
+          {translateUiText("Privacy Policy", language)}
         </a>
       </nav>
 
       <section className="stats-bar" aria-label="Hantavirus summary">
         <article className="stat-card">
-          <span>Confirmed Cases:</span>
+          <span>{translateUiText("Confirmed Cases:", language)}</span>
           <strong>{totals.cases}</strong>
         </article>
         <article className="stat-card">
-          <span>Deaths:</span>
+          <span>{translateUiText("Deaths:", language)}</span>
           <strong>{totals.deaths}</strong>
         </article>
         <article className="stat-card">
-          <span>Countries Affected:</span>
+          <span>{translateUiText("Countries Affected:", language)}</span>
           <strong>{totals.countries}</strong>
         </article>
       </section>
@@ -568,15 +573,15 @@ export default function App() {
           <div className="map-legend" aria-label="Map status legend">
             <span>
               <i className="legend-dot legend-dot-confirmed" />
-              Confirmed
+              {translateUiText("Confirmed", language)}
             </span>
             <span>
               <i className="legend-dot legend-dot-suspected" />
-              Suspected
+              {translateUiText("Suspected", language)}
             </span>
             <span>
               <i className="legend-dot legend-dot-monitoring" />
-              Monitoring
+              {translateUiText("Monitoring", language)}
             </span>
           </div>
         </section>

@@ -51,7 +51,106 @@ const COUNTRY_LANGUAGE_MAP: Record<string, SupportedLanguage> = {
 
 const IP_API_URL = "https://ipapi.co/json/";
 const MY_MEMORY_URL = "https://api.mymemory.translated.net/get";
-const TRANSLATION_CACHE_PREFIX = "hantatracker.translation.";
+const TRANSLATION_CACHE_PREFIX = "hantatracker.translation.v2.";
+
+export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
+  en: {
+    "Live News Feed": "Live News Feed",
+    Sources: "Sources",
+    "Fetching latest reports": "Fetching latest reports",
+    Translating: "Translating",
+    "No articles found": "No articles found",
+    "Unknown source": "Unknown source",
+    "Just now": "Just now",
+    "Confirmed Cases:": "Confirmed Cases:",
+    "Deaths:": "Deaths:",
+    "Countries Affected:": "Countries Affected:",
+    Confirmed: "Confirmed",
+    Suspected: "Suspected",
+    Monitoring: "Monitoring",
+    "Privacy Policy": "Privacy Policy",
+  },
+  de: {
+    "Live News Feed": "Live-Nachrichten",
+    Sources: "Quellen",
+    "Fetching latest reports": "Neueste Berichte werden geladen",
+    Translating: "Wird übersetzt",
+    "No articles found": "Keine Artikel gefunden",
+    "Unknown source": "Unbekannte Quelle",
+    "Just now": "Gerade eben",
+    "Confirmed Cases:": "Bestätigte Fälle:",
+    "Deaths:": "Todesfälle:",
+    "Countries Affected:": "Betroffene Länder:",
+    Confirmed: "Bestätigt",
+    Suspected: "Verdächtig",
+    Monitoring: "Beobachtung",
+    "Privacy Policy": "Datenschutz",
+  },
+  fr: {
+    "Live News Feed": "Fil d'actualités",
+    Sources: "Sources",
+    "Fetching latest reports": "Chargement des derniers rapports",
+    Translating: "Traduction",
+    "No articles found": "Aucun article trouvé",
+    "Unknown source": "Source inconnue",
+    "Just now": "À l'instant",
+    "Confirmed Cases:": "Cas confirmés :",
+    "Deaths:": "Décès :",
+    "Countries Affected:": "Pays touchés :",
+    Confirmed: "Confirmé",
+    Suspected: "Suspect",
+    Monitoring: "Surveillance",
+    "Privacy Policy": "Confidentialité",
+  },
+  es: {
+    "Live News Feed": "Noticias en vivo",
+    Sources: "Fuentes",
+    "Fetching latest reports": "Cargando informes recientes",
+    Translating: "Traduciendo",
+    "No articles found": "No se encontraron artículos",
+    "Unknown source": "Fuente desconocida",
+    "Just now": "Ahora mismo",
+    "Confirmed Cases:": "Casos confirmados:",
+    "Deaths:": "Muertes:",
+    "Countries Affected:": "Países afectados:",
+    Confirmed: "Confirmado",
+    Suspected: "Sospechoso",
+    Monitoring: "Monitoreo",
+    "Privacy Policy": "Privacidad",
+  },
+  nl: {
+    "Live News Feed": "Live nieuws",
+    Sources: "Bronnen",
+    "Fetching latest reports": "Laatste berichten laden",
+    Translating: "Vertalen",
+    "No articles found": "Geen artikelen gevonden",
+    "Unknown source": "Onbekende bron",
+    "Just now": "Zojuist",
+    "Confirmed Cases:": "Bevestigde gevallen:",
+    "Deaths:": "Sterfgevallen:",
+    "Countries Affected:": "Getroffen landen:",
+    Confirmed: "Bevestigd",
+    Suspected: "Verdacht",
+    Monitoring: "Monitoring",
+    "Privacy Policy": "Privacybeleid",
+  },
+  ar: {
+    "Live News Feed": "موجز الأخبار المباشر",
+    Sources: "المصادر",
+    "Fetching latest reports": "جار تحميل أحدث التقارير",
+    Translating: "جار الترجمة",
+    "No articles found": "لم يتم العثور على مقالات",
+    "Unknown source": "مصدر غير معروف",
+    "Just now": "الآن",
+    "Confirmed Cases:": "الحالات المؤكدة:",
+    "Deaths:": "الوفيات:",
+    "Countries Affected:": "الدول المتأثرة:",
+    Confirmed: "مؤكد",
+    Suspected: "مشتبه به",
+    Monitoring: "تحت المراقبة",
+    "Privacy Policy": "سياسة الخصوصية",
+  },
+};
 
 function isSupportedLanguage(value: string | null): value is SupportedLanguage {
   return LANGUAGE_OPTIONS.some((language) => language.code === value);
@@ -71,6 +170,10 @@ export function getLanguageLabel(language: SupportedLanguage) {
     LANGUAGE_OPTIONS.find((option) => option.code === language)?.shortLabel ??
     language.toUpperCase()
   );
+}
+
+export function translateUiText(text: string, language: SupportedLanguage) {
+  return TRANSLATIONS[language][text] ?? TRANSLATIONS.en[text] ?? text;
 }
 
 export async function detectLanguage(): Promise<SupportedLanguage> {

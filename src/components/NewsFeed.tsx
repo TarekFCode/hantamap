@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SupportedLanguage, translateText } from "../i18n";
+import { SupportedLanguage, translateText, translateUiText } from "../i18n";
 
 type NewsArticle = {
   title: string;
@@ -236,6 +236,7 @@ export default function NewsFeed({ language }: NewsFeedProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [translatedTitles, setTranslatedTitles] = useState<Record<string, string>>({});
   const [translatedCopy, setTranslatedCopy] = useState(UI_COPY);
+  const [isTranslating, setIsTranslating] = useState(false);
 
   useEffect(() => {
     let isMounted = true;
@@ -351,28 +352,32 @@ export default function NewsFeed({ language }: NewsFeedProps) {
       if (language === "en") {
         setTranslatedTitles({});
         setTranslatedCopy(UI_COPY);
+        setIsTranslating(false);
         return;
       }
 
-      const nextTitles: Record<string, string> = {};
-
-      for (const article of articles) {
-        const key = `${article.url}-${article.title}`;
-        nextTitles[key] = await translateText(article.title, language);
-      }
+      setIsTranslating(true);
 
       const nextCopy = {
-        title: await translateText(UI_COPY.title, language),
-        sources: await translateText(UI_COPY.sources, language),
-        loading: await translateText(UI_COPY.loading, language),
-        empty: await translateText(UI_COPY.empty, language),
-        unknownSource: await translateText(UI_COPY.unknownSource, language),
-        justNow: await translateText(UI_COPY.justNow, language),
+        title: translateUiText(UI_COPY.title, language),
+        sources: translateUiText(UI_COPY.sources, language),
+        loading: translateUiText(UI_COPY.loading, language),
+        empty: translateUiText(UI_COPY.empty, language),
+        unknownSource: translateUiText(UI_COPY.unknownSource, language),
+        justNow: translateUiText(UI_COPY.justNow, language),
       };
+      const translatedArticleEntries = await Promise.all(
+        articles.map(async (article) => {
+          const key = `${article.url}-${article.title}`;
+          return [key, await translateText(article.title, language)] as const;
+        }),
+      );
+      const nextTitles = Object.fromEntries(translatedArticleEntries);
 
       if (isMounted) {
         setTranslatedTitles(nextTitles);
         setTranslatedCopy(nextCopy);
+        setIsTranslating(false);
       }
     };
 
@@ -391,7 +396,9 @@ export default function NewsFeed({ language }: NewsFeedProps) {
     >
       <div className="news-feed-header">
         <p>{translatedCopy.title}</p>
-        <span>{translatedCopy.sources}</span>
+        <span>
+          {isTranslating ? translateUiText("Translating", language) : translatedCopy.sources}
+        </span>
       </div>
 
       {isLoading ? (
