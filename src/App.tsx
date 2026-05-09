@@ -376,7 +376,7 @@ export default function App() {
           type: "fill",
           source: "countries",
           paint: {
-            "fill-color": "#969da2",
+            "fill-color": "#3e4550",
             "fill-opacity": 1,
           },
         });
@@ -544,7 +544,7 @@ export default function App() {
       <LanguageSelector language={language} onChange={setLanguage} />
       <nav className="top-navbar" aria-label="Primary">
         <div className="brand-group">
-          <h1>HantaTracker 🦠</h1>
+          <h1>HantaTracker</h1>
           <span className="live-badge">LIVE</span>
         </div>
         <a className="privacy-link" href="/privacy.html">
