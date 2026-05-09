@@ -1,33 +1,18 @@
 import * as cheerio from "cheerio";
 import fetch from "node-fetch";
+import { applySourceTextUpdates } from "../shared/outbreak-classifier.js";
 import { readOutbreakData, writeOutbreakData } from "../shared/outbreak-store.js";
 
 const WHO_URL =
   "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON599";
-
-const NUMBER_WORDS = new Map([
-  ["zero", 0],
-  ["one", 1],
-  ["two", 2],
-  ["three", 3],
-  ["four", 4],
-  ["five", 5],
-  ["six", 6],
-  ["seven", 7],
-  ["eight", 8],
-  ["nine", 9],
-  ["ten", 10],
-]);
-
-function toNumber(value) {
-  const normalized = String(value).trim().toLowerCase();
-
-  if (/^\d+$/.test(normalized)) {
-    return Number(normalized);
-  }
-
-  return NUMBER_WORDS.get(normalized);
-}
+const GNEWS_API_URL = "https://gnews.io/api/v4/search";
+const GNEWS_TOKEN =
+  process.env.VITE_GNEWS_TOKEN || "7b454d1d6f7bef8d61635031d356507f";
+const NEWS_QUERIES = [
+  "hantavirus MV Hondius countries monitoring",
+  "hantavirus cruise ship confirmed suspected countries",
+  "Andes virus Hondius contact tracing passengers",
+];
 
 function htmlToText(html) {
   const $ = cheerio.load(html);
@@ -50,43 +35,44 @@ async function fetchWhoText() {
   return htmlToText(await response.text());
 }
 
-function updateOutbreaksFromWho(outbreaks, whoText) {
-  return outbreaks.map((outbreak) => {
-    if (outbreak.name !== "South Africa") {
-      return outbreak;
+async function fetchGNewsText() {
+  if (!GNEWS_TOKEN || GNEWS_TOKEN === "YOUR_GNEWS_TOKEN") {
+    return "";
+  }
+
+  const articleTexts = [];
+
+  for (const query of NEWS_QUERIES) {
+    const url = new URL(GNEWS_API_URL);
+    url.searchParams.set("q", query);
+    url.searchParams.set("lang", "en");
+    url.searchParams.set("max", "10");
+    url.searchParams.set("token", GNEWS_TOKEN);
+
+    try {
+      const response = await fetch(url.toString());
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.warn(
+          `GNews query failed for "${query}": ${data.message ?? response.status}`,
+        );
+        continue;
+      }
+
+      for (const article of data.articles ?? []) {
+        articleTexts.push(
+          [article.title, article.description, article.content]
+            .filter(Boolean)
+            .join(". "),
+        );
+      }
+    } catch (error) {
+      console.warn(`GNews query failed for "${query}":`, error);
     }
+  }
 
-    let confirmedCases = 0;
-    let deaths = 0;
-
-    if (
-      /laboratory testing conducted in South Africa confirmed hantavirus infection in one patient/i.test(
-        whoText,
-      )
-    ) {
-      confirmedCases += 1;
-    }
-
-    if (
-      /flight to Johannesburg, South Africa.*?died.*?confirmed by PCR with hantavirus infection/i.test(
-        whoText,
-      )
-    ) {
-      confirmedCases += 1;
-      deaths += 1;
-    }
-
-    if (confirmedCases === 0) {
-      return outbreak;
-    }
-
-    return {
-      ...outbreak,
-      confirmedCases,
-      deaths,
-      status: "confirmed",
-    };
-  });
+  return articleTexts.join(" ");
 }
 
 function hasOutbreakChanges(previousOutbreaks, nextOutbreaks) {
@@ -114,11 +100,17 @@ async function triggerBuildHook() {
 
 export default async () => {
   try {
-    const [currentData, whoText] = await Promise.all([
+    const [currentData, whoText, gnewsText] = await Promise.all([
       readOutbreakData(),
       fetchWhoText(),
+      fetchGNewsText(),
     ]);
-    const nextOutbreaks = updateOutbreaksFromWho(currentData.outbreaks, whoText);
+    const { outbreaks: nextOutbreaks, notes } = applySourceTextUpdates(
+      currentData.outbreaks,
+      `${whoText} ${gnewsText}`,
+    );
+
+    notes.forEach((note) => console.log(note));
 
     if (!hasOutbreakChanges(currentData.outbreaks, nextOutbreaks)) {
       console.log("No WHO outbreak data changes found.");

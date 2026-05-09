@@ -73,7 +73,15 @@ function getCountryAliases(name: string): string[] {
   }
 
   if (name === "USA") {
-    return ["USA", "United States", "United States of America"];
+    return ["USA", "US", "U.S.", "United States", "United States of America"];
+  }
+
+  if (name === "Turkey") {
+    return ["Turkey", "Türkiye"];
+  }
+
+  if (name === "Saint Kitts and Nevis") {
+    return ["Saint Kitts and Nevis", "St Kitts and Nevis", "St. Kitts and Nevis"];
   }
 
   return [name];
@@ -108,7 +116,7 @@ function createStatusFillColorExpression(outbreaks: OutbreakDataPoint[]) {
       COUNTRY_NAME_EXPRESSION,
       ["literal", getCountryNamesByStatus(outbreaks, "monitoring")],
     ],
-    "#9ca3af",
+    "#8b5cf6",
     "rgba(0, 0, 0, 0)",
   ];
 }
@@ -133,7 +141,7 @@ function createStatusFillOpacityExpression(outbreaks: OutbreakDataPoint[]) {
       COUNTRY_NAME_EXPRESSION,
       ["literal", getCountryNamesByStatus(outbreaks, "monitoring")],
     ],
-    0.5,
+    0.62,
     0,
   ];
 }
@@ -158,7 +166,7 @@ function createStatusLineColorExpression(outbreaks: OutbreakDataPoint[]) {
       COUNTRY_NAME_EXPRESSION,
       ["literal", getCountryNamesByStatus(outbreaks, "monitoring")],
     ],
-    "#d1d5db",
+    "#c084fc",
     "rgba(0, 0, 0, 0)",
   ];
 }
@@ -418,8 +426,8 @@ export default function App() {
               "suspected",
               "#f59e0b",
               "monitoring",
-              "#9ca3af",
-              "#9ca3af",
+              "#8b5cf6",
+              "#8b5cf6",
             ],
             "circle-opacity": 0.9,
             "circle-stroke-color": "#ffffff",
@@ -530,6 +538,20 @@ export default function App() {
       <section className="content-layout">
         <section className="globe-stage" aria-label="Global hantavirus map">
           <div ref={mapContainer} className="map-container" />
+          <div className="map-legend" aria-label="Map status legend">
+            <span>
+              <i className="legend-dot legend-dot-confirmed" />
+              Confirmed
+            </span>
+            <span>
+              <i className="legend-dot legend-dot-suspected" />
+              Suspected
+            </span>
+            <span>
+              <i className="legend-dot legend-dot-monitoring" />
+              Monitoring
+            </span>
+          </div>
         </section>
         <NewsFeed />
       </section>

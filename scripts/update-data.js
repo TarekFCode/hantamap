@@ -4,60 +4,33 @@ import { execFileSync } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { applySourceTextUpdates } from "../netlify/shared/outbreak-classifier.js";
 
 const WHO_URL =
   "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON599";
+const GNEWS_API_URL = "https://gnews.io/api/v4/search";
+const GNEWS_TOKEN =
+  process.env.VITE_GNEWS_TOKEN || "7b454d1d6f7bef8d61635031d356507f";
+const NEWS_QUERIES = [
+  "hantavirus MV Hondius countries monitoring",
+  "hantavirus cruise ship confirmed suspected countries",
+  "Andes virus Hondius contact tracing passengers",
+];
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "..");
 const dataPath = path.join(projectRoot, "src", "data", "outbreaks.ts");
 
-const NUMBER_WORDS = new Map([
-  ["zero", 0],
-  ["one", 1],
-  ["two", 2],
-  ["three", 3],
-  ["four", 4],
-  ["five", 5],
-  ["six", 6],
-  ["seven", 7],
-  ["eight", 8],
-  ["nine", 9],
-  ["ten", 10],
-]);
-
-const COUNTRY_ALIASES = new Map([
-  ["Argentina", ["Argentina"]],
-  ["South Africa", ["South Africa"]],
-  [
-    "UK",
-    ["UK", "United Kingdom", "United Kingdom of Great Britain and Northern Ireland"],
-  ],
-  ["Netherlands", ["Netherlands", "Dutch"]],
-  ["USA", ["USA", "United States", "United States of America", "American"]],
-  ["Singapore", ["Singapore"]],
-]);
-
-function toNumber(value) {
-  const normalized = String(value).trim().toLowerCase();
-
-  if (/^\d+$/.test(normalized)) {
-    return Number(normalized);
-  }
-
-  return NUMBER_WORDS.get(normalized);
-}
-
-async function fetchWhoPage() {
-  const response = await fetch(WHO_URL, {
+async function fetchText(url, userAgent) {
+  const response = await fetch(url, {
     headers: {
-      "user-agent": "HantaTracker daily data updater",
+      "user-agent": userAgent,
     },
   });
 
   if (!response.ok) {
-    throw new Error(`Failed to fetch WHO page: ${response.status}`);
+    throw new Error(`Failed to fetch ${url}: ${response.status}`);
   }
 
   return response.text();
@@ -68,6 +41,50 @@ function htmlToText(html) {
   $("script, style, noscript, svg").remove();
 
   return $("body").text().replace(/\s+/g, " ").trim();
+}
+
+async function fetchWhoText() {
+  return htmlToText(await fetchText(WHO_URL, "HantaTracker daily data updater"));
+}
+
+async function fetchGNewsText() {
+  if (!GNEWS_TOKEN || GNEWS_TOKEN === "YOUR_GNEWS_TOKEN") {
+    return "";
+  }
+
+  const articleTexts = [];
+
+  for (const query of NEWS_QUERIES) {
+    const url = new URL(GNEWS_API_URL);
+    url.searchParams.set("q", query);
+    url.searchParams.set("lang", "en");
+    url.searchParams.set("max", "10");
+    url.searchParams.set("token", GNEWS_TOKEN);
+
+    try {
+      const response = await fetch(url.toString());
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.warn(
+          `GNews query failed for "${query}": ${data.message ?? response.status}`,
+        );
+        continue;
+      }
+
+      for (const article of data.articles ?? []) {
+        articleTexts.push(
+          [article.title, article.description, article.content]
+            .filter(Boolean)
+            .join(". "),
+        );
+      }
+    } catch (error) {
+      console.warn(`GNews query failed for "${query}":`, error);
+    }
+  }
+
+  return articleTexts.join(" ");
 }
 
 function parseExistingOutbreaks(source) {
@@ -92,127 +109,6 @@ function parseExistingOutbreaks(source) {
   }
 
   return outbreaks;
-}
-
-function extractWhoGlobalTotals(text) {
-  const patterns = [
-    /([a-z\d]+)\s+cases?\s+\(([a-z\d]+)\s+(?:laboratory\s+)?confirmed cases?.*?([a-z\d]+)\s+suspected cases?\).*?including\s+([a-z\d]+)\s+deaths?/i,
-    /total of\s+([a-z\d]+)\s+\(([a-z\d]+)\s+confirmed.*?([a-z\d]+)\s+suspected\)\s+cases?, including\s+([a-z\d]+)\s+deaths?/i,
-  ];
-
-  for (const pattern of patterns) {
-    const match = text.match(pattern);
-
-    if (match) {
-      return {
-        totalCases: toNumber(match[1]),
-        confirmedCases: toNumber(match[2]),
-        suspectedCases: toNumber(match[3]),
-        deaths: toNumber(match[4]),
-      };
-    }
-  }
-
-  return null;
-}
-
-function getSentencesMentioningCountry(text, countryName) {
-  const aliases = COUNTRY_ALIASES.get(countryName) ?? [countryName];
-  const regexes = aliases.map(
-    (alias) =>
-      new RegExp(`\\b${alias.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\b`, "i"),
-  );
-
-  return text
-    .split(/(?<=[.!?])\s+/)
-    .filter((sentence) => regexes.some((regex) => regex.test(sentence)));
-}
-
-function extractDirectCaseCount(sentences) {
-  for (const sentence of sentences) {
-    const match = sentence.match(
-      /([a-z\d]+)\s+(?:confirmed\s+)?cases?.*?including\s+([a-z\d]+)\s+deaths?/i,
-    );
-
-    if (match) {
-      return {
-        confirmedCases: toNumber(match[1]),
-        deaths: toNumber(match[2]),
-      };
-    }
-  }
-
-  return null;
-}
-
-function applyWhoUpdates(outbreaks, whoText) {
-  const notes = [];
-  const whoTotals = extractWhoGlobalTotals(whoText);
-  const updatedOutbreaks = outbreaks.map((outbreak) => ({ ...outbreak }));
-
-  if (whoTotals) {
-    notes.push(
-      `WHO global totals: ${whoTotals.totalCases} total, ${whoTotals.confirmedCases} confirmed, ${whoTotals.suspectedCases} suspected, ${whoTotals.deaths} deaths.`,
-    );
-  } else {
-    notes.push("WHO global totals not found.");
-  }
-
-  for (const outbreak of updatedOutbreaks) {
-    const directCount = extractDirectCaseCount(
-      getSentencesMentioningCountry(whoText, outbreak.name),
-    );
-
-    if (directCount?.confirmedCases !== undefined) {
-      outbreak.confirmedCases = directCount.confirmedCases;
-      outbreak.deaths = directCount.deaths ?? outbreak.deaths;
-      outbreak.status =
-        outbreak.confirmedCases > 0 ? "confirmed" : outbreak.status;
-      notes.push(
-        `${outbreak.name}: direct WHO count set to ${outbreak.confirmedCases} cases and ${outbreak.deaths} deaths.`,
-      );
-      continue;
-    }
-
-    if (outbreak.name === "South Africa") {
-      let confirmedCases = 0;
-      let deaths = 0;
-
-      if (
-        /laboratory testing conducted in South Africa confirmed hantavirus infection in one patient/i.test(
-          whoText,
-        )
-      ) {
-        confirmedCases += 1;
-      }
-
-      if (
-        /flight to Johannesburg, South Africa.*?died.*?confirmed by PCR with hantavirus infection/i.test(
-          whoText,
-        )
-      ) {
-        confirmedCases += 1;
-        deaths += 1;
-      }
-
-      if (confirmedCases > 0) {
-        outbreak.confirmedCases = confirmedCases;
-        outbreak.deaths = deaths;
-        outbreak.status = "confirmed";
-        notes.push(
-          `South Africa: WHO case narrative set to ${confirmedCases} cases and ${deaths} deaths.`,
-        );
-        continue;
-      }
-    }
-
-    notes.push(`No direct WHO per-country update found for ${outbreak.name}.`);
-  }
-
-  return {
-    outbreaks: updatedOutbreaks,
-    notes,
-  };
 }
 
 function formatOutbreaksFile(outbreaks) {
@@ -253,7 +149,7 @@ function describeChanges(before, after) {
   for (const item of after) {
     const previous = beforeByName.get(item.name);
     if (!previous) {
-      changes.push(`Added ${item.name}.`);
+      changes.push(`Added ${item.name} (${item.status}).`);
       continue;
     }
 
@@ -278,16 +174,18 @@ function runGit(args, options = {}) {
 }
 
 async function main() {
-  console.log("Fetching latest WHO outbreak page...");
-  const [whoHtml, existingSource] = await Promise.all([
-    fetchWhoPage(),
+  console.log("Fetching latest WHO and GNews source text...");
+  const [whoText, gnewsText, existingSource] = await Promise.all([
+    fetchWhoText(),
+    fetchGNewsText(),
     readFile(dataPath, "utf8"),
   ]);
 
+  const sourceText = `${whoText} ${gnewsText}`.replace(/\s+/g, " ").trim();
   const existingOutbreaks = parseExistingOutbreaks(existingSource);
-  const { outbreaks, notes } = applyWhoUpdates(
+  const { outbreaks, notes } = applySourceTextUpdates(
     existingOutbreaks,
-    htmlToText(whoHtml),
+    sourceText,
   );
 
   await mkdir(path.dirname(dataPath), { recursive: true });
@@ -296,7 +194,11 @@ async function main() {
   const changes = describeChanges(existingOutbreaks, outbreaks);
 
   console.log("\nSource notes:");
-  notes.forEach((note) => console.log(`- ${note}`));
+  if (notes.length === 0) {
+    console.log("- No country status changes detected from source text.");
+  } else {
+    notes.forEach((note) => console.log(`- ${note}`));
+  }
 
   if (changes.length === 0) {
     console.log("\nNo outbreak data changes detected.");

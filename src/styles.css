@@ -138,6 +138,50 @@ textarea {
   background: transparent;
 }
 
+.map-legend {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: calc(100% - 32px);
+  padding: 8px;
+  background: rgba(8, 17, 31, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+}
+
+.map-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #f8fafc;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 999px;
+}
+
+.legend-dot-confirmed {
+  background: #e53935;
+}
+
+.legend-dot-suspected {
+  background: #f59e0b;
+}
+
+.legend-dot-monitoring {
+  background: #8b5cf6;
+}
+
 .maplibregl-ctrl-group {
   border-radius: 8px;
   overflow: hidden;
