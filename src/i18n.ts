@@ -1,4 +1,4 @@
-export type SupportedLanguage = "en" | "de" | "fr" | "es" | "nl";
+export type SupportedLanguage = "en" | "de" | "fr" | "es" | "nl" | "ar";
 
 export const LANGUAGE_STORAGE_KEY = "hantatracker.language";
 
@@ -12,6 +12,7 @@ export const LANGUAGE_OPTIONS: Array<{
   { code: "fr", label: "Français", shortLabel: "FR" },
   { code: "es", label: "Español", shortLabel: "ES" },
   { code: "nl", label: "Nederlands", shortLabel: "NL" },
+  { code: "ar", label: "العربية", shortLabel: "AR" },
 ];
 
 const COUNTRY_LANGUAGE_MAP: Record<string, SupportedLanguage> = {
@@ -28,6 +29,24 @@ const COUNTRY_LANGUAGE_MAP: Record<string, SupportedLanguage> = {
   CL: "es",
   PE: "es",
   NL: "nl",
+  AE: "ar",
+  BH: "ar",
+  DZ: "ar",
+  EG: "ar",
+  IQ: "ar",
+  JO: "ar",
+  KW: "ar",
+  LB: "ar",
+  LY: "ar",
+  MA: "ar",
+  OM: "ar",
+  PS: "ar",
+  QA: "ar",
+  SA: "ar",
+  SD: "ar",
+  SY: "ar",
+  TN: "ar",
+  YE: "ar",
 };
 
 const IP_API_URL = "https://ipapi.co/json/";

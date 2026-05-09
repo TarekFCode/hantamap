@@ -24,7 +24,7 @@ export default function LanguageSelector({
   };
 
   return (
-    <div className="language-selector">
+    <div className="language-selector" dir={language === "ar" ? "rtl" : "ltr"}>
       <button
         aria-expanded={isOpen}
         aria-haspopup="listbox"

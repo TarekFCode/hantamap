@@ -384,7 +384,11 @@ export default function NewsFeed({ language }: NewsFeedProps) {
   }, [articles, language]);
 
   return (
-    <aside className="news-feed" aria-label="Live hantavirus news">
+    <aside
+      className="news-feed"
+      aria-label="Live hantavirus news"
+      dir={language === "ar" ? "rtl" : "ltr"}
+    >
       <div className="news-feed-header">
         <p>{translatedCopy.title}</p>
         <span>{translatedCopy.sources}</span>
