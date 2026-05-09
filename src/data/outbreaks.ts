@@ -31,7 +31,7 @@ export const hantavirusOutbreaks: OutbreakDataPoint[] = [
     latitude: 55.3781,
     longitude: -3.436,
     confirmedCases: 1,
-    deaths: 0,
+    deaths: 1,
     status: "confirmed",
   },
   {
@@ -39,7 +39,7 @@ export const hantavirusOutbreaks: OutbreakDataPoint[] = [
     latitude: 52.1326,
     longitude: 5.2913,
     confirmedCases: 1,
-    deaths: 0,
+    deaths: 1,
     status: "confirmed",
   },
   {
