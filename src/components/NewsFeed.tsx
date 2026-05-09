@@ -17,7 +17,8 @@ type GNewsApiResponse = {
 };
 
 const GNEWS_API_URL = "https://gnews.io/api/v4/search";
-const GNEWS_TOKEN = import.meta.env.VITE_GNEWS_TOKEN ?? "";
+const GNEWS_TOKEN =
+  import.meta.env.VITE_GNEWS_TOKEN || "7b454d1d6f7bef8d61635031d356507f";
 const FIVE_MINUTES_MS = 5 * 60 * 1000;
 const NEWS_QUERIES = [
   "hantavirus",
@@ -225,10 +226,15 @@ export default function NewsFeed() {
     let activeController: AbortController | null = null;
 
     const fetchArticles = async () => {
+      const fallbackArticles = dedupeAndSortArticles(OFFICIAL_SOURCE_ARTICLES).slice(
+        0,
+        24,
+      );
+
       if (!GNEWS_TOKEN || GNEWS_TOKEN === "YOUR_GNEWS_TOKEN") {
-        console.error("GNews token is missing. Replace YOUR_GNEWS_TOKEN.");
+        console.error("GNews token is missing.");
         if (isMounted) {
-          setArticles([]);
+          setArticles(fallbackArticles);
           setIsLoading(false);
         }
         return;
@@ -303,9 +309,7 @@ export default function NewsFeed() {
           !(error instanceof DOMException && error.name === "AbortError")
         ) {
           console.error("GNews fetch error:", error);
-          setArticles(
-            dedupeAndSortArticles(OFFICIAL_SOURCE_ARTICLES).slice(0, 24),
-          );
+          setArticles(fallbackArticles);
         }
       } finally {
         if (isMounted) {
