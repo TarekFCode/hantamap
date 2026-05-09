@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import maplibregl, { Map } from "maplibre-gl";
 import Admin from "./components/Admin";
+import LanguageSelector from "./components/LanguageSelector";
 import NewsFeed from "./components/NewsFeed";
 import { OutbreakDataPoint, OutbreakStatus } from "./data/outbreaks";
 import {
@@ -9,6 +10,7 @@ import {
   OUTBREAK_STORAGE_EVENT,
   OUTBREAK_STORAGE_KEY,
 } from "./data/outbreakStorage";
+import { detectLanguage, getSavedLanguage, SupportedLanguage } from "./i18n";
 
 const STYLE_URL = "https://demotiles.maplibre.org/globe.json";
 const COUNTRIES_URL =
@@ -231,6 +233,9 @@ export default function App() {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<Map | null>(null);
   const [outbreaks, setOutbreaks] = useState<OutbreakDataPoint[]>(loadOutbreaks);
+  const [language, setLanguage] = useState<SupportedLanguage>(
+    () => getSavedLanguage() ?? "en",
+  );
   const showAdmin =
     new URLSearchParams(window.location.search).get("admin") === "true";
   const totals = useMemo(
@@ -241,6 +246,24 @@ export default function App() {
     }),
     [outbreaks],
   );
+
+  useEffect(() => {
+    let isMounted = true;
+
+    if (getSavedLanguage()) {
+      return;
+    }
+
+    void detectLanguage().then((detectedLanguage) => {
+      if (isMounted) {
+        setLanguage(detectedLanguage);
+      }
+    });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   useEffect(() => {
     const refreshOutbreaks = () => setOutbreaks(loadOutbreaks());
@@ -513,6 +536,7 @@ export default function App() {
 
   return (
     <main className="app-shell">
+      <LanguageSelector language={language} onChange={setLanguage} />
       <nav className="top-navbar" aria-label="Primary">
         <div className="brand-group">
           <h1>HantaTracker 🦠</h1>
@@ -556,7 +580,7 @@ export default function App() {
             </span>
           </div>
         </section>
-        <NewsFeed />
+        <NewsFeed language={language} />
       </section>
 
       <div className="ticker" aria-label="Outbreak news ticker">

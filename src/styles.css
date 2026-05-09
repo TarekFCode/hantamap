@@ -86,6 +86,7 @@ textarea {
 
 .privacy-link {
   flex: 0 0 auto;
+  margin-right: 58px;
   color: #cbd5e1;
   font-size: 0.78rem;
   font-weight: 800;
@@ -96,6 +97,64 @@ textarea {
 .privacy-link:focus-visible {
   color: #ffffff;
   text-decoration: underline;
+}
+
+.language-selector {
+  position: fixed;
+  top: 14px;
+  right: 16px;
+  z-index: 20;
+}
+
+.language-selector-button {
+  min-width: 42px;
+  min-height: 34px;
+  padding: 7px 10px;
+  color: #ffffff;
+  background: #101a31;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.language-selector-button:hover,
+.language-selector-button:focus-visible {
+  background: #1f2a44;
+}
+
+.language-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  display: grid;
+  min-width: 132px;
+  padding: 6px;
+  background: #0a0f1e;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.36);
+}
+
+.language-menu button {
+  min-height: 34px;
+  padding: 7px 9px;
+  color: #d7dee9;
+  background: transparent;
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.language-menu button:hover,
+.language-menu button:focus-visible,
+.language-menu button.is-selected {
+  color: #ffffff;
+  background: rgba(239, 68, 68, 0.22);
 }
 
 .stats-bar {

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { SupportedLanguage, translateText } from "../i18n";
 
 type NewsArticle = {
   title: string;
@@ -14,6 +15,10 @@ type GNewsApiResponse = {
   errors?: string[];
   message?: string;
   articles?: NewsArticle[];
+};
+
+type NewsFeedProps = {
+  language: SupportedLanguage;
 };
 
 const GNEWS_API_URL = "https://gnews.io/api/v4/search";
@@ -217,9 +222,20 @@ function dedupeAndSortArticles(articles: NewsArticle[]): NewsArticle[] {
   );
 }
 
-export default function NewsFeed() {
+const UI_COPY = {
+  title: "Live News Feed",
+  sources: "Sources",
+  loading: "Fetching latest reports",
+  empty: "No articles found",
+  unknownSource: "Unknown source",
+  justNow: "Just now",
+};
+
+export default function NewsFeed({ language }: NewsFeedProps) {
   const [articles, setArticles] = useState<NewsArticle[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [translatedTitles, setTranslatedTitles] = useState<Record<string, string>>({});
+  const [translatedCopy, setTranslatedCopy] = useState(UI_COPY);
 
   useEffect(() => {
     let isMounted = true;
@@ -328,34 +344,81 @@ export default function NewsFeed() {
     };
   }, []);
 
+  useEffect(() => {
+    let isMounted = true;
+
+    const translateArticles = async () => {
+      if (language === "en") {
+        setTranslatedTitles({});
+        setTranslatedCopy(UI_COPY);
+        return;
+      }
+
+      const nextTitles: Record<string, string> = {};
+
+      for (const article of articles) {
+        const key = `${article.url}-${article.title}`;
+        nextTitles[key] = await translateText(article.title, language);
+      }
+
+      const nextCopy = {
+        title: await translateText(UI_COPY.title, language),
+        sources: await translateText(UI_COPY.sources, language),
+        loading: await translateText(UI_COPY.loading, language),
+        empty: await translateText(UI_COPY.empty, language),
+        unknownSource: await translateText(UI_COPY.unknownSource, language),
+        justNow: await translateText(UI_COPY.justNow, language),
+      };
+
+      if (isMounted) {
+        setTranslatedTitles(nextTitles);
+        setTranslatedCopy(nextCopy);
+      }
+    };
+
+    void translateArticles();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [articles, language]);
+
   return (
     <aside className="news-feed" aria-label="Live hantavirus news">
       <div className="news-feed-header">
-        <p>Live News Feed</p>
-        <span>Sources</span>
+        <p>{translatedCopy.title}</p>
+        <span>{translatedCopy.sources}</span>
       </div>
 
       {isLoading ? (
         <div className="news-loading" role="status" aria-live="polite">
           <span className="news-spinner" />
-          <p>Fetching latest reports</p>
+          <p>{translatedCopy.loading}</p>
         </div>
       ) : articles.length > 0 ? (
         <div className="news-list">
-          {articles.map((article) => (
-            <article className="news-item" key={`${article.url}-${article.title}`}>
+          {articles.map((article) => {
+            const articleKey = `${article.url}-${article.title}`;
+
+            return (
+            <article className="news-item" key={articleKey}>
               <a href={article.url} target="_blank" rel="noreferrer">
-                {article.title}
+                {translatedTitles[articleKey] ?? article.title}
               </a>
               <div className="news-meta">
-                <span>{article.source.name || "Unknown source"}</span>
-                <span>{formatTimeAgo(article.publishedAt)}</span>
+                <span>{article.source.name || translatedCopy.unknownSource}</span>
+                <span>
+                  {formatTimeAgo(article.publishedAt) === "Just now"
+                    ? translatedCopy.justNow
+                    : formatTimeAgo(article.publishedAt)}
+                </span>
               </div>
             </article>
-          ))}
+            );
+          })}
         </div>
       ) : (
-        <p className="news-empty">No articles found</p>
+        <p className="news-empty">{translatedCopy.empty}</p>
       )}
     </aside>
   );
