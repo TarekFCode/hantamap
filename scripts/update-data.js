@@ -20,6 +20,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "..");
 const dataPath = path.join(projectRoot, "src", "data", "outbreaks.ts");
+const publicDataPath = path.join(projectRoot, "public", "data.json");
+const outbreakStorePath = path.join(
+  projectRoot,
+  "netlify",
+  "shared",
+  "outbreak-store.js",
+);
 const shouldSkipGit = process.argv.includes("--no-git");
 
 async function fetchText(url, userAgent) {
@@ -118,6 +125,122 @@ ${entries},
 `;
 }
 
+function createOutbreakDataPayload(outbreaks) {
+  return {
+    updatedAt: new Date().toISOString(),
+    source: WHO_URL,
+    outbreaks,
+  };
+}
+
+function formatPublicDataFile(outbreaks) {
+  return `${JSON.stringify(createOutbreakDataPayload(outbreaks), null, 2)}\n`;
+}
+
+function formatOutbreakObject(outbreak, indent = 4) {
+  const spaces = " ".repeat(indent);
+  const fieldSpaces = " ".repeat(indent + 2);
+
+  return `${spaces}{
+${fieldSpaces}name: "${outbreak.name.replaceAll('"', '\\"')}",
+${fieldSpaces}latitude: ${outbreak.latitude},
+${fieldSpaces}longitude: ${outbreak.longitude},
+${fieldSpaces}confirmedCases: ${outbreak.confirmedCases},
+${fieldSpaces}deaths: ${outbreak.deaths},
+${fieldSpaces}status: "${outbreak.status}",
+${spaces}}`;
+}
+
+function formatOutbreakStoreFile(outbreaks) {
+  const entries = outbreaks.map((outbreak) => formatOutbreakObject(outbreak)).join(",\n");
+  const payload = createOutbreakDataPayload(outbreaks);
+
+  return `import { getStore } from "@netlify/blobs";
+
+export const OUTBREAK_BLOB_KEY = "data.json";
+export const OUTBREAK_STORE_NAME = "outbreak-data";
+
+export const DEFAULT_OUTBREAK_DATA = {
+  updatedAt: "${payload.updatedAt}",
+  source: "${payload.source}",
+  outbreaks: [
+${entries},
+  ],
+};
+
+const VALID_STATUSES = new Set(["confirmed", "suspected", "monitoring"]);
+
+function normalizeOutbreak(value) {
+  if (!value || typeof value !== "object") {
+    return null;
+  }
+
+  if (
+    typeof value.name !== "string" ||
+    !Number.isFinite(value.latitude) ||
+    !Number.isFinite(value.longitude) ||
+    !Number.isFinite(value.confirmedCases) ||
+    !Number.isFinite(value.deaths) ||
+    !VALID_STATUSES.has(value.status)
+  ) {
+    return null;
+  }
+
+  return {
+    name: value.name,
+    latitude: value.latitude,
+    longitude: value.longitude,
+    confirmedCases: Math.max(0, Math.round(value.confirmedCases)),
+    deaths: Math.max(0, Math.round(value.deaths)),
+    status: value.status,
+  };
+}
+
+export function normalizeOutbreakData(value) {
+  if (!value || typeof value !== "object" || !Array.isArray(value.outbreaks)) {
+    return DEFAULT_OUTBREAK_DATA;
+  }
+
+  const outbreaks = value.outbreaks
+    .map(normalizeOutbreak)
+    .filter((item) => item !== null);
+
+  if (outbreaks.length === 0) {
+    return DEFAULT_OUTBREAK_DATA;
+  }
+
+  return {
+    updatedAt:
+      typeof value.updatedAt === "string"
+        ? value.updatedAt
+        : new Date().toISOString(),
+    source: typeof value.source === "string" ? value.source : "netlify-blobs",
+    outbreaks,
+  };
+}
+
+export async function readOutbreakData() {
+  const store = getStore(OUTBREAK_STORE_NAME);
+  const storedValue = await store.get(OUTBREAK_BLOB_KEY, { type: "json" });
+
+  if (!storedValue) {
+    return DEFAULT_OUTBREAK_DATA;
+  }
+
+  return normalizeOutbreakData(storedValue);
+}
+
+export async function writeOutbreakData(data) {
+  const normalizedData = normalizeOutbreakData(data);
+  const store = getStore(OUTBREAK_STORE_NAME);
+
+  await store.setJSON(OUTBREAK_BLOB_KEY, normalizedData);
+
+  return normalizedData;
+}
+`;
+}
+
 function describeChanges(before, after) {
   const beforeByName = new Map(before.map((item) => [item.name, item]));
   const changes = [];
@@ -162,9 +285,6 @@ async function main() {
     sourceText,
   );
 
-  await mkdir(path.dirname(dataPath), { recursive: true });
-  await writeFile(dataPath, formatOutbreaksFile(outbreaks), "utf8");
-
   const changes = describeChanges(existingOutbreaks, outbreaks);
 
   console.log("\nSource notes:");
@@ -179,6 +299,11 @@ async function main() {
   } else {
     console.log("\nOutbreak data changes:");
     changes.forEach((change) => console.log(`- ${change}`));
+
+    await mkdir(path.dirname(dataPath), { recursive: true });
+    await writeFile(dataPath, formatOutbreaksFile(outbreaks), "utf8");
+    await writeFile(publicDataPath, formatPublicDataFile(outbreaks), "utf8");
+    await writeFile(outbreakStorePath, formatOutbreakStoreFile(outbreaks), "utf8");
   }
 
   if (shouldSkipGit) {
