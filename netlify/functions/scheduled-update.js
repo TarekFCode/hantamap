@@ -5,15 +5,14 @@ import { readOutbreakData, writeOutbreakData } from "../shared/outbreak-store.js
 
 const WHO_URL =
   "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON599";
-const GNEWS_API_URL = "https://gnews.io/api/v4/search";
-const GNEWS_TOKEN =
-  process.env.VITE_GNEWS_TOKEN || "7b454d1d6f7bef8d61635031d356507f";
-const NEWS_QUERIES = [
-  "hantavirus MV Hondius countries monitoring",
-  "hantavirus cruise ship confirmed suspected countries",
-  "Andes virus Hondius contact tracing passengers",
+const SOURCE_URLS = [
+  WHO_URL,
+  "https://www.who.int/philippines/news/detail-global/07-05-2026-who-s-response-to-hantavirus-cases-linked-to-a-cruise-ship",
+  "https://www.cbsnews.com/news/hantavirus-cruise-ship-mv-hondius-passengers-monitored-us-worldwide/",
+  "https://www.cbsnews.com/amp/news/hantavirus-cruise-ship-mv-hondius-passengers-monitored-us-worldwide/",
+  "https://www.ecdc.europa.eu/en/infectious-disease-topics/hantavirus-infection/surveillance-and-updates/andes-hantavirus-outbreak",
+  "https://www.ungeneva.org/en/news-media/news/2026/05/118402/hantavirus-outbreak-cruise-ship-not-another-covid-who-says",
 ];
-
 function htmlToText(html) {
   const $ = cheerio.load(html);
   $("script, style, noscript, svg").remove();
@@ -21,58 +20,33 @@ function htmlToText(html) {
   return $("body").text().replace(/\s+/g, " ").trim();
 }
 
-async function fetchWhoText() {
-  const response = await fetch(WHO_URL, {
-    headers: {
-      "user-agent": "HantaTracker Netlify scheduled update",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error(`WHO fetch failed: ${response.status}`);
-  }
-
-  return htmlToText(await response.text());
-}
-
-async function fetchGNewsText() {
-  if (!GNEWS_TOKEN || GNEWS_TOKEN === "YOUR_GNEWS_TOKEN") {
-    return "";
-  }
-
-  const articleTexts = [];
-
-  for (const query of NEWS_QUERIES) {
-    const url = new URL(GNEWS_API_URL);
-    url.searchParams.set("q", query);
-    url.searchParams.set("lang", "en");
-    url.searchParams.set("max", "10");
-    url.searchParams.set("token", GNEWS_TOKEN);
-
-    try {
-      const response = await fetch(url.toString());
-      const data = await response.json();
+async function fetchSourceTexts() {
+  const results = await Promise.allSettled(
+    SOURCE_URLS.map(async (url) => {
+      const response = await fetch(url, {
+        headers: {
+          "user-agent": "HantaTracker Netlify scheduled update",
+        },
+      });
 
       if (!response.ok) {
-        console.warn(
-          `GNews query failed for "${query}": ${data.message ?? response.status}`,
-        );
-        continue;
+        throw new Error(`${url} fetch failed: ${response.status}`);
       }
 
-      for (const article of data.articles ?? []) {
-        articleTexts.push(
-          [article.title, article.description, article.content]
-            .filter(Boolean)
-            .join(". "),
-        );
-      }
-    } catch (error) {
-      console.warn(`GNews query failed for "${query}":`, error);
-    }
-  }
+      return htmlToText(await response.text());
+    }),
+  );
 
-  return articleTexts.join(" ");
+  return results
+    .flatMap((result, index) => {
+      if (result.status === "fulfilled") {
+        return [result.value];
+      }
+
+      console.warn(`Source fetch failed for ${SOURCE_URLS[index]}:`, result.reason);
+      return [];
+    })
+    .join(" ");
 }
 
 function hasOutbreakChanges(previousOutbreaks, nextOutbreaks) {
@@ -100,14 +74,13 @@ async function triggerBuildHook() {
 
 export default async () => {
   try {
-    const [currentData, whoText, gnewsText] = await Promise.all([
+    const [currentData, sourceText] = await Promise.all([
       readOutbreakData(),
-      fetchWhoText(),
-      fetchGNewsText(),
+      fetchSourceTexts(),
     ]);
     const { outbreaks: nextOutbreaks, notes } = applySourceTextUpdates(
       currentData.outbreaks,
-      `${whoText} ${gnewsText}`,
+      sourceText,
     );
 
     notes.forEach((note) => console.log(note));

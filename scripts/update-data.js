@@ -8,19 +8,19 @@ import { applySourceTextUpdates } from "../netlify/shared/outbreak-classifier.js
 
 const WHO_URL =
   "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON599";
-const GNEWS_API_URL = "https://gnews.io/api/v4/search";
-const GNEWS_TOKEN =
-  process.env.VITE_GNEWS_TOKEN || "7b454d1d6f7bef8d61635031d356507f";
-const NEWS_QUERIES = [
-  "hantavirus MV Hondius countries monitoring",
-  "hantavirus cruise ship confirmed suspected countries",
-  "Andes virus Hondius contact tracing passengers",
+const SOURCE_URLS = [
+  WHO_URL,
+  "https://www.who.int/philippines/news/detail-global/07-05-2026-who-s-response-to-hantavirus-cases-linked-to-a-cruise-ship",
+  "https://www.cbsnews.com/news/hantavirus-cruise-ship-mv-hondius-passengers-monitored-us-worldwide/",
+  "https://www.cbsnews.com/amp/news/hantavirus-cruise-ship-mv-hondius-passengers-monitored-us-worldwide/",
+  "https://www.ecdc.europa.eu/en/infectious-disease-topics/hantavirus-infection/surveillance-and-updates/andes-hantavirus-outbreak",
+  "https://www.ungeneva.org/en/news-media/news/2026/05/118402/hantavirus-outbreak-cruise-ship-not-another-covid-who-says",
 ];
-
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "..");
 const dataPath = path.join(projectRoot, "src", "data", "outbreaks.ts");
+const shouldSkipGit = process.argv.includes("--no-git");
 
 async function fetchText(url, userAgent) {
   const response = await fetch(url, {
@@ -43,48 +43,24 @@ function htmlToText(html) {
   return $("body").text().replace(/\s+/g, " ").trim();
 }
 
-async function fetchWhoText() {
-  return htmlToText(await fetchText(WHO_URL, "HantaTracker daily data updater"));
-}
+async function fetchSourceTexts() {
+  const results = await Promise.allSettled(
+    SOURCE_URLS.map(async (url) => {
+      const html = await fetchText(url, "HantaTracker daily data updater");
+      return htmlToText(html);
+    }),
+  );
 
-async function fetchGNewsText() {
-  if (!GNEWS_TOKEN || GNEWS_TOKEN === "YOUR_GNEWS_TOKEN") {
-    return "";
-  }
-
-  const articleTexts = [];
-
-  for (const query of NEWS_QUERIES) {
-    const url = new URL(GNEWS_API_URL);
-    url.searchParams.set("q", query);
-    url.searchParams.set("lang", "en");
-    url.searchParams.set("max", "10");
-    url.searchParams.set("token", GNEWS_TOKEN);
-
-    try {
-      const response = await fetch(url.toString());
-      const data = await response.json();
-
-      if (!response.ok) {
-        console.warn(
-          `GNews query failed for "${query}": ${data.message ?? response.status}`,
-        );
-        continue;
+  return results
+    .flatMap((result, index) => {
+      if (result.status === "fulfilled") {
+        return [result.value];
       }
 
-      for (const article of data.articles ?? []) {
-        articleTexts.push(
-          [article.title, article.description, article.content]
-            .filter(Boolean)
-            .join(". "),
-        );
-      }
-    } catch (error) {
-      console.warn(`GNews query failed for "${query}":`, error);
-    }
-  }
-
-  return articleTexts.join(" ");
+      console.warn(`Source fetch failed for ${SOURCE_URLS[index]}:`, result.reason);
+      return [];
+    })
+    .join(" ");
 }
 
 function parseExistingOutbreaks(source) {
@@ -174,14 +150,12 @@ function runGit(args, options = {}) {
 }
 
 async function main() {
-  console.log("Fetching latest WHO and GNews source text...");
-  const [whoText, gnewsText, existingSource] = await Promise.all([
-    fetchWhoText(),
-    fetchGNewsText(),
+  console.log("Fetching latest outbreak source text...");
+  const [sourceText, existingSource] = await Promise.all([
+    fetchSourceTexts(),
     readFile(dataPath, "utf8"),
   ]);
 
-  const sourceText = `${whoText} ${gnewsText}`.replace(/\s+/g, " ").trim();
   const existingOutbreaks = parseExistingOutbreaks(existingSource);
   const { outbreaks, notes } = applySourceTextUpdates(
     existingOutbreaks,
@@ -205,6 +179,11 @@ async function main() {
   } else {
     console.log("\nOutbreak data changes:");
     changes.forEach((change) => console.log(`- ${change}`));
+  }
+
+  if (shouldSkipGit) {
+    console.log("\nSkipped Git workflow because --no-git was passed.");
+    return;
   }
 
   console.log("\nRunning Git workflow...");

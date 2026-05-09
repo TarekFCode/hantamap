@@ -54,7 +54,6 @@ export const COUNTRY_CATALOG = [
     longitude: -98.5795,
     aliases: [
       "USA",
-      "US",
       "U.S.",
       "United States",
       "United States of America",
@@ -113,7 +112,7 @@ export const COUNTRY_CATALOG = [
     name: "Turkey",
     latitude: 38.9637,
     longitude: 35.2433,
-    aliases: ["Turkey", "Türkiye", "Turkish"],
+    aliases: ["Turkey", "Turkiye", "Turkish"],
   },
   {
     name: "Australia",
@@ -152,7 +151,15 @@ function getSentences(text) {
 
 function getSentencesMentioningCountry(text, countryName) {
   const country = getCountryConfig(countryName);
-  const regexes = country.aliases.map((alias) => {
+  const regexes = getCountryRegexes(country);
+
+  return getSentences(text).filter((sentence) =>
+    regexes.some((regex) => regex.test(sentence)),
+  );
+}
+
+function getCountryRegexes(country) {
+  return country.aliases.map((alias) => {
     const escapedAlias = escapeRegExp(alias);
     const startsWithWord = /^\w/.test(alias);
     const endsWithWord = /\w$/.test(alias);
@@ -162,10 +169,41 @@ function getSentencesMentioningCountry(text, countryName) {
       "i",
     );
   });
+}
 
-  return getSentences(text).filter((sentence) =>
-    regexes.some((regex) => regex.test(sentence)),
+function getCountryNamesInText(text) {
+  return COUNTRY_CATALOG.filter((country) =>
+    getCountryRegexes(country).some((regex) => regex.test(text)),
+  ).map((country) => country.name);
+}
+
+function getAliasPattern(country) {
+  return country.aliases
+    .map((alias) => {
+      const escapedAlias = escapeRegExp(alias);
+      const startsWithWord = /^\w/.test(alias);
+      const endsWithWord = /\w$/.test(alias);
+
+      return `${startsWithWord ? "\\b" : ""}${escapedAlias}${endsWithWord ? "\\b" : ""}`;
+    })
+    .join("|");
+}
+
+function isMonitoringContextSentence(sentence) {
+  return /(?:countries|authorities|nationals|passengers|people).*?(?:monitor|notified|contact tracing|tracing|disembarked|self-isolat|quarantine|under observation|potentially exposed|exposure)/i.test(
+    sentence,
   );
+}
+
+function sentenceLinksStatusToCountry(sentence, countryName, statusPattern) {
+  const country = getCountryConfig(countryName);
+  const aliasPattern = getAliasPattern(country);
+  const linkedPattern = new RegExp(
+    `(?:${aliasPattern}).{0,90}(?:${statusPattern})|(?:${statusPattern}).{0,90}(?:${aliasPattern})`,
+    "i",
+  );
+
+  return linkedPattern.test(sentence);
 }
 
 function extractDirectCaseCount(sentences) {
@@ -185,23 +223,41 @@ function extractDirectCaseCount(sentences) {
   return null;
 }
 
-function inferStatus(sentences) {
-  const text = sentences.join(" ");
+function inferStatus(sentences, countryName) {
+  const monitoringListSentences = sentences.filter(
+    (sentence) =>
+      isMonitoringContextSentence(sentence) &&
+      getCountryNamesInText(sentence).length > 1,
+  );
+  const countrySpecificSentences = sentences.filter(
+    (sentence) => !monitoringListSentences.includes(sentence),
+  );
+  const sentencesToClassify =
+    countrySpecificSentences.length > 0 ? countrySpecificSentences : sentences;
+  const text = sentencesToClassify.join(" ");
+  const confirmedPattern =
+    "confirmed (?:case|infection|hantavirus|patient|passenger|person)|lab-confirmed|laboratory confirmed|tested positive|tests? positive|positive for hantavirus|confirmed by PCR";
+  const suspectedPattern =
+    "suspected|\\bsymptomatic\\b|fell ill|serious condition|critically ill|intensive care|hospitali[sz]ed|medical(?:ly)? evacuated|evacuat(?:ed|ion)";
 
   if (
-    /(?:confirmed|lab-confirmed|laboratory confirmed|tested positive|tests? positive|positive for hantavirus|confirmed by PCR)/i.test(
-      text,
+    sentencesToClassify.some((sentence) =>
+      sentenceLinksStatusToCountry(sentence, countryName, confirmedPattern),
     )
   ) {
     return "confirmed";
   }
 
   if (
-    /(?:suspected|symptomatic|fell ill|serious condition|critically ill|intensive care|hospitali[sz]ed|medical(?:ly)? evacuated|evacuat(?:ed|ion))/i.test(
-      text,
+    sentencesToClassify.some((sentence) =>
+      sentenceLinksStatusToCountry(sentence, countryName, suspectedPattern),
     )
   ) {
     return "suspected";
+  }
+
+  if (countrySpecificSentences.length === 0 && monitoringListSentences.length > 0) {
+    return "monitoring";
   }
 
   if (
@@ -220,13 +276,10 @@ function inferMinimumCounts(outbreak, status, sentences) {
     return outbreak;
   }
 
-  const text = sentences.join(" ");
-  const hasDeath = /(?:died|death|deceased|fatalit)/i.test(text);
-
   return {
     ...outbreak,
     confirmedCases: Math.max(outbreak.confirmedCases, 1),
-    deaths: hasDeath ? Math.max(outbreak.deaths, 1) : outbreak.deaths,
+    deaths: outbreak.deaths,
   };
 }
 
@@ -289,9 +342,56 @@ function applyStatus(outbreak, nextStatus) {
   };
 }
 
+function applyMonitoringLists(byName, originalNames, sourceText, notes) {
+  const countryListIntroPattern =
+    /(?:those countries are|countries are|countries include|include)\b/i;
+  let monitoringContextSentences = 0;
+
+  for (const sentence of getSentences(sourceText)) {
+    const hasMonitoringContext =
+      isMonitoringContextSentence(sentence) || monitoringContextSentences > 0;
+
+    if (isMonitoringContextSentence(sentence)) {
+      monitoringContextSentences = 2;
+    }
+
+    const countryNames = getCountryNamesInText(sentence);
+
+    if (
+      !hasMonitoringContext ||
+      countryNames.length < 2 ||
+      (!isMonitoringContextSentence(sentence) &&
+        !countryListIntroPattern.test(sentence))
+    ) {
+      monitoringContextSentences = Math.max(0, monitoringContextSentences - 1);
+      continue;
+    }
+
+    for (const countryName of countryNames) {
+      const country = getCountryConfig(countryName);
+      const current = byName.get(countryName) ?? createOutbreakFromCatalog(country);
+      const statusUpdate = applyStatus(current, "monitoring");
+
+      byName.set(countryName, statusUpdate);
+
+      if (!originalNames.has(countryName)) {
+        notes.push(`${countryName}: added as monitoring from country list.`);
+        originalNames.add(countryName);
+      } else if (statusUpdate.status !== current.status) {
+        notes.push(`${countryName}: status set to monitoring from country list.`);
+      }
+    }
+
+    monitoringContextSentences = Math.max(0, monitoringContextSentences - 1);
+  }
+}
+
 export function applySourceTextUpdates(outbreaks, sourceText) {
   const notes = [];
   const byName = new Map(outbreaks.map((outbreak) => [outbreak.name, outbreak]));
+  const originalNames = new Set(outbreaks.map((outbreak) => outbreak.name));
+
+  applyMonitoringLists(byName, originalNames, sourceText, notes);
 
   for (const country of COUNTRY_CATALOG) {
     const sentences = getSentencesMentioningCountry(sourceText, country.name);
@@ -328,7 +428,7 @@ export function applySourceTextUpdates(outbreaks, sourceText) {
       }
     }
 
-    const inferredStatus = inferStatus(sentences);
+    const inferredStatus = inferStatus(sentences, country.name);
 
     if (!inferredStatus) {
       continue;
@@ -341,8 +441,9 @@ export function applySourceTextUpdates(outbreaks, sourceText) {
     );
     byName.set(country.name, statusUpdate);
 
-    if (!outbreaks.some((outbreak) => outbreak.name === country.name)) {
+    if (!originalNames.has(country.name)) {
       notes.push(`${country.name}: added as ${statusUpdate.status}.`);
+      originalNames.add(country.name);
     } else if (statusUpdate.status !== current.status) {
       notes.push(`${country.name}: status set to ${statusUpdate.status}.`);
     }
