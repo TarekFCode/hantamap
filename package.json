@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "update": "node scripts/scrape.js"
+    "update": "node scripts/update-data.js"
   },
   "dependencies": {
     "@netlify/blobs": "^10.7.4",
