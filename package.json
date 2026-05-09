@@ -1,0 +1,24 @@
+{
+  "name": "maplibre-globe-countries",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "update": "node scripts/scrape.js"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^10.7.4",
+    "@netlify/functions": "^5.2.0",
+    "@vitejs/plugin-react": "4.3.4",
+    "cheerio": "^1.0.0",
+    "maplibre-gl": "latest",
+    "node-fetch": "^3.3.2",
+    "react": "latest",
+    "react-dom": "latest",
+    "typescript": "latest",
+    "vite": "5.4.21"
+  }
+}
