@@ -45,6 +45,8 @@ textarea {
 .top-navbar {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 16px;
   min-height: 64px;
   padding: 0 24px;
   background: #0a0f1e;
@@ -80,6 +82,20 @@ textarea {
   font-weight: 900;
   letter-spacing: 0.08em;
   animation: live-pulse 1.6s ease-in-out infinite;
+}
+
+.privacy-link {
+  flex: 0 0 auto;
+  color: #cbd5e1;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.privacy-link:hover,
+.privacy-link:focus-visible {
+  color: #ffffff;
+  text-decoration: underline;
 }
 
 .stats-bar {

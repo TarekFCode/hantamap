@@ -518,6 +518,9 @@ export default function App() {
           <h1>HantaTracker 🦠</h1>
           <span className="live-badge">LIVE</span>
         </div>
+        <a className="privacy-link" href="/privacy.html">
+          Privacy Policy
+        </a>
       </nav>
 
       <section className="stats-bar" aria-label="Hantavirus summary">
