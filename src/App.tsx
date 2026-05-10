@@ -302,7 +302,7 @@ export default function App() {
       container: mapContainer.current,
       style: STYLE_URL,
       center: [0, 20],
-      zoom: 1.3,
+      zoom: 2.0,
       minZoom: 1.2,
       maxZoom: 6,
       attributionControl: { compact: true },
@@ -616,18 +616,9 @@ export default function App() {
       <LanguageSelector language={language} onChange={setLanguage} />
       <nav className="top-navbar" aria-label="Primary">
         <div className="brand-group">
-          <h1>HantaTracker</h1>
+          <h1>hantamap.net</h1>
           <span className="live-badge">LIVE</span>
         </div>
-        <a className="privacy-link" href="/hantavirus-learn-more.html">
-          {translateUiText("Learn More", language)}
-        </a>
-        <a className="privacy-link" href="/hantavirus-prevention.html">
-          {translateUiText("Prevention Guide", language)}
-        </a>
-        <a className="privacy-link" href="/privacy.html">
-          {translateUiText("Privacy Policy", language)}
-        </a>
       </nav>
 
       <section className="stats-bar" aria-label="Hantavirus summary">
@@ -665,6 +656,18 @@ export default function App() {
         </section>
         <NewsFeed language={language} />
       </section>
+
+      <footer className="page-footer">
+        <a className="footer-link" href="/hantavirus-learn-more.html">
+          {translateUiText("Learn More", language)}
+        </a>
+        <a className="footer-link" href="/hantavirus-prevention.html">
+          {translateUiText("Prevention Guide", language)}
+        </a>
+        <a className="footer-link" href="/privacy.html">
+          {translateUiText("Privacy Policy", language)}
+        </a>
+      </footer>
 
       <div className="ticker" aria-label="Outbreak news ticker">
         <div className="ticker-track">

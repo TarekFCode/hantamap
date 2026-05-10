@@ -8,7 +8,9 @@
       "Bash(npm install *)",
       "Bash(git add *)",
       "Bash(git commit *)",
-      "Bash(git push *)"
+      "Bash(git push *)",
+      "Bash(Get-ChildItem -Path \"c:\\\\Football The Gathering\" -Recurse -Name)",
+      "Bash(Select-Object -First 50)"
     ]
   }
 }
