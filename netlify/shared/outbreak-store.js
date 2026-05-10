@@ -4,7 +4,7 @@ export const OUTBREAK_BLOB_KEY = "data.json";
 export const OUTBREAK_STORE_NAME = "outbreak-data";
 
 export const DEFAULT_OUTBREAK_DATA = {
-  updatedAt: "2026-05-10T00:14:21.440Z",
+  updatedAt: "2026-05-10T20:53:20.259Z",
   source: "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON599",
   outbreaks: [
     {
@@ -187,9 +187,9 @@ export const DEFAULT_OUTBREAK_DATA = {
       name: "Iran",
       latitude: 32.4279,
       longitude: 53.688,
-      confirmedCases: 0,
+      confirmedCases: 1,
       deaths: 0,
-      status: "monitoring",
+      status: "suspected",
     },
     {
       name: "Senegal",

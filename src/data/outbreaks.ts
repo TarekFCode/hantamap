@@ -190,9 +190,9 @@ export const hantavirusOutbreaks: OutbreakDataPoint[] = [
     name: "Iran",
     latitude: 32.4279,
     longitude: 53.688,
-    confirmedCases: 0,
+    confirmedCases: 1,
     deaths: 0,
-    status: "monitoring",
+    status: "suspected",
   },
   {
     name: "Senegal",
