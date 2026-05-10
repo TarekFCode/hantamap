@@ -9,6 +9,8 @@
     />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0a0f1e" />
+    <meta name="keywords" content="hantavirus, Andes virus, hantavirus outbreak 2026, MV Hondius, hantavirus map, outbreak tracker, hantavirus cases, hantavirus deaths, hantavirus symptoms, hantavirus prevention" />
+    <meta name="author" content="HantaTracker" />
     <link rel="canonical" href="https://hantamap.netlify.app/" />
     <link
       rel="stylesheet"
@@ -25,11 +27,11 @@
     <meta property="og:url" content="https://hantamap.netlify.app/" />
     <meta property="og:locale" content="en_US" />
 
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="HantaTracker - Live Hantavirus Outbreak Map" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="HantaTracker - Live Hantavirus Outbreak Map 2026" />
     <meta
       name="twitter:description"
-      content="A dark, source-linked global map for hantavirus outbreak status, country monitoring, case counts, and deaths."
+      content="Live global map tracking the 2026 Andes hantavirus outbreak linked to MV Hondius. Country-level confirmed cases, deaths, and monitoring status."
     />
 
     <script type="application/ld+json">
@@ -52,14 +54,15 @@
             "applicationCategory": "HealthApplication",
             "operatingSystem": "Any",
             "isAccessibleForFree": true,
-            "description": "Interactive MapLibre globe showing confirmed, suspected, and monitoring countries for hantavirus outbreak tracking."
+            "description": "Interactive MapLibre globe showing confirmed, suspected, and monitoring countries for the 2026 hantavirus outbreak linked to the MV Hondius cruise ship."
           },
           {
             "@type": "Dataset",
             "@id": "https://hantamap.netlify.app/#outbreak-data",
-            "name": "HantaTracker Hantavirus Outbreak Data",
-            "description": "Country-level hantavirus outbreak data including confirmed cases, deaths, and confirmed, suspected, or monitoring status.",
+            "name": "HantaTracker Hantavirus Outbreak Data 2026",
+            "description": "Country-level hantavirus outbreak data including confirmed cases, deaths, and confirmed, suspected, or monitoring status. Updated every 6 hours.",
             "url": "https://hantamap.netlify.app/.netlify/functions/check-updates",
+            "dateModified": "2026-05-10",
             "distribution": {
               "@type": "DataDownload",
               "encodingFormat": "application/json",
@@ -68,6 +71,38 @@
             "creator": {
               "@type": "Organization",
               "name": "HantaTracker"
+            }
+          },
+          {
+            "@type": "SpecialAnnouncement",
+            "@id": "https://hantamap.netlify.app/#announcement",
+            "name": "2026 Hantavirus Outbreak Linked to MV Hondius Cruise Ship",
+            "text": "An outbreak of Andes hantavirus linked to the MV Hondius cruise ship has been identified across multiple countries. Confirmed cases, deaths, and countries under monitoring are tracked in real time on this map.",
+            "datePosted": "2026-05-01",
+            "expires": "2026-12-31",
+            "category": "https://www.wikidata.org/wiki/Q81068910",
+            "url": "https://hantamap.netlify.app/",
+            "announcementLocation": {
+              "@type": "CivicStructure",
+              "name": "Global"
+            },
+            "spatialCoverage": {
+              "@type": "Place",
+              "name": "Worldwide"
+            },
+            "diseaseSpreadStatistics": "https://hantamap.netlify.app/.netlify/functions/check-updates"
+          },
+          {
+            "@type": "MedicalCondition",
+            "@id": "https://hantamap.netlify.app/#condition",
+            "name": "Hantavirus Pulmonary Syndrome (Andes Virus)",
+            "alternateName": ["HPS", "Andes hantavirus", "hantavirus"],
+            "description": "Andes virus is a hantavirus species capable of person-to-person transmission causing Hantavirus Pulmonary Syndrome. Symptoms include fever, muscle aches, and severe respiratory distress.",
+            "url": "https://hantamap.netlify.app/hantavirus-prevention.html",
+            "relevantSpecialty": "Infectious Disease",
+            "possibleTreatment": {
+              "@type": "MedicalTherapy",
+              "name": "Supportive care, oxygen therapy, mechanical ventilation in severe cases"
             }
           }
         ]

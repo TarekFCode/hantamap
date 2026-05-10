@@ -238,6 +238,7 @@ export default function App() {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<Map | null>(null);
   const [outbreaks, setOutbreaks] = useState<OutbreakDataPoint[]>(loadOutbreaks);
+  const outbreaksRef = useRef(outbreaks);
   const [language, setLanguage] = useState<SupportedLanguage>(
     () => getSavedLanguage() ?? "en",
   );
@@ -302,6 +303,8 @@ export default function App() {
       style: STYLE_URL,
       center: [0, 20],
       zoom: 1.3,
+      minZoom: 1.2,
+      maxZoom: 6,
       attributionControl: { compact: true },
     });
 
@@ -484,17 +487,86 @@ export default function App() {
         return;
       }
 
+      const statusColors: Record<string, string> = {
+        confirmed: "#e53935",
+        suspected: "#f59e0b",
+        monitoring: "#8b5cf6",
+      };
+      const color = statusColors[feature.properties?.status] ?? "#8b5cf6";
+      const point = map.project(coordinates as [number, number]);
+
+      for (let i = 0; i < 2; i++) {
+        const ring = document.createElement("div");
+        ring.className = "dot-pulse";
+        ring.style.left = `${point.x}px`;
+        ring.style.top = `${point.y}px`;
+        ring.style.borderColor = color;
+        ring.style.animationDelay = `${i * 150}ms`;
+        mapContainer.current?.appendChild(ring);
+        ring.addEventListener("animationend", () => ring.remove());
+      }
+
       new maplibregl.Popup({ closeButton: true, closeOnClick: true })
         .setLngLat(coordinates as [number, number])
         .setDOMContent(createOutbreakPopupContent(feature.properties ?? {}))
         .addTo(map);
     });
 
+    const STATUS_COLORS: Record<string, string> = {
+      confirmed: "#e53935",
+      suspected: "#f59e0b",
+      monitoring: "#8b5cf6",
+    };
+
+    let pingTimeout: ReturnType<typeof setTimeout> | null = null;
+
+    function firePing() {
+      if (!mapContainer.current) return;
+
+      const visible = map.queryRenderedFeatures(undefined, {
+        layers: ["hantavirus-outbreak-markers"],
+      });
+      if (!visible.length) return;
+
+      const feature = visible[Math.floor(Math.random() * visible.length)];
+      if (feature.geometry.type !== "Point") return;
+
+      const [lng, lat] = feature.geometry.coordinates;
+      const point = map.project([lng, lat]);
+      const color = STATUS_COLORS[feature.properties?.status] ?? "#8b5cf6";
+
+      for (let i = 0; i < 2; i++) {
+        const ring = document.createElement("div");
+        ring.className = "dot-pulse";
+        ring.style.left = `${point.x}px`;
+        ring.style.top = `${point.y}px`;
+        ring.style.borderColor = color;
+        ring.style.animationDelay = `${i * 160}ms`;
+        mapContainer.current.appendChild(ring);
+        ring.addEventListener("animationend", () => ring.remove());
+      }
+    }
+
+    function schedulePing() {
+      const delay = 15000 + Math.random() * 15000;
+      pingTimeout = setTimeout(() => {
+        firePing();
+        schedulePing();
+      }, delay);
+    }
+
+    map.once("load", schedulePing);
+
     return () => {
+      if (pingTimeout !== null) clearTimeout(pingTimeout);
       map.remove();
       mapRef.current = null;
     };
   }, [showAdmin]);
+
+  useEffect(() => {
+    outbreaksRef.current = outbreaks;
+  }, [outbreaks]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -547,6 +619,12 @@ export default function App() {
           <h1>HantaTracker</h1>
           <span className="live-badge">LIVE</span>
         </div>
+        <a className="privacy-link" href="/hantavirus-learn-more.html">
+          {translateUiText("Learn More", language)}
+        </a>
+        <a className="privacy-link" href="/hantavirus-prevention.html">
+          {translateUiText("Prevention Guide", language)}
+        </a>
         <a className="privacy-link" href="/privacy.html">
           {translateUiText("Privacy Policy", language)}
         </a>
