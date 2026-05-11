@@ -119,21 +119,52 @@
 
         CookieConsent.run({
           categories: {
-            analytics: { enabled: false, readOnly: false }
+            necessary: {
+              enabled: true,
+              readOnly: true,
+            },
+            functionality: {
+              enabled: true,
+              readOnly: false,
+            },
           },
           language: {
             default: "en",
             translations: {
               en: {
                 consentModal: {
-                  title: "We use cookies",
-                  description: "We use Google Analytics to track visits.",
-                  acceptAllBtn: "Accept",
-                  rejectAllBtn: "Reject"
-                }
-              }
-            }
-          }
+                  title: "This site uses cookies",
+                  description:
+                    'We use essential storage and third-party services (IP geolocation for language detection, GNews for live headlines) to run this map. No advertising or tracking cookies are used. <a href="/privacy.html" class="cc__link">Privacy Policy</a>.',
+                  acceptAllBtn: "Accept all",
+                  rejectAllBtn: "Reject all",
+                  showPreferencesBtn: "Manage preferences",
+                  footer:
+                    '<a href="/privacy.html" class="cc__link">Privacy Policy</a>',
+                },
+                preferencesModal: {
+                  title: "Cookie & storage preferences",
+                  acceptAllBtn: "Accept all",
+                  acceptNecessaryBtn: "Reject all",
+                  savePreferencesBtn: "Save preferences",
+                  sections: [
+                    {
+                      title: "Essential",
+                      description:
+                        "Required for the map to function: caching outbreak data locally in your browser (localStorage) and remembering your language preference. Cannot be disabled.",
+                      linkedCategory: "necessary",
+                    },
+                    {
+                      title: "Functionality",
+                      description:
+                        "IP-based language detection via ipapi.co (your approximate country is used to select a language; no data is stored) and GNews for live hantavirus headlines.",
+                      linkedCategory: "functionality",
+                    },
+                  ],
+                },
+              },
+            },
+          },
         });
       });
     </script>
