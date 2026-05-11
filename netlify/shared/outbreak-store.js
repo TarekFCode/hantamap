@@ -4,7 +4,7 @@ export const OUTBREAK_BLOB_KEY = "data.json";
 export const OUTBREAK_STORE_NAME = "outbreak-data";
 
 export const DEFAULT_OUTBREAK_DATA = {
-  updatedAt: "2026-05-11T13:17:06.442Z",
+  updatedAt: "2026-05-11T16:24:12.581Z",
   source: "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON599",
   outbreaks: [
     {
@@ -53,7 +53,7 @@ export const DEFAULT_OUTBREAK_DATA = {
       longitude: 103.8198,
       confirmedCases: 1,
       deaths: 0,
-      status: "suspected",
+      status: "confirmed",
     },
     {
       name: "Germany",
