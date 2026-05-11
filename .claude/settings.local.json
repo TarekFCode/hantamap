@@ -21,7 +21,8 @@
       "Bash(git fetch *)",
       "Bash(git ls-tree *)",
       "Bash(gh auth *)",
-      "Bash(git config *)"
+      "Bash(git config *)",
+      "Bash(node -e \"const p = require\\('./package.json'\\); console.log\\('wrangler:', p.devDependencies?.wrangler || p.dependencies?.wrangler || 'not found'\\)\")"
     ]
   }
 }
