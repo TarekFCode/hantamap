@@ -230,7 +230,10 @@ function asText(value: unknown): string {
   return "";
 }
 
-function createOutbreakPopupContent(properties: CountryProperties): HTMLElement {
+function createOutbreakPopupContent(
+  properties: CountryProperties,
+  language: SupportedLanguage,
+): HTMLElement {
   const wrapper = document.createElement("div");
   wrapper.className = "outbreak-popup";
 
@@ -238,10 +241,10 @@ function createOutbreakPopupContent(properties: CountryProperties): HTMLElement 
   title.textContent = asText(properties.name) || "Outbreak location";
 
   const cases = document.createElement("p");
-  cases.textContent = `Cases: ${asText(properties.confirmedCases) || "0"}`;
+  cases.textContent = `${translateUiText("Confirmed Cases:", language)} ${asText(properties.confirmedCases) || "0"}`;
 
   const deaths = document.createElement("p");
-  deaths.textContent = `Deaths: ${asText(properties.deaths) || "0"}`;
+  deaths.textContent = `${translateUiText("Deaths:", language)} ${asText(properties.deaths) || "0"}`;
 
   wrapper.append(title, cases, deaths);
   return wrapper;
@@ -252,6 +255,7 @@ export default function App() {
   const mapRef = useRef<Map | null>(null);
   const [outbreaks, setOutbreaks] = useState<OutbreakDataPoint[]>(loadOutbreaks);
   const outbreaksRef = useRef(outbreaks);
+  const languageRef = useRef<SupportedLanguage>("en");
   const [language, setLanguage] = useState<SupportedLanguage>(
     () => getSavedLanguage() ?? "en",
   );
@@ -521,7 +525,7 @@ export default function App() {
 
       new maplibregl.Popup({ closeButton: true, closeOnClick: true })
         .setLngLat(coordinates as [number, number])
-        .setDOMContent(createOutbreakPopupContent(feature.properties ?? {}))
+        .setDOMContent(createOutbreakPopupContent(feature.properties ?? {}, languageRef.current))
         .addTo(map);
     });
 
@@ -580,6 +584,10 @@ export default function App() {
   useEffect(() => {
     outbreaksRef.current = outbreaks;
   }, [outbreaks]);
+
+  useEffect(() => {
+    languageRef.current = language;
+  }, [language]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -671,10 +679,16 @@ export default function App() {
       </section>
 
       <footer className="page-footer">
-        <a className="footer-link" href="/hantavirus-learn-more.html">
+        <a
+          className="footer-link"
+          href={language === "en" ? "/hantavirus-learn-more.html" : `/hantavirus-learn-more-${language}.html`}
+        >
           {translateUiText("Learn More", language)}
         </a>
-        <a className="footer-link" href="/hantavirus-prevention.html">
+        <a
+          className="footer-link"
+          href={language === "en" ? "/hantavirus-prevention.html" : `/hantavirus-prevention-${language}.html`}
+        >
           {translateUiText("Prevention Guide", language)}
         </a>
         <a className="footer-link" href="/privacy.html">
