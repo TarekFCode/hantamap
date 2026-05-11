@@ -15,7 +15,13 @@
       "PowerShell(gh --version 2>&1)",
       "Bash(git ls-remote *)",
       "Bash(node scripts/update-data.js --no-git)",
-      "Bash(node -e \"const d = require\\('./src/data/outbreaks.ts' + ''\\).match\\(/confirmedCases:\\\\s*\\(\\\\d+\\)/g\\); console.log\\(d?.slice\\(0,5\\)\\)\")"
+      "Bash(node -e \"const d = require\\('./src/data/outbreaks.ts' + ''\\).match\\(/confirmedCases:\\\\s*\\(\\\\d+\\)/g\\); console.log\\(d?.slice\\(0,5\\)\\)\")",
+      "Bash(npx --yes wrangler pages deploy dist --project-name hantamap)",
+      "Bash(npx wrangler@3 pages deploy dist --project-name hantamap)",
+      "Bash(git fetch *)",
+      "Bash(git ls-tree *)",
+      "Bash(gh auth *)",
+      "Bash(git config *)"
     ]
   }
 }
