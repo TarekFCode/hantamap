@@ -1,6 +1,6 @@
-# HantaTracker
+# hantamap.net
 
-HantaTracker is a public web app for tracking country-level hantavirus and Andes virus outbreak status on an interactive globe.
+hantamap.net is a public web app for tracking country-level hantavirus and Andes virus outbreak status on an interactive globe.
 
 ## Site
 
