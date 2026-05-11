@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview",
-    "update": "node scripts/update-data.js"
+    "preview": "npm run build && wrangler dev",
+    "update": "node scripts/update-data.js",
+    "deploy": "npm run build && wrangler deploy"
   },
   "dependencies": {
     "@netlify/blobs": "^10.7.4",
@@ -21,6 +22,8 @@
     "typescript": "latest"
   },
   "devDependencies": {
-    "vite": "^6.4.2"
+    "@cloudflare/vite-plugin": "^1.36.3",
+    "vite": "^6.4.2",
+    "wrangler": "^4.90.0"
   }
 }
