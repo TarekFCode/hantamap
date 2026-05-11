@@ -629,7 +629,7 @@ export default function App() {
       <LanguageSelector language={language} onChange={setLanguage} />
       <nav className="top-navbar" aria-label="Primary">
         <div className="brand-group">
-          <h1>hantamap.net</h1>
+          <h1>hantamaps.com</h1>
           <span className="live-badge">LIVE</span>
         </div>
       </nav>

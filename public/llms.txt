@@ -1,14 +1,14 @@
-# hantamap.net
+# hantamaps.com
 
-hantamap.net is a public web app for tracking country-level hantavirus and Andes virus outbreak status on an interactive globe.
+hantamaps.com is a public web app for tracking country-level hantavirus and Andes virus outbreak status on an interactive globe.
 
 ## Site
 
-- URL: https://hantamap.netlify.app/
-- Data endpoint: https://hantamap.netlify.app/.netlify/functions/check-updates
-- Static fallback data: https://hantamap.netlify.app/data.json
-- Sitemap: https://hantamap.netlify.app/sitemap.xml
-- Robots policy: https://hantamap.netlify.app/robots.txt
+- URL: https://hantamaps.com/
+- Data endpoint: https://hantamaps.com/.netlify/functions/check-updates
+- Static fallback data: https://hantamaps.com/data.json
+- Sitemap: https://hantamaps.com/sitemap.xml
+- Robots policy: https://hantamaps.com/robots.txt
 
 ## What The App Shows
 

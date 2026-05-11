@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://hantamap.netlify.app/sitemap.xml
+Sitemap: https://hantamaps.com/sitemap.xml

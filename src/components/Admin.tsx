@@ -107,7 +107,7 @@ export default function Admin() {
       <main className="admin-shell">
         <form className="admin-login" onSubmit={submitPassword}>
           <div>
-            <p>hantamap.net Admin</p>
+            <p>hantamaps.com Admin</p>
             <h1>Enter Password</h1>
           </div>
           <label>
@@ -133,7 +133,7 @@ export default function Admin() {
       <section className="admin-panel">
         <div className="admin-header">
           <div>
-            <p>hantamap.net Admin</p>
+            <p>hantamaps.com Admin</p>
             <h1>Outbreak Data Editor</h1>
           </div>
           <div className="admin-totals" aria-label="Current totals">

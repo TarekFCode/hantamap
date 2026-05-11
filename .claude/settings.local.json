@@ -10,7 +10,9 @@
       "Bash(git commit *)",
       "Bash(git push *)",
       "Bash(Get-ChildItem -Path \"c:\\\\Football The Gathering\" -Recurse -Name)",
-      "Bash(Select-Object -First 50)"
+      "Bash(Select-Object -First 50)",
+      "PowerShell(gh auth status 2>&1)",
+      "PowerShell(gh --version 2>&1)"
     ]
   }
 }
