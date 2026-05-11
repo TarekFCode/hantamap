@@ -407,7 +407,7 @@ export default function NewsFeed({ language }: NewsFeedProps) {
           <p>{translatedCopy.loading}</p>
         </div>
       ) : articles.length > 0 ? (
-        <div className="news-list">
+        <div className={`news-list${isTranslating ? " news-list--translating" : ""}`}>
           {articles.map((article) => {
             const articleKey = `${article.url}-${article.title}`;
 

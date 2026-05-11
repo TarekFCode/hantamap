@@ -117,30 +117,29 @@
           return;
         }
 
+        var SUPPORTED_LANGS = ["en","de","fr","es","pt","nl","ru","ja","ko","ar"];
+        var saved = localStorage.getItem("hantatracker.language");
+        var browser = (navigator.language || "en").split("-")[0].toLowerCase();
+        var ccLang = SUPPORTED_LANGS.includes(saved) ? saved
+                   : SUPPORTED_LANGS.includes(browser) ? browser
+                   : "en";
+
         CookieConsent.run({
           categories: {
-            necessary: {
-              enabled: true,
-              readOnly: true,
-            },
-            functionality: {
-              enabled: true,
-              readOnly: false,
-            },
+            necessary: { enabled: true, readOnly: true },
+            functionality: { enabled: true, readOnly: false },
           },
           language: {
-            default: "en",
+            default: ccLang,
             translations: {
               en: {
                 consentModal: {
                   title: "This site uses cookies",
-                  description:
-                    'We use essential storage and third-party services (IP geolocation for language detection, GNews for live headlines) to run this map. No advertising or tracking cookies are used. <a href="/privacy.html" class="cc__link">Privacy Policy</a>.',
+                  description: 'We use essential storage and third-party services (IP geolocation for language detection, GNews for live headlines) to run this map. No advertising or tracking cookies are used. <a href="/privacy.html" class="cc__link">Privacy Policy</a>.',
                   acceptAllBtn: "Accept all",
                   rejectAllBtn: "Reject all",
                   showPreferencesBtn: "Manage preferences",
-                  footer:
-                    '<a href="/privacy.html" class="cc__link">Privacy Policy</a>',
+                  footer: '<a href="/privacy.html" class="cc__link">Privacy Policy</a>',
                 },
                 preferencesModal: {
                   title: "Cookie & storage preferences",
@@ -148,18 +147,188 @@
                   acceptNecessaryBtn: "Reject all",
                   savePreferencesBtn: "Save preferences",
                   sections: [
-                    {
-                      title: "Essential",
-                      description:
-                        "Required for the map to function: caching outbreak data locally in your browser (localStorage) and remembering your language preference. Cannot be disabled.",
-                      linkedCategory: "necessary",
-                    },
-                    {
-                      title: "Functionality",
-                      description:
-                        "IP-based language detection via ipapi.co (your approximate country is used to select a language; no data is stored) and GNews for live hantavirus headlines.",
-                      linkedCategory: "functionality",
-                    },
+                    { title: "Essential", linkedCategory: "necessary", description: "Required for the map to function: caching outbreak data locally (localStorage) and remembering your language preference. Cannot be disabled." },
+                    { title: "Functionality", linkedCategory: "functionality", description: "IP-based language detection via ipapi.co (your approximate country selects a language; no data stored) and GNews for live hantavirus headlines." },
+                  ],
+                },
+              },
+              de: {
+                consentModal: {
+                  title: "Diese Website verwendet Cookies",
+                  description: 'Wir verwenden grundlegende Datenspeicherung und Drittanbieterdienste (IP-Geolokalisierung zur Spracherkennung, GNews für Live-Schlagzeilen), um diese Karte zu betreiben. Es werden keine Werbe- oder Tracking-Cookies verwendet. <a href="/privacy.html" class="cc__link">Datenschutzrichtlinie</a>.',
+                  acceptAllBtn: "Alle akzeptieren",
+                  rejectAllBtn: "Alle ablehnen",
+                  showPreferencesBtn: "Einstellungen verwalten",
+                  footer: '<a href="/privacy.html" class="cc__link">Datenschutzrichtlinie</a>',
+                },
+                preferencesModal: {
+                  title: "Cookie- und Speichereinstellungen",
+                  acceptAllBtn: "Alle akzeptieren",
+                  acceptNecessaryBtn: "Alle ablehnen",
+                  savePreferencesBtn: "Einstellungen speichern",
+                  sections: [
+                    { title: "Notwendig", linkedCategory: "necessary", description: "Für den Kartenbetrieb erforderlich: lokales Cachen von Ausbruchsdaten (localStorage) und Speichern der Sprachpräferenz. Kann nicht deaktiviert werden." },
+                    { title: "Funktionalität", linkedCategory: "functionality", description: "IP-basierte Spracherkennung über ipapi.co (Ihr ungefähres Land wählt die Sprache; keine Datenspeicherung) und GNews für Live-Hantavirus-Schlagzeilen." },
+                  ],
+                },
+              },
+              fr: {
+                consentModal: {
+                  title: "Ce site utilise des cookies",
+                  description: 'Nous utilisons du stockage essentiel et des services tiers (géolocalisation IP pour la langue, GNews pour les titres en direct) pour faire fonctionner cette carte. Aucun cookie publicitaire ou de suivi. <a href="/privacy.html" class="cc__link">Politique de confidentialité</a>.',
+                  acceptAllBtn: "Tout accepter",
+                  rejectAllBtn: "Tout refuser",
+                  showPreferencesBtn: "Gérer les préférences",
+                  footer: '<a href="/privacy.html" class="cc__link">Politique de confidentialité</a>',
+                },
+                preferencesModal: {
+                  title: "Préférences cookies et stockage",
+                  acceptAllBtn: "Tout accepter",
+                  acceptNecessaryBtn: "Tout refuser",
+                  savePreferencesBtn: "Enregistrer",
+                  sections: [
+                    { title: "Essentiels", linkedCategory: "necessary", description: "Nécessaires au fonctionnement : mise en cache locale des données d'épidémie (localStorage) et mémorisation de la langue. Ne peut pas être désactivé." },
+                    { title: "Fonctionnalité", linkedCategory: "functionality", description: "Détection de la langue par IP via ipapi.co (votre pays approximatif sélectionne la langue ; aucune donnée stockée) et GNews pour les actualités hantavirus." },
+                  ],
+                },
+              },
+              es: {
+                consentModal: {
+                  title: "Este sitio usa cookies",
+                  description: 'Usamos almacenamiento esencial y servicios de terceros (geolocalización IP para el idioma, GNews para noticias en directo) para operar este mapa. No se usan cookies de rastreo ni publicidad. <a href="/privacy.html" class="cc__link">Política de privacidad</a>.',
+                  acceptAllBtn: "Aceptar todo",
+                  rejectAllBtn: "Rechazar todo",
+                  showPreferencesBtn: "Gestionar preferencias",
+                  footer: '<a href="/privacy.html" class="cc__link">Política de privacidad</a>',
+                },
+                preferencesModal: {
+                  title: "Preferencias de cookies y almacenamiento",
+                  acceptAllBtn: "Aceptar todo",
+                  acceptNecessaryBtn: "Rechazar todo",
+                  savePreferencesBtn: "Guardar preferencias",
+                  sections: [
+                    { title: "Esenciales", linkedCategory: "necessary", description: "Necesarios para el mapa: caché local de datos de brotes (localStorage) y recordar el idioma. No se puede desactivar." },
+                    { title: "Funcionalidad", linkedCategory: "functionality", description: "Detección de idioma por IP mediante ipapi.co (su país aproximado selecciona el idioma; sin almacenamiento de datos) y GNews para noticias de hantavirus." },
+                  ],
+                },
+              },
+              pt: {
+                consentModal: {
+                  title: "Este site usa cookies",
+                  description: 'Usamos armazenamento essencial e serviços de terceiros (geolocalização IP para o idioma, GNews para manchetes ao vivo) para operar este mapa. Nenhum cookie de rastreamento ou publicidade. <a href="/privacy.html" class="cc__link">Política de privacidade</a>.',
+                  acceptAllBtn: "Aceitar tudo",
+                  rejectAllBtn: "Rejeitar tudo",
+                  showPreferencesBtn: "Gerenciar preferências",
+                  footer: '<a href="/privacy.html" class="cc__link">Política de privacidade</a>',
+                },
+                preferencesModal: {
+                  title: "Preferências de cookies e armazenamento",
+                  acceptAllBtn: "Aceitar tudo",
+                  acceptNecessaryBtn: "Rejeitar tudo",
+                  savePreferencesBtn: "Salvar preferências",
+                  sections: [
+                    { title: "Essenciais", linkedCategory: "necessary", description: "Necessários para o mapa: cache local de dados de surtos (localStorage) e lembrança do idioma. Não pode ser desativado." },
+                    { title: "Funcionalidade", linkedCategory: "functionality", description: "Detecção de idioma por IP via ipapi.co (seu país aproximado seleciona o idioma; sem armazenamento de dados) e GNews para manchetes de hantavírus." },
+                  ],
+                },
+              },
+              nl: {
+                consentModal: {
+                  title: "Deze website gebruikt cookies",
+                  description: 'Wij gebruiken essentiële opslag en diensten van derden (IP-geolocatie voor taaldetectie, GNews voor live-headlines) om deze kaart te laten werken. Geen advertentie- of trackingcookies. <a href="/privacy.html" class="cc__link">Privacybeleid</a>.',
+                  acceptAllBtn: "Alles accepteren",
+                  rejectAllBtn: "Alles weigeren",
+                  showPreferencesBtn: "Voorkeuren beheren",
+                  footer: '<a href="/privacy.html" class="cc__link">Privacybeleid</a>',
+                },
+                preferencesModal: {
+                  title: "Cookie- en opslagvoorkeuren",
+                  acceptAllBtn: "Alles accepteren",
+                  acceptNecessaryBtn: "Alles weigeren",
+                  savePreferencesBtn: "Voorkeuren opslaan",
+                  sections: [
+                    { title: "Essentieel", linkedCategory: "necessary", description: "Vereist voor de kaart: lokale cache van uitbraakgegevens (localStorage) en taalvoorkeur onthouden. Kan niet worden uitgeschakeld." },
+                    { title: "Functionaliteit", linkedCategory: "functionality", description: "IP-gebaseerde taaldetectie via ipapi.co (uw geschatte land selecteert een taal; geen opslag) en GNews voor live-hantavirusnieuws." },
+                  ],
+                },
+              },
+              ru: {
+                consentModal: {
+                  title: "Этот сайт использует файлы cookie",
+                  description: 'Мы используем основное хранилище и сторонние сервисы (геолокация по IP для определения языка, GNews для актуальных заголовков) для работы карты. Рекламные и отслеживающие файлы cookie не используются. <a href="/privacy.html" class="cc__link">Политика конфиденциальности</a>.',
+                  acceptAllBtn: "Принять всё",
+                  rejectAllBtn: "Отклонить всё",
+                  showPreferencesBtn: "Управление настройками",
+                  footer: '<a href="/privacy.html" class="cc__link">Политика конфиденциальности</a>',
+                },
+                preferencesModal: {
+                  title: "Настройки файлов cookie и хранилища",
+                  acceptAllBtn: "Принять всё",
+                  acceptNecessaryBtn: "Отклонить всё",
+                  savePreferencesBtn: "Сохранить настройки",
+                  sections: [
+                    { title: "Необходимые", linkedCategory: "necessary", description: "Требуется для работы карты: локальное кэширование данных о вспышке (localStorage) и запоминание языка. Не может быть отключено." },
+                    { title: "Функциональность", linkedCategory: "functionality", description: "Определение языка по IP через ipapi.co (ваша приблизительная страна выбирает язык; данные не сохраняются) и GNews для новостей о хантавирусе." },
+                  ],
+                },
+              },
+              ja: {
+                consentModal: {
+                  title: "このサイトはクッキーを使用しています",
+                  description: 'このマップを運営するために、必須ストレージとサードパーティサービス（言語検出のためのIPジオロケーション、ライブヘッドライン用GNews）を使用しています。広告やトラッキングのクッキーは使用していません。<a href="/privacy.html" class="cc__link">プライバシーポリシー</a>',
+                  acceptAllBtn: "すべて承認",
+                  rejectAllBtn: "すべて拒否",
+                  showPreferencesBtn: "設定を管理",
+                  footer: '<a href="/privacy.html" class="cc__link">プライバシーポリシー</a>',
+                },
+                preferencesModal: {
+                  title: "クッキーとストレージの設定",
+                  acceptAllBtn: "すべて承認",
+                  acceptNecessaryBtn: "すべて拒否",
+                  savePreferencesBtn: "設定を保存",
+                  sections: [
+                    { title: "必須", linkedCategory: "necessary", description: "マップの機能に必要：アウトブレイクデータのローカルキャッシュ（localStorage）と言語設定の保存。無効にできません。" },
+                    { title: "機能", linkedCategory: "functionality", description: "ipapi.coによるIPベースの言語検出（おおよその国が言語を選択；データは保存されません）とGNewsによるハンタウイルスのライブヘッドライン。" },
+                  ],
+                },
+              },
+              ko: {
+                consentModal: {
+                  title: "이 사이트는 쿠키를 사용합니다",
+                  description: '이 지도를 운영하기 위해 필수 저장소와 타사 서비스(언어 감지를 위한 IP 지리위치, 실시간 헤드라인을 위한 GNews)를 사용합니다. 광고 또는 추적 쿠키는 사용하지 않습니다. <a href="/privacy.html" class="cc__link">개인정보 처리방침</a>',
+                  acceptAllBtn: "모두 수락",
+                  rejectAllBtn: "모두 거부",
+                  showPreferencesBtn: "기본 설정 관리",
+                  footer: '<a href="/privacy.html" class="cc__link">개인정보 처리방침</a>',
+                },
+                preferencesModal: {
+                  title: "쿠키 및 저장소 기본 설정",
+                  acceptAllBtn: "모두 수락",
+                  acceptNecessaryBtn: "모두 거부",
+                  savePreferencesBtn: "기본 설정 저장",
+                  sections: [
+                    { title: "필수", linkedCategory: "necessary", description: "지도 기능에 필요합니다: 발생 데이터 로컬 캐싱(localStorage) 및 언어 기본 설정 저장. 비활성화할 수 없습니다." },
+                    { title: "기능", linkedCategory: "functionality", description: "ipapi.co를 통한 IP 기반 언어 감지(대략적인 국가가 언어를 선택; 데이터 저장 없음) 및 실시간 한타바이러스 뉴스를 위한 GNews." },
+                  ],
+                },
+              },
+              ar: {
+                consentModal: {
+                  title: "يستخدم هذا الموقع ملفات تعريف الارتباط",
+                  description: 'نستخدم التخزين الأساسي وخدمات الطرف الثالث (تحديد الموقع الجغرافي بواسطة IP لاكتشاف اللغة، وGNews للعناوين المباشرة) لتشغيل هذه الخريطة. لا تُستخدم ملفات تعريف ارتباط الإعلانات أو التتبع. <a href="/privacy.html" class="cc__link">سياسة الخصوصية</a>',
+                  acceptAllBtn: "قبول الكل",
+                  rejectAllBtn: "رفض الكل",
+                  showPreferencesBtn: "إدارة التفضيلات",
+                  footer: '<a href="/privacy.html" class="cc__link">سياسة الخصوصية</a>',
+                },
+                preferencesModal: {
+                  title: "تفضيلات ملفات تعريف الارتباط والتخزين",
+                  acceptAllBtn: "قبول الكل",
+                  acceptNecessaryBtn: "رفض الكل",
+                  savePreferencesBtn: "حفظ التفضيلات",
+                  sections: [
+                    { title: "ضروري", linkedCategory: "necessary", description: "مطلوب لعمل الخريطة: تخزين بيانات الفاشية محليًا (localStorage) وحفظ تفضيل اللغة. لا يمكن تعطيله." },
+                    { title: "الوظائف", linkedCategory: "functionality", description: "اكتشاف اللغة بواسطة IP عبر ipapi.co (يُستخدم بلدك التقريبي لاختيار اللغة؛ لا يتم تخزين أي بيانات) وGNews لعناوين الهانتافيروس المباشرة." },
                   ],
                 },
               },

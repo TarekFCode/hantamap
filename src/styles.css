@@ -417,6 +417,11 @@ textarea {
   overflow-y: auto;
   padding-top: 8px;
   padding-right: 4px;
+  transition: opacity 0.3s ease;
+}
+
+.news-list--translating {
+  opacity: 0.45;
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.09) transparent;
 }
@@ -527,6 +532,10 @@ textarea {
   display: flex;
   width: max-content;
   animation: ticker-scroll 40s linear infinite;
+}
+
+.ticker--rtl .ticker-track {
+  animation: ticker-scroll-rtl 40s linear infinite;
 }
 
 .ticker-track p {
@@ -822,6 +831,16 @@ textarea {
 
   to {
     transform: translateX(-33.333%);
+  }
+}
+
+@keyframes ticker-scroll-rtl {
+  from {
+    transform: translateX(-33.333%);
+  }
+
+  to {
+    transform: translateX(0);
   }
 }
 
