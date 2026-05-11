@@ -14,12 +14,19 @@
   box-sizing: border-box;
 }
 
-html,
-body,
+html {
+  height: 100%;
+}
+
+body {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+}
+
 #root {
   width: 100%;
-  height: 100%;
-  margin: 0;
+  height: 100vh;
 }
 
 button {
@@ -821,6 +828,99 @@ textarea {
   font-size: 0.78rem;
   font-weight: 600;
   font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── OUTBREAK SUMMARY (below-fold, crawlable) ── */
+
+#outbreak-summary {
+  background: #050814;
+  color: #bfcbd8;
+  padding: 52px 24px 72px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.outbreak-summary-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+#outbreak-summary h1 {
+  font-size: clamp(1.15rem, 2.5vw, 1.7rem);
+  font-weight: 700;
+  color: #f0f4f8;
+  margin: 0 0 14px;
+  letter-spacing: 0.02em;
+}
+
+#outbreak-summary p {
+  margin: 0 0 16px;
+  line-height: 1.65;
+  font-size: 0.9rem;
+}
+
+.summary-meta {
+  font-size: 0.75rem !important;
+  color: rgba(191, 203, 216, 0.5) !important;
+  margin-bottom: 36px !important;
+}
+
+.summary-meta a {
+  color: rgba(191, 203, 216, 0.7);
+  text-decoration: underline;
+}
+
+.summary-groups {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 32px;
+  margin-bottom: 36px;
+}
+
+.summary-group h2 {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary-confirmed h2 {
+  color: #ef5350;
+}
+
+.summary-suspected h2 {
+  color: #fb8c00;
+}
+
+.summary-monitoring h2 {
+  color: #7e57c2;
+}
+
+#outbreak-summary ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#outbreak-summary li {
+  font-size: 0.82rem;
+  padding: 4px 0;
+  color: rgba(191, 203, 216, 0.82);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.summary-sources {
+  font-size: 0.72rem !important;
+  color: rgba(191, 203, 216, 0.42) !important;
+  line-height: 1.6;
+  margin: 0 !important;
+}
+
+.summary-sources a {
+  color: rgba(191, 203, 216, 0.62);
+  text-decoration: underline;
 }
 
 /* ── ANIMATIONS ── */

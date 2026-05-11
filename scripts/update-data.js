@@ -32,6 +32,7 @@ const outbreakStorePath = path.join(
   "shared",
   "outbreak-store.js",
 );
+const indexHtmlPath = path.join(projectRoot, "index.html");
 const shouldSkipGit = process.argv.includes("--no-git");
 
 async function fetchText(url, userAgent) {
@@ -246,6 +247,86 @@ export async function writeOutbreakData(data) {
 `;
 }
 
+function generateSummaryHtml(outbreaks) {
+  const sorted = {
+    confirmed: [...outbreaks.filter((o) => o.status === "confirmed")].sort(
+      (a, b) => b.deaths - a.deaths || b.confirmedCases - a.confirmedCases,
+    ),
+    suspected: [...outbreaks.filter((o) => o.status === "suspected")].sort(
+      (a, b) => b.deaths - a.deaths || b.confirmedCases - a.confirmedCases,
+    ),
+    monitoring: [...outbreaks.filter((o) => o.status === "monitoring")].sort(
+      (a, b) => a.name.localeCompare(b.name),
+    ),
+  };
+
+  const totalCases = outbreaks.reduce((s, o) => s + o.confirmedCases, 0);
+  const totalDeaths = outbreaks.reduce((s, o) => s + o.deaths, 0);
+  const dateStr = new Date().toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
+  const countryItem = (c) => {
+    let text = c.name;
+    if (c.confirmedCases > 0)
+      text += ` - ${c.confirmedCases} case${c.confirmedCases !== 1 ? "s" : ""}`;
+    if (c.deaths > 0)
+      text += `, ${c.deaths} death${c.deaths !== 1 ? "s" : ""}`;
+    return `              <li>${text}</li>`;
+  };
+
+  const lines = [
+    `    <section id="outbreak-summary" aria-label="Current outbreak summary">`,
+    `      <div class="outbreak-summary-inner">`,
+    `        <h1>Hantavirus Outbreak 2026 - Live Global Tracker</h1>`,
+    `        <p>hantamaps.com tracks the 2026 Andes hantavirus outbreak linked to the MV Hondius cruise ship. The interactive map above shows confirmed cases, suspected cases, and monitoring countries updated every 6 hours from WHO, CDC, ECDC, and national health sources.</p>`,
+    `        <p class="summary-meta">Last updated: ${dateStr} &nbsp;|&nbsp; ${outbreaks.length} countries tracked &nbsp;|&nbsp; ${totalCases} confirmed cases &nbsp;|&nbsp; ${totalDeaths} deaths &nbsp;|&nbsp; <a href="/data.json">Raw data (JSON)</a></p>`,
+    `        <div class="summary-groups">`,
+    `          <div class="summary-group summary-confirmed">`,
+    `            <h2>Confirmed Cases (${sorted.confirmed.length} countries)</h2>`,
+    `            <ul>`,
+    ...sorted.confirmed.map(countryItem),
+    `            </ul>`,
+    `          </div>`,
+    `          <div class="summary-group summary-suspected">`,
+    `            <h2>Suspected Cases (${sorted.suspected.length} countries)</h2>`,
+    `            <ul>`,
+    ...sorted.suspected.map(countryItem),
+    `            </ul>`,
+    `          </div>`,
+    `          <div class="summary-group summary-monitoring">`,
+    `            <h2>Under Monitoring (${sorted.monitoring.length} countries)</h2>`,
+    `            <ul>`,
+    ...sorted.monitoring.map((c) => `              <li>${c.name}</li>`),
+    `            </ul>`,
+    `          </div>`,
+    `        </div>`,
+    `        <p class="summary-sources">Data compiled from WHO, CDC, ECDC, PAHO, national health authorities, and verified news reports. <a href="/hantavirus-learn-more.html">Learn more about Andes hantavirus</a> | <a href="/hantavirus-prevention.html">Prevention guide</a></p>`,
+    `      </div>`,
+    `    </section>`,
+  ];
+
+  return lines.join("\n");
+}
+
+function updateIndexHtml(html, outbreaks) {
+  const START = "<!-- OUTBREAK-SUMMARY-START -->";
+  const END = "<!-- OUTBREAK-SUMMARY-END -->";
+  const startIdx = html.indexOf(START);
+  const endIdx = html.indexOf(END);
+
+  if (startIdx === -1 || endIdx === -1) {
+    console.warn("Could not find outbreak summary markers in index.html - skipping HTML update");
+    return html;
+  }
+
+  const before = html.slice(0, startIdx + START.length);
+  const after = html.slice(endIdx);
+  return `${before}\n${generateSummaryHtml(outbreaks)}\n    ${after}`;
+}
+
 function describeChanges(before, after) {
   const beforeByName = new Map(before.map((item) => [item.name, item]));
   const changes = [];
@@ -309,6 +390,8 @@ async function main() {
     await writeFile(dataPath, formatOutbreaksFile(outbreaks), "utf8");
     await writeFile(publicDataPath, formatPublicDataFile(outbreaks), "utf8");
     await writeFile(outbreakStorePath, formatOutbreakStoreFile(outbreaks), "utf8");
+    const indexHtml = await readFile(indexHtmlPath, "utf8");
+    await writeFile(indexHtmlPath, updateIndexHtml(indexHtml, outbreaks), "utf8");
   }
 
   if (shouldSkipGit) {
