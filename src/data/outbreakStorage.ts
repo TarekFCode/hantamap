@@ -51,6 +51,20 @@ function normalizeOutbreak(value: unknown): OutbreakDataPoint | null {
   };
 }
 
+export function getLastUpdated(): string | null {
+  try {
+    const storedValue = window.localStorage.getItem(OUTBREAK_STORAGE_KEY);
+    if (!storedValue) return null;
+    const parsed = JSON.parse(storedValue) as unknown;
+    if (parsed && typeof parsed === "object" && "updatedAt" in parsed) {
+      return (parsed as { updatedAt: string }).updatedAt;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 export function loadOutbreaks(): OutbreakDataPoint[] {
   try {
     const storedValue = window.localStorage.getItem(OUTBREAK_STORAGE_KEY);

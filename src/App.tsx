@@ -6,6 +6,7 @@ import NewsFeed from "./components/NewsFeed";
 import { OutbreakDataPoint, OutbreakStatus } from "./data/outbreaks";
 import {
   fetchSharedOutbreaks,
+  getLastUpdated,
   loadOutbreaks,
   OUTBREAK_STORAGE_EVENT,
   OUTBREAK_STORAGE_KEY,
@@ -245,6 +246,20 @@ const COUNTRY_ISO_CODES: Record<string, string> = {
   Uruguay: "UY",
 };
 
+function formatLastUpdated(isoString: string, language: SupportedLanguage): string {
+  try {
+    return new Intl.DateTimeFormat(language, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    }).format(new Date(isoString));
+  } catch {
+    return isoString;
+  }
+}
+
 function translateCountryName(name: string, language: SupportedLanguage): string {
   const code = COUNTRY_ISO_CODES[name];
   if (!code) return name;
@@ -294,6 +309,7 @@ export default function App() {
   const mapContainer = useRef<HTMLDivElement | null>(null);
   const mapRef = useRef<Map | null>(null);
   const [outbreaks, setOutbreaks] = useState<OutbreakDataPoint[]>(loadOutbreaks);
+  const [lastUpdated, setLastUpdated] = useState<string | null>(getLastUpdated);
   const outbreaksRef = useRef(outbreaks);
   const languageRef = useRef<SupportedLanguage>("en");
   const [language, setLanguage] = useState<SupportedLanguage>(
@@ -329,7 +345,10 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const refreshOutbreaks = () => setOutbreaks(loadOutbreaks());
+    const refreshOutbreaks = () => {
+      setOutbreaks(loadOutbreaks());
+      setLastUpdated(getLastUpdated());
+    };
     const handleStorage = (event: StorageEvent) => {
       if (event.key === OUTBREAK_STORAGE_KEY) {
         refreshOutbreaks();
@@ -700,6 +719,12 @@ export default function App() {
       <section className="content-layout">
         <section className="globe-stage" aria-label="Global hantavirus map">
           <div ref={mapContainer} className="map-container" />
+          {lastUpdated && (
+            <div className="last-updated" aria-label="Data last updated">
+              {translateUiText("Last updated:", language)}{" "}
+              {formatLastUpdated(lastUpdated, language)}
+            </div>
+          )}
           <div className="map-legend" aria-label="Map status legend">
             <span>
               <i className="legend-dot legend-dot-confirmed" />

@@ -108,6 +108,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Privacy Policy": "Privacy Policy",
     "Learn More": "Learn More",
     "Prevention Guide": "Prevention Guide",
+    "Last updated:": "Last updated:",
   },
   de: {
     "Live News Feed": "Live-Nachrichten",
@@ -126,6 +127,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Privacy Policy": "Datenschutz",
     "Learn More": "Mehr erfahren",
     "Prevention Guide": "Präventionsratgeber",
+    "Last updated:": "Zuletzt aktualisiert:",
   },
   fr: {
     "Live News Feed": "Fil d'actualités",
@@ -144,6 +146,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Privacy Policy": "Confidentialité",
     "Learn More": "En savoir plus",
     "Prevention Guide": "Guide de prévention",
+    "Last updated:": "Dernière mise à jour :",
   },
   es: {
     "Live News Feed": "Noticias en vivo",
@@ -162,6 +165,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Privacy Policy": "Privacidad",
     "Learn More": "Más información",
     "Prevention Guide": "Guía de prevención",
+    "Last updated:": "Última actualización:",
   },
   pt: {
     "Live News Feed": "Notícias ao vivo",
@@ -180,6 +184,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Privacy Policy": "Política de privacidade",
     "Learn More": "Saiba mais",
     "Prevention Guide": "Guia de prevenção",
+    "Last updated:": "Última atualização:",
   },
   nl: {
     "Live News Feed": "Live nieuws",
@@ -198,6 +203,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Privacy Policy": "Privacybeleid",
     "Learn More": "Meer informatie",
     "Prevention Guide": "Preventiereeks",
+    "Last updated:": "Laatste update:",
   },
   ru: {
     "Live News Feed": "Прямая лента новостей",
@@ -216,6 +222,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Privacy Policy": "Политика конфиденциальности",
     "Learn More": "Узнать больше",
     "Prevention Guide": "Руководство по профилактике",
+    "Last updated:": "Последнее обновление:",
   },
   ja: {
     "Live News Feed": "ライブニュースフィード",
@@ -234,6 +241,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Privacy Policy": "プライバシーポリシー",
     "Learn More": "詳細を見る",
     "Prevention Guide": "予防ガイド",
+    "Last updated:": "最終更新：",
   },
   ko: {
     "Live News Feed": "실시간 뉴스 피드",
@@ -252,6 +260,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Privacy Policy": "개인정보 처리방침",
     "Learn More": "자세히 알아보기",
     "Prevention Guide": "예방 가이드",
+    "Last updated:": "آخر تحديث:",
   },
   ar: {
     "Live News Feed": "موجز الأخبار المباشر",
@@ -270,6 +279,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Privacy Policy": "سياسة الخصوصية",
     "Learn More": "اعرف المزيد",
     "Prevention Guide": "دليل الوقاية",
+    "Last updated:": "آخر تحديث:",
   },
 };
 

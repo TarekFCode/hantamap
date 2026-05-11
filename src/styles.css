@@ -264,6 +264,18 @@ textarea {
   background: transparent;
 }
 
+/* ── LAST UPDATED ── */
+
+.last-updated {
+  position: absolute;
+  left: 14px;
+  bottom: 88px;
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.45);
+  pointer-events: none;
+  z-index: 2;
+}
+
 /* ── MAP LEGEND ── */
 
 .map-legend {
