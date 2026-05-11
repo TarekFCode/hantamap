@@ -144,5 +144,10 @@
         <p>Diese Seite dient nur zu Informationszwecken. Wenden Sie sich für medizinischen Rat immer an einen qualifizierten Arzt.</p>
       </div>
     </main>
+    <script>
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") window.location.href = "/";
+      });
+    </script>
   </body>
 </html>

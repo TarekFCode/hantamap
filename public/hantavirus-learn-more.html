@@ -345,5 +345,10 @@
         <p>This page is for informational purposes only. Always consult a qualified healthcare professional for medical advice.</p>
       </div>
     </main>
+    <script>
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") window.location.href = "/";
+      });
+    </script>
   </body>
 </html>

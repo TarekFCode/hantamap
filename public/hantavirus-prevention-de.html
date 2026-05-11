@@ -147,5 +147,10 @@
         <p>Diese Seite dient nur zu Informationszwecken und stellt keine medizinische Beratung dar. Konsultieren Sie immer einen qualifizierten Arzt.</p>
       </div>
     </main>
+    <script>
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") window.location.href = "/";
+      });
+    </script>
   </body>
 </html>

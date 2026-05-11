@@ -135,5 +135,10 @@
         <p>このページは情報提供のみを目的としています。医療上のアドバイスについては常に資格のある医療専門家に相談してください。</p>
       </div>
     </main>
+    <script>
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") window.location.href = "/";
+      });
+    </script>
   </body>
 </html>

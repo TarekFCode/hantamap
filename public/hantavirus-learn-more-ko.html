@@ -135,5 +135,10 @@
         <p>이 페이지는 정보 제공 목적으로만 제공됩니다. 의학적 조언을 위해서는 항상 자격을 갖춘 의료 전문가와 상담하십시오.</p>
       </div>
     </main>
+    <script>
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") window.location.href = "/";
+      });
+    </script>
   </body>
 </html>

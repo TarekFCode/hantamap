@@ -216,6 +216,45 @@ function createStatusLineOpacityExpression(outbreaks: OutbreakDataPoint[]) {
   ];
 }
 
+const COUNTRY_ISO_CODES: Record<string, string> = {
+  Argentina: "AR",
+  "South Africa": "ZA",
+  UK: "GB",
+  Netherlands: "NL",
+  USA: "US",
+  Singapore: "SG",
+  Germany: "DE",
+  Switzerland: "CH",
+  Canada: "CA",
+  Denmark: "DK",
+  "New Zealand": "NZ",
+  "Saint Kitts and Nevis": "KN",
+  Sweden: "SE",
+  Turkey: "TR",
+  Spain: "ES",
+  France: "FR",
+  Sudan: "SD",
+  Israel: "IL",
+  Palestine: "PS",
+  Ukraine: "UA",
+  "Cabo Verde": "CV",
+  Georgia: "GE",
+  Iran: "IR",
+  Senegal: "SN",
+  Chile: "CL",
+  Uruguay: "UY",
+};
+
+function translateCountryName(name: string, language: SupportedLanguage): string {
+  const code = COUNTRY_ISO_CODES[name];
+  if (!code) return name;
+  try {
+    return new Intl.DisplayNames([language], { type: "region" }).of(code) ?? name;
+  } catch {
+    return name;
+  }
+}
+
 type CountryProperties = Record<string, unknown>;
 
 function asText(value: unknown): string {
@@ -238,7 +277,8 @@ function createOutbreakPopupContent(
   wrapper.className = "outbreak-popup";
 
   const title = document.createElement("strong");
-  title.textContent = asText(properties.name) || "Outbreak location";
+  const rawName = asText(properties.name);
+  title.textContent = rawName ? translateCountryName(rawName, language) : "Outbreak location";
 
   const cases = document.createElement("p");
   cases.textContent = `${translateUiText("Confirmed Cases:", language)} ${asText(properties.confirmedCases) || "0"}`;

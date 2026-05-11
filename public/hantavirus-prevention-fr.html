@@ -133,5 +133,10 @@
         <p>Cette page est à titre informatif uniquement et ne constitue pas un avis médical. Consultez toujours un professionnel de santé qualifié.</p>
       </div>
     </main>
+    <script>
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") window.location.href = "/";
+      });
+    </script>
   </body>
 </html>

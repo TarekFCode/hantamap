@@ -135,5 +135,10 @@
         <p>Эта страница носит исключительно информационный характер. Всегда консультируйтесь с квалифицированным специалистом здравоохранения.</p>
       </div>
     </main>
+    <script>
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") window.location.href = "/";
+      });
+    </script>
   </body>
 </html>

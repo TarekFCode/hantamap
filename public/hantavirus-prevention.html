@@ -323,5 +323,10 @@
         <p>This page is for informational purposes only and does not constitute medical advice. Always consult a qualified healthcare professional.</p>
       </div>
     </main>
+    <script>
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") window.location.href = "/";
+      });
+    </script>
   </body>
 </html>
