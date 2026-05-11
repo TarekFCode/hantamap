@@ -15,6 +15,11 @@ const SOURCE_URLS = [
   "https://www.cbsnews.com/amp/news/hantavirus-cruise-ship-mv-hondius-passengers-monitored-us-worldwide/",
   "https://www.ecdc.europa.eu/en/infectious-disease-topics/hantavirus-infection/surveillance-and-updates/andes-hantavirus-outbreak",
   "https://www.ungeneva.org/en/news-media/news/2026/05/118402/hantavirus-outbreak-cruise-ship-not-another-covid-who-says",
+  "https://www.cdc.gov/han/php/notices/han00528.html",
+  "https://www.cdc.gov/hantavirus/situation-summary/index.html",
+  "https://www.cidrap.umn.edu/news-perspective",
+  "https://outbreaknewstoday.com/?s=hantavirus",
+  "https://en.wikipedia.org/wiki/MV_Hondius_hantavirus_outbreak",
 ];
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
