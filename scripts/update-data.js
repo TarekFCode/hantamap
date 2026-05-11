@@ -323,7 +323,7 @@ async function main() {
     runGit(["push"]);
   }
 
-  console.log("\nDone. GitHub push completed; Netlify should redeploy automatically.");
+  console.log("\nDone. GitHub push completed; Cloudflare Pages will redeploy automatically.");
 }
 
 main().catch((error) => {

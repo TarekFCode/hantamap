@@ -97,7 +97,7 @@ export function saveOutbreaks(outbreaks: OutbreakDataPoint[]) {
 
 export async function fetchSharedOutbreaks(): Promise<OutbreakDataPoint[] | null> {
   try {
-    const response = await fetch("/.netlify/functions/check-updates", {
+    const response = await fetch("/data.json", {
       cache: "no-store",
     });
 
@@ -123,7 +123,7 @@ export async function fetchSharedOutbreaks(): Promise<OutbreakDataPoint[] | null
       OUTBREAK_STORAGE_KEY,
       JSON.stringify({
         updatedAt: data.updatedAt ?? new Date().toISOString(),
-        source: data.source ?? "netlify-function",
+        source: data.source ?? "github-actions",
         outbreaks,
       }),
     );
