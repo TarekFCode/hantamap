@@ -248,13 +248,16 @@ const COUNTRY_ISO_CODES: Record<string, string> = {
 
 function formatLastUpdated(isoString: string, language: SupportedLanguage): string {
   try {
+    const date = new Date(isoString);
+    const rounded = new Date(date);
+    rounded.setMinutes(date.getMinutes() >= 30 ? 60 : 0, 0, 0);
     return new Intl.DateTimeFormat(language, {
       year: "numeric",
       month: "short",
       day: "numeric",
       hour: "2-digit",
       minute: "2-digit",
-    }).format(new Date(isoString));
+    }).format(rounded);
   } catch {
     return isoString;
   }

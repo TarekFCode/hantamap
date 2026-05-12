@@ -283,7 +283,7 @@ function generateSummaryHtml(outbreaks) {
     `      <div class="outbreak-summary-inner">`,
     `        <h1>Hantavirus Outbreak 2026 - Live Global Tracker</h1>`,
     `        <p>hantamaps.com tracks the 2026 Andes hantavirus outbreak linked to the MV Hondius cruise ship. The interactive map above shows confirmed cases, suspected cases, and monitoring countries updated every 6 hours from WHO, CDC, ECDC, and national health sources.</p>`,
-    `        <p class="summary-meta">Last updated: ${dateStr} &nbsp;|&nbsp; ${outbreaks.length} countries tracked &nbsp;|&nbsp; ${totalCases} confirmed cases &nbsp;|&nbsp; ${totalDeaths} deaths &nbsp;|&nbsp; <a href="/data.json">Raw data (JSON)</a></p>`,
+    `        <p class="summary-meta">Last updated: ${dateStr} &nbsp;|&nbsp; ${outbreaks.length} countries tracked &nbsp;|&nbsp; ${totalCases} confirmed cases &nbsp;|&nbsp; ${totalDeaths} deaths</p>`,
     `        <div class="summary-groups">`,
     `          <div class="summary-group summary-confirmed">`,
     `            <h2>Confirmed Cases (${sorted.confirmed.length} countries)</h2>`,
@@ -389,6 +389,9 @@ async function main() {
     notes.forEach((note) => console.log(`- ${note}`));
   }
 
+  // Always refresh data.json so "Last updated" timestamp reflects latest check
+  await writeFile(publicDataPath, formatPublicDataFile(outbreaks), "utf8");
+
   if (changes.length === 0) {
     console.log("\nNo outbreak data changes detected.");
   } else {
@@ -397,7 +400,6 @@ async function main() {
 
     await mkdir(path.dirname(dataPath), { recursive: true });
     await writeFile(dataPath, formatOutbreaksFile(outbreaks), "utf8");
-    await writeFile(publicDataPath, formatPublicDataFile(outbreaks), "utf8");
     await writeFile(outbreakStorePath, formatOutbreakStoreFile(outbreaks), "utf8");
     const indexHtml = await readFile(indexHtmlPath, "utf8");
     await writeFile(indexHtmlPath, updateIndexHtml(indexHtml, outbreaks), "utf8");
