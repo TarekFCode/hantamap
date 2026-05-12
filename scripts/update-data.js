@@ -391,8 +391,12 @@ async function main() {
     notes.forEach((note) => console.log(`- ${note}`));
   }
 
-  // Always refresh data.json so "Last updated" timestamp reflects latest check
+  // Always refresh data.json and index.html so timestamp and counts stay current
   await writeFile(publicDataPath, formatPublicDataFile(outbreaks), "utf8");
+  const indexHtml = await readFile(indexHtmlPath, "utf8");
+  await writeFile(indexHtmlPath, updateIndexHtml(indexHtml, outbreaks), "utf8");
+  const sitemap = await readFile(sitemapPath, "utf8");
+  await writeFile(sitemapPath, updateSitemapLastmod(sitemap), "utf8");
 
   if (changes.length === 0) {
     console.log("\nNo outbreak data changes detected.");
@@ -403,10 +407,6 @@ async function main() {
     await mkdir(path.dirname(dataPath), { recursive: true });
     await writeFile(dataPath, formatOutbreaksFile(outbreaks), "utf8");
     await writeFile(outbreakStorePath, formatOutbreakStoreFile(outbreaks), "utf8");
-    const indexHtml = await readFile(indexHtmlPath, "utf8");
-    await writeFile(indexHtmlPath, updateIndexHtml(indexHtml, outbreaks), "utf8");
-    const sitemap = await readFile(sitemapPath, "utf8");
-    await writeFile(sitemapPath, updateSitemapLastmod(sitemap), "utf8");
   }
 
   if (shouldSkipGit) {
