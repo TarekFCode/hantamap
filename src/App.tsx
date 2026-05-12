@@ -298,13 +298,28 @@ function createOutbreakPopupContent(
   const rawName = asText(properties.name);
   title.textContent = rawName ? translateCountryName(rawName, language) : "Outbreak location";
 
-  const cases = document.createElement("p");
-  cases.textContent = `${translateUiText("Confirmed Cases:", language)} ${asText(properties.confirmedCases) || "0"}`;
+  const status = asText(properties.status);
+  const caseCount = Number(asText(properties.confirmedCases)) || 0;
+  const deathCount = Number(asText(properties.deaths)) || 0;
 
-  const deaths = document.createElement("p");
-  deaths.textContent = `${translateUiText("Deaths:", language)} ${asText(properties.deaths) || "0"}`;
+  if (status === "monitoring") {
+    const info = document.createElement("p");
+    info.textContent = translateUiText("Monitoring", language);
+    wrapper.append(title, info);
+  } else {
+    const caseLabel = status === "suspected"
+      ? translateUiText("Suspected Cases:", language)
+      : translateUiText("Confirmed Cases:", language);
+    const cases = document.createElement("p");
+    cases.textContent = `${caseLabel} ${caseCount}`;
+    wrapper.append(title, cases);
+    if (deathCount > 0) {
+      const deaths = document.createElement("p");
+      deaths.textContent = `${translateUiText("Deaths:", language)} ${deathCount}`;
+      wrapper.append(deaths);
+    }
+  }
 
-  wrapper.append(title, cases, deaths);
   return wrapper;
 }
 
