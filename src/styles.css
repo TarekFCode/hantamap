@@ -135,10 +135,9 @@ textarea {
 /* ── LANGUAGE SELECTOR ── */
 
 .language-selector {
-  position: fixed;
-  top: 10px;
-  right: 14px;
+  position: relative;
   z-index: 20;
+  margin-left: auto;
 }
 
 .language-selector-button {

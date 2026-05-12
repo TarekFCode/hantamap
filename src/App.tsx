@@ -710,14 +710,13 @@ export default function App() {
   }
 
   return (
-    <>
-      <LanguageSelector language={language} onChange={setLanguage} />
-      <main className="app-shell">
+    <main className="app-shell">
       <nav className="top-navbar" aria-label="Primary">
         <div className="brand-group">
           <h1>hantamaps.com</h1>
           <span className="live-badge">LIVE</span>
         </div>
+        <LanguageSelector language={language} onChange={setLanguage} />
       </nav>
 
       <section className="stats-bar" aria-label="Hantavirus summary">
@@ -792,6 +791,5 @@ export default function App() {
         </div>
       </div>
     </main>
-    </>
   );
 }
