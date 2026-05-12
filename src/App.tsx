@@ -744,15 +744,15 @@ export default function App() {
             </div>
           )}
           <div className="map-legend" aria-label="Map status legend">
-            <span>
+            <span data-tooltip="Laboratory-confirmed hantavirus case">
               <i className="legend-dot legend-dot-confirmed" />
               {translateUiText("Confirmed", language)}
             </span>
-            <span>
+            <span data-tooltip="Clinical symptoms present; lab confirmation pending">
               <i className="legend-dot legend-dot-suspected" />
               {translateUiText("Suspected", language)}
             </span>
-            <span>
+            <span data-tooltip="No cases yet — individuals with possible contact under health surveillance">
               <i className="legend-dot legend-dot-monitoring" />
               {translateUiText("Monitoring", language)}
             </span>

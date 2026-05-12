@@ -310,6 +310,39 @@ textarea {
   font-family: 'JetBrains Mono', monospace;
 }
 
+@media (hover: hover) {
+  .map-legend span[data-tooltip] {
+    position: relative;
+    cursor: help;
+  }
+
+  .map-legend span[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0d1424;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #bfcbd8;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    padding: 5px 9px;
+    border-radius: 4px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    z-index: 100;
+  }
+
+  .map-legend span[data-tooltip]:hover::after {
+    opacity: 1;
+  }
+}
+
 .legend-dot {
   width: 8px;
   height: 8px;
