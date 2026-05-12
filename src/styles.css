@@ -922,6 +922,27 @@ textarea {
   text-decoration: underline;
 }
 
+.summary-disclaimer {
+  font-size: 0.78rem !important;
+  color: rgba(191, 203, 216, 0.65) !important;
+  line-height: 1.6;
+  margin: 8px 0 0 !important;
+  border-left: 2px solid rgba(239, 83, 80, 0.4);
+  padding-left: 10px;
+}
+
+.summary-disclaimer a {
+  color: #ef5350;
+  text-decoration: underline;
+}
+
+.summary-definitions {
+  font-size: 0.72rem !important;
+  color: rgba(191, 203, 216, 0.45) !important;
+  line-height: 1.65;
+  margin: 8px 0 0 !important;
+}
+
 /* ── ANIMATIONS ── */
 
 @keyframes live-pulse {

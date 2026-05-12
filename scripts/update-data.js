@@ -305,6 +305,8 @@ function generateSummaryHtml(outbreaks) {
     `          </div>`,
     `        </div>`,
     `        <p class="summary-sources">Data compiled from WHO, CDC, ECDC, PAHO, national health authorities, and verified news reports. <a href="/hantavirus-learn-more.html">Learn more about Andes hantavirus</a> | <a href="/hantavirus-prevention.html">Prevention guide</a></p>`,
+    `        <p class="summary-disclaimer">Independent tracker using public sources. <a href="/hantavirus-prevention.html">Learn about prevention in our guide</a>, and consult local public health authorities for official medical advice.</p>`,
+    `        <p class="summary-definitions"><strong>Definitions:</strong> <em>Confirmed</em> — laboratory-confirmed case. <em>Probable/Suspected</em> — meets clinical criteria, laboratory result pending or inconclusive. <em>Monitored</em> — individuals with potential exposure under health surveillance. <em>Affected country</em> — at least one case or monitored individual officially reported.</p>`,
     `      </div>`,
     `    </section>`,
   ];
