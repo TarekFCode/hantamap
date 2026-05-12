@@ -752,7 +752,7 @@ export default function App() {
               <i className="legend-dot legend-dot-suspected" />
               {translateUiText("Suspected", language)}
             </span>
-            <span data-tooltip="No cases yet — individuals with possible contact under health surveillance">
+            <span data-tooltip="No cases yet; individuals with possible contact under health surveillance">
               <i className="legend-dot legend-dot-monitoring" />
               {translateUiText("Monitoring", language)}
             </span>
