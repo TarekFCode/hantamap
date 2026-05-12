@@ -695,8 +695,9 @@ export default function App() {
   }
 
   return (
-    <main className="app-shell">
+    <>
       <LanguageSelector language={language} onChange={setLanguage} />
+      <main className="app-shell">
       <nav className="top-navbar" aria-label="Primary">
         <div className="brand-group">
           <h1>hantamaps.com</h1>
@@ -776,5 +777,6 @@ export default function App() {
         </div>
       </div>
     </main>
+    </>
   );
 }
