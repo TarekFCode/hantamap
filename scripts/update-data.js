@@ -33,6 +33,7 @@ const outbreakStorePath = path.join(
   "outbreak-store.js",
 );
 const indexHtmlPath = path.join(projectRoot, "index.html");
+const sitemapPath = path.join(projectRoot, "public", "sitemap.xml");
 const shouldSkipGit = process.argv.includes("--no-git");
 
 async function fetchText(url, userAgent) {
@@ -311,6 +312,14 @@ function generateSummaryHtml(outbreaks) {
   return lines.join("\n");
 }
 
+function updateSitemapLastmod(xml) {
+  const today = new Date().toISOString().split("T")[0];
+  return xml.replace(
+    /(<loc>https:\/\/hantamaps\.com\/<\/loc>\s*<lastmod>)[^<]*/,
+    `$1${today}`,
+  );
+}
+
 function updateIndexHtml(html, outbreaks) {
   const START = "<!-- OUTBREAK-SUMMARY-START -->";
   const END = "<!-- OUTBREAK-SUMMARY-END -->";
@@ -392,6 +401,8 @@ async function main() {
     await writeFile(outbreakStorePath, formatOutbreakStoreFile(outbreaks), "utf8");
     const indexHtml = await readFile(indexHtmlPath, "utf8");
     await writeFile(indexHtmlPath, updateIndexHtml(indexHtml, outbreaks), "utf8");
+    const sitemap = await readFile(sitemapPath, "utf8");
+    await writeFile(sitemapPath, updateSitemapLastmod(sitemap), "utf8");
   }
 
   if (shouldSkipGit) {

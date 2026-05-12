@@ -260,7 +260,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Privacy Policy": "개인정보 처리방침",
     "Learn More": "자세히 알아보기",
     "Prevention Guide": "예방 가이드",
-    "Last updated:": "آخر تحديث:",
+    "Last updated:": "마지막 업데이트:",
   },
   ar: {
     "Live News Feed": "موجز الأخبار المباشر",
