@@ -934,6 +934,110 @@ textarea {
 }
 
 
+/* ── SCROLL DOWN BUTTON ── */
+
+.scroll-down-btn {
+  position: absolute;
+  bottom: 58px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(6, 12, 26, 0.72);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 50%;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition: color 0.15s, border-color 0.15s, background 0.15s;
+  animation: scroll-btn-pulse 2.4s ease-in-out infinite;
+}
+
+.scroll-down-btn:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(6, 12, 26, 0.9);
+  animation: none;
+}
+
+@keyframes scroll-btn-pulse {
+  0%, 100% { opacity: 0.55; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(4px); }
+}
+
+@media (max-width: 900px) {
+  .scroll-down-btn { display: none; }
+}
+
+/* ── OUTBREAK SUMMARY (below-fold, crawlable) ── */
+
+#outbreak-summary {
+  background: #050814;
+  color: #bfcbd8;
+  padding: 52px 24px 72px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.outbreak-summary-inner {
+  max-width: 780px;
+  margin: 0 auto;
+  display: grid;
+  gap: 18px;
+}
+
+#outbreak-summary h1 {
+  font-size: clamp(1.1rem, 2.2vw, 1.55rem);
+  font-weight: 700;
+  color: #f0f4f8;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+#outbreak-summary p {
+  margin: 0;
+  line-height: 1.7;
+  font-size: 0.88rem;
+}
+
+.summary-meta {
+  font-size: 0.78rem !important;
+  color: rgba(191, 203, 216, 0.55) !important;
+}
+
+.summary-meta a,
+.summary-sources a {
+  color: rgba(191, 203, 216, 0.7);
+  text-decoration: underline;
+}
+
+.summary-disclaimer {
+  color: rgba(191, 203, 216, 0.72) !important;
+  border-left: 2px solid rgba(239, 83, 80, 0.35);
+  padding-left: 12px;
+}
+
+.summary-disclaimer a {
+  color: #ef5350;
+  text-decoration: underline;
+}
+
+.summary-definitions {
+  font-size: 0.78rem !important;
+  color: rgba(191, 203, 216, 0.45) !important;
+}
+
+.summary-sources {
+  font-size: 0.72rem !important;
+  color: rgba(191, 203, 216, 0.35) !important;
+  letter-spacing: 0.04em;
+}
+
 /* ── ANIMATIONS ── */
 
 @keyframes live-pulse {

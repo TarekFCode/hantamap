@@ -737,6 +737,15 @@ export default function App() {
       <section className="content-layout">
         <section className="globe-stage" aria-label="Global hantavirus map">
           <div ref={mapContainer} className="map-container" />
+          <button
+            className="scroll-down-btn"
+            aria-label="Scroll to site information"
+            onClick={() =>
+              document.getElementById("outbreak-summary")?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            &#8964;
+          </button>
           {lastUpdated && (
             <div className="last-updated" aria-label="Data last updated">
               {translateUiText("Last updated:", language)}{" "}
