@@ -999,6 +999,14 @@ textarea {
   letter-spacing: 0.02em;
 }
 
+#outbreak-summary h2 {
+  font-size: clamp(0.85rem, 1.4vw, 1rem);
+  font-weight: 700;
+  color: #c8d6e4;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
 #outbreak-summary p {
   margin: 0;
   line-height: 1.7;
