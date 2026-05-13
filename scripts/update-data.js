@@ -4,7 +4,7 @@ import { execFileSync } from "node:child_process";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { applySourceTextUpdates } from "../netlify/shared/outbreak-classifier.js";
+import { applySourceTextUpdates } from "./outbreak-classifier.js";
 
 const WHO_URL =
   "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON599";
@@ -26,12 +26,6 @@ const __dirname = path.dirname(__filename);
 const projectRoot = path.resolve(__dirname, "..");
 const dataPath = path.join(projectRoot, "src", "data", "outbreaks.ts");
 const publicDataPath = path.join(projectRoot, "public", "data.json");
-const outbreakStorePath = path.join(
-  projectRoot,
-  "netlify",
-  "shared",
-  "outbreak-store.js",
-);
 const indexHtmlPath = path.join(projectRoot, "index.html");
 const sitemapPath = path.join(projectRoot, "public", "sitemap.xml");
 const shouldSkipGit = process.argv.includes("--no-git");
@@ -144,110 +138,6 @@ function formatPublicDataFile(outbreaks) {
   return `${JSON.stringify(createOutbreakDataPayload(outbreaks), null, 2)}\n`;
 }
 
-function formatOutbreakObject(outbreak, indent = 4) {
-  const spaces = " ".repeat(indent);
-  const fieldSpaces = " ".repeat(indent + 2);
-
-  return `${spaces}{
-${fieldSpaces}name: "${outbreak.name.replaceAll('"', '\\"')}",
-${fieldSpaces}latitude: ${outbreak.latitude},
-${fieldSpaces}longitude: ${outbreak.longitude},
-${fieldSpaces}confirmedCases: ${outbreak.confirmedCases},
-${fieldSpaces}deaths: ${outbreak.deaths},
-${fieldSpaces}status: "${outbreak.status}",
-${spaces}}`;
-}
-
-function formatOutbreakStoreFile(outbreaks) {
-  const entries = outbreaks.map((outbreak) => formatOutbreakObject(outbreak)).join(",\n");
-  const payload = createOutbreakDataPayload(outbreaks);
-
-  return `import { getStore } from "@netlify/blobs";
-
-export const OUTBREAK_BLOB_KEY = "data.json";
-export const OUTBREAK_STORE_NAME = "outbreak-data";
-
-export const DEFAULT_OUTBREAK_DATA = {
-  updatedAt: "${payload.updatedAt}",
-  source: "${payload.source}",
-  outbreaks: [
-${entries},
-  ],
-};
-
-const VALID_STATUSES = new Set(["confirmed", "suspected", "monitoring"]);
-
-function normalizeOutbreak(value) {
-  if (!value || typeof value !== "object") {
-    return null;
-  }
-
-  if (
-    typeof value.name !== "string" ||
-    !Number.isFinite(value.latitude) ||
-    !Number.isFinite(value.longitude) ||
-    !Number.isFinite(value.confirmedCases) ||
-    !Number.isFinite(value.deaths) ||
-    !VALID_STATUSES.has(value.status)
-  ) {
-    return null;
-  }
-
-  return {
-    name: value.name,
-    latitude: value.latitude,
-    longitude: value.longitude,
-    confirmedCases: Math.max(0, Math.round(value.confirmedCases)),
-    deaths: Math.max(0, Math.round(value.deaths)),
-    status: value.status,
-  };
-}
-
-export function normalizeOutbreakData(value) {
-  if (!value || typeof value !== "object" || !Array.isArray(value.outbreaks)) {
-    return DEFAULT_OUTBREAK_DATA;
-  }
-
-  const outbreaks = value.outbreaks
-    .map(normalizeOutbreak)
-    .filter((item) => item !== null);
-
-  if (outbreaks.length === 0) {
-    return DEFAULT_OUTBREAK_DATA;
-  }
-
-  return {
-    updatedAt:
-      typeof value.updatedAt === "string"
-        ? value.updatedAt
-        : new Date().toISOString(),
-    source: typeof value.source === "string" ? value.source : "netlify-blobs",
-    outbreaks,
-  };
-}
-
-export async function readOutbreakData() {
-  const store = getStore(OUTBREAK_STORE_NAME);
-  const storedValue = await store.get(OUTBREAK_BLOB_KEY, { type: "json" });
-
-  if (!storedValue) {
-    return DEFAULT_OUTBREAK_DATA;
-  }
-
-  return normalizeOutbreakData(storedValue);
-}
-
-export async function writeOutbreakData(data) {
-  const normalizedData = normalizeOutbreakData(data);
-  const store = getStore(OUTBREAK_STORE_NAME);
-
-  await store.setJSON(OUTBREAK_BLOB_KEY, normalizedData);
-
-  return normalizedData;
-}
-`;
-}
-
 function generateSummaryHtml(outbreaks) {
   const sorted = {
     confirmed: [...outbreaks.filter((o) => o.status === "confirmed")].sort(
@@ -304,7 +194,7 @@ function generateSummaryHtml(outbreaks) {
     `            </ul>`,
     `          </div>`,
     `        </div>`,
-    `        <p class="summary-sources">Data compiled from WHO, CDC, ECDC, PAHO, national health authorities, and verified news reports. <a href="/hantavirus-learn-more.html">Learn more about Andes hantavirus</a> | <a href="/hantavirus-prevention.html">Prevention guide</a></p>`,
+    `        <p class="summary-sources">Data compiled from WHO, CDC, ECDC, PAHO, national health authorities, and verified news reports. <a href="/hantavirus-learn-more.html">Learn more about Andes hantavirus</a> | <a href="/hantavirus-prevention.html">Prevention guide</a> | <a href="/about.html">About this site</a></p>`,
     `        <p class="summary-disclaimer">Independent tracker using public sources. <a href="/hantavirus-prevention.html">Learn about prevention in our guide</a>, and consult local public health authorities for official medical advice.</p>`,
     `        <p class="summary-definitions"><strong>Definitions:</strong> <em>Confirmed:</em> laboratory-confirmed case. <em>Probable/Suspected:</em> meets clinical criteria, lab result pending or inconclusive. <em>Under Monitoring:</em> no cases yet; individuals with possible contact under health surveillance. <em>Affected country:</em> at least one case or monitored individual officially reported.</p>`,
     `      </div>`,
@@ -336,6 +226,14 @@ function updateIndexHtml(html, outbreaks) {
   const before = html.slice(0, startIdx + START.length);
   const after = html.slice(endIdx);
   return `${before}\n${generateSummaryHtml(outbreaks)}\n    ${after}`;
+}
+
+function updateJsonLdDate(html) {
+  const today = new Date().toISOString().split("T")[0];
+  return html.replace(
+    /(#outbreak-data"[\s\S]{1,400}?"dateModified":\s*")[^"]*"/,
+    `$1${today}"`,
+  );
 }
 
 function describeChanges(before, after) {
@@ -394,7 +292,7 @@ async function main() {
   // Always refresh data.json and index.html so timestamp and counts stay current
   await writeFile(publicDataPath, formatPublicDataFile(outbreaks), "utf8");
   const indexHtml = await readFile(indexHtmlPath, "utf8");
-  await writeFile(indexHtmlPath, updateIndexHtml(indexHtml, outbreaks), "utf8");
+  await writeFile(indexHtmlPath, updateJsonLdDate(updateIndexHtml(indexHtml, outbreaks)), "utf8");
   const sitemap = await readFile(sitemapPath, "utf8");
   await writeFile(sitemapPath, updateSitemapLastmod(sitemap), "utf8");
 
@@ -406,7 +304,6 @@ async function main() {
 
     await mkdir(path.dirname(dataPath), { recursive: true });
     await writeFile(dataPath, formatOutbreaksFile(outbreaks), "utf8");
-    await writeFile(outbreakStorePath, formatOutbreakStoreFile(outbreaks), "utf8");
   }
 
   if (shouldSkipGit) {

@@ -5,8 +5,8 @@ hantamaps.com is a public web app for tracking country-level hantavirus and Ande
 ## Site
 
 - URL: https://hantamaps.com/
-- Data endpoint: https://hantamaps.com/.netlify/functions/check-updates
-- Static fallback data: https://hantamaps.com/data.json
+- About: https://hantamaps.com/about.html
+- Data endpoint: https://hantamaps.com/data.json
 - Sitemap: https://hantamaps.com/sitemap.xml
 - Robots policy: https://hantamaps.com/robots.txt
 

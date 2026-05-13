@@ -28,7 +28,8 @@
     />
     <meta property="og:url" content="https://hantamaps.com/" />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:image" content="https://hantamaps.com/social-preview.svg" />
+    <meta property="og:image" content="https://hantamaps.com/social-preview.png" />
+    <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Hantamaps.com - Live Hantavirus Outbreak Tracker showing confirmed, suspected, and monitoring countries" />
@@ -39,7 +40,7 @@
       name="twitter:description"
       content="Live global map tracking the 2026 Andes hantavirus outbreak linked to MV Hondius. Country-level confirmed cases, deaths, and monitoring status."
     />
-    <meta name="twitter:image" content="https://hantamaps.com/social-preview.svg" />
+    <meta name="twitter:image" content="https://hantamaps.com/social-preview.png" />
     <meta name="twitter:image:alt" content="Hantamaps.com live hantavirus outbreak tracker" />
 
     <script type="application/ld+json">
@@ -70,7 +71,7 @@
             "name": "hantamaps.com Hantavirus Outbreak Data 2026",
             "description": "Country-level hantavirus outbreak data including confirmed cases, deaths, and confirmed, suspected, or monitoring status. Updated every 6 hours.",
             "url": "https://hantamaps.com/data.json",
-            "dateModified": "2026-05-11",
+            "dateModified": "2026-05-13",
             "distribution": {
               "@type": "DataDownload",
               "encodingFormat": "application/json",
@@ -136,6 +137,7 @@
           categories: {
             necessary: { enabled: true, readOnly: true },
             functionality: { enabled: true, readOnly: false },
+            advertising: { enabled: false, readOnly: false },
           },
           language: {
             default: ccLang,
@@ -143,7 +145,7 @@
               en: {
                 consentModal: {
                   title: "This site uses cookies",
-                  description: 'We use essential storage and third-party services (IP geolocation for language detection, GNews for live headlines) to run this map. No advertising or tracking cookies are used. <a href="/privacy.html" class="cc__link">Privacy Policy</a>.',
+                  description: 'We use essential storage and third-party services (IP geolocation for language detection, GNews for live headlines, Google AdSense for advertising) to run this map. <a href="/privacy.html" class="cc__link">Privacy Policy</a>.',
                   acceptAllBtn: "Accept all",
                   rejectAllBtn: "Reject all",
                   showPreferencesBtn: "Manage preferences",
@@ -157,13 +159,14 @@
                   sections: [
                     { title: "Essential", linkedCategory: "necessary", description: "Required for the map to function: caching outbreak data locally (localStorage) and remembering your language preference. Cannot be disabled." },
                     { title: "Functionality", linkedCategory: "functionality", description: "IP-based language detection via ipapi.co (your approximate country selects a language; no data stored) and GNews for live hantavirus headlines." },
+                    { title: "Advertising", linkedCategory: "advertising", description: "Google AdSense uses cookies to serve relevant ads. Accepting allows personalised ads based on your interests; rejecting means ads may still appear but will be non-personalised." },
                   ],
                 },
               },
               de: {
                 consentModal: {
                   title: "Diese Website verwendet Cookies",
-                  description: 'Wir verwenden grundlegende Datenspeicherung und Drittanbieterdienste (IP-Geolokalisierung zur Spracherkennung, GNews für Live-Schlagzeilen), um diese Karte zu betreiben. Es werden keine Werbe- oder Tracking-Cookies verwendet. <a href="/privacy.html" class="cc__link">Datenschutzrichtlinie</a>.',
+                  description: 'Wir verwenden grundlegende Datenspeicherung und Drittanbieterdienste (IP-Geolokalisierung zur Spracherkennung, GNews für Live-Schlagzeilen, Google AdSense für Werbung), um diese Karte zu betreiben. <a href="/privacy.html" class="cc__link">Datenschutzrichtlinie</a>.',
                   acceptAllBtn: "Alle akzeptieren",
                   rejectAllBtn: "Alle ablehnen",
                   showPreferencesBtn: "Einstellungen verwalten",
@@ -177,13 +180,14 @@
                   sections: [
                     { title: "Notwendig", linkedCategory: "necessary", description: "Für den Kartenbetrieb erforderlich: lokales Cachen von Ausbruchsdaten (localStorage) und Speichern der Sprachpräferenz. Kann nicht deaktiviert werden." },
                     { title: "Funktionalität", linkedCategory: "functionality", description: "IP-basierte Spracherkennung über ipapi.co (Ihr ungefähres Land wählt die Sprache; keine Datenspeicherung) und GNews für Live-Hantavirus-Schlagzeilen." },
+                    { title: "Werbung", linkedCategory: "advertising", description: "Google AdSense verwendet Cookies für relevante Anzeigen. Zustimmung erlaubt personalisierte Anzeigen; bei Ablehnung können Anzeigen weiterhin erscheinen, sind aber nicht personalisiert." },
                   ],
                 },
               },
               fr: {
                 consentModal: {
                   title: "Ce site utilise des cookies",
-                  description: 'Nous utilisons du stockage essentiel et des services tiers (géolocalisation IP pour la langue, GNews pour les titres en direct) pour faire fonctionner cette carte. Aucun cookie publicitaire ou de suivi. <a href="/privacy.html" class="cc__link">Politique de confidentialité</a>.',
+                  description: 'Nous utilisons du stockage essentiel et des services tiers (géolocalisation IP pour la langue, GNews pour les titres en direct, Google AdSense pour la publicité) pour faire fonctionner cette carte. <a href="/privacy.html" class="cc__link">Politique de confidentialité</a>.',
                   acceptAllBtn: "Tout accepter",
                   rejectAllBtn: "Tout refuser",
                   showPreferencesBtn: "Gérer les préférences",
@@ -197,13 +201,14 @@
                   sections: [
                     { title: "Essentiels", linkedCategory: "necessary", description: "Nécessaires au fonctionnement : mise en cache locale des données d'épidémie (localStorage) et mémorisation de la langue. Ne peut pas être désactivé." },
                     { title: "Fonctionnalité", linkedCategory: "functionality", description: "Détection de la langue par IP via ipapi.co (votre pays approximatif sélectionne la langue ; aucune donnée stockée) et GNews pour les actualités hantavirus." },
+                    { title: "Publicité", linkedCategory: "advertising", description: "Google AdSense utilise des cookies pour diffuser des annonces. Accepter permet des annonces personnalisées selon vos intérêts ; refuser signifie que des annonces peuvent quand même apparaître mais ne seront pas personnalisées." },
                   ],
                 },
               },
               es: {
                 consentModal: {
                   title: "Este sitio usa cookies",
-                  description: 'Usamos almacenamiento esencial y servicios de terceros (geolocalización IP para el idioma, GNews para noticias en directo) para operar este mapa. No se usan cookies de rastreo ni publicidad. <a href="/privacy.html" class="cc__link">Política de privacidad</a>.',
+                  description: 'Usamos almacenamiento esencial y servicios de terceros (geolocalización IP para el idioma, GNews para noticias en directo, Google AdSense para publicidad) para operar este mapa. <a href="/privacy.html" class="cc__link">Política de privacidad</a>.',
                   acceptAllBtn: "Aceptar todo",
                   rejectAllBtn: "Rechazar todo",
                   showPreferencesBtn: "Gestionar preferencias",
@@ -217,13 +222,14 @@
                   sections: [
                     { title: "Esenciales", linkedCategory: "necessary", description: "Necesarios para el mapa: caché local de datos de brotes (localStorage) y recordar el idioma. No se puede desactivar." },
                     { title: "Funcionalidad", linkedCategory: "functionality", description: "Detección de idioma por IP mediante ipapi.co (su país aproximado selecciona el idioma; sin almacenamiento de datos) y GNews para noticias de hantavirus." },
+                    { title: "Publicidad", linkedCategory: "advertising", description: "Google AdSense usa cookies para mostrar anuncios relevantes. Aceptar permite anuncios personalizados; rechazar significa que los anuncios pueden seguir apareciendo pero no serán personalizados." },
                   ],
                 },
               },
               pt: {
                 consentModal: {
                   title: "Este site usa cookies",
-                  description: 'Usamos armazenamento essencial e serviços de terceiros (geolocalização IP para o idioma, GNews para manchetes ao vivo) para operar este mapa. Nenhum cookie de rastreamento ou publicidade. <a href="/privacy.html" class="cc__link">Política de privacidade</a>.',
+                  description: 'Usamos armazenamento essencial e serviços de terceiros (geolocalização IP para o idioma, GNews para manchetes ao vivo, Google AdSense para publicidade) para operar este mapa. <a href="/privacy.html" class="cc__link">Política de privacidade</a>.',
                   acceptAllBtn: "Aceitar tudo",
                   rejectAllBtn: "Rejeitar tudo",
                   showPreferencesBtn: "Gerenciar preferências",
@@ -237,13 +243,14 @@
                   sections: [
                     { title: "Essenciais", linkedCategory: "necessary", description: "Necessários para o mapa: cache local de dados de surtos (localStorage) e lembrança do idioma. Não pode ser desativado." },
                     { title: "Funcionalidade", linkedCategory: "functionality", description: "Detecção de idioma por IP via ipapi.co (seu país aproximado seleciona o idioma; sem armazenamento de dados) e GNews para manchetes de hantavírus." },
+                    { title: "Publicidade", linkedCategory: "advertising", description: "O Google AdSense usa cookies para exibir anúncios relevantes. Aceitar permite anúncios personalizados; rejeitar significa que os anúncios ainda podem aparecer, mas não serão personalizados." },
                   ],
                 },
               },
               nl: {
                 consentModal: {
                   title: "Deze website gebruikt cookies",
-                  description: 'Wij gebruiken essentiële opslag en diensten van derden (IP-geolocatie voor taaldetectie, GNews voor live-headlines) om deze kaart te laten werken. Geen advertentie- of trackingcookies. <a href="/privacy.html" class="cc__link">Privacybeleid</a>.',
+                  description: 'Wij gebruiken essentiële opslag en diensten van derden (IP-geolocatie voor taaldetectie, GNews voor live-headlines, Google AdSense voor advertenties) om deze kaart te laten werken. <a href="/privacy.html" class="cc__link">Privacybeleid</a>.',
                   acceptAllBtn: "Alles accepteren",
                   rejectAllBtn: "Alles weigeren",
                   showPreferencesBtn: "Voorkeuren beheren",
@@ -257,13 +264,14 @@
                   sections: [
                     { title: "Essentieel", linkedCategory: "necessary", description: "Vereist voor de kaart: lokale cache van uitbraakgegevens (localStorage) en taalvoorkeur onthouden. Kan niet worden uitgeschakeld." },
                     { title: "Functionaliteit", linkedCategory: "functionality", description: "IP-gebaseerde taaldetectie via ipapi.co (uw geschatte land selecteert een taal; geen opslag) en GNews voor live-hantavirusnieuws." },
+                    { title: "Advertenties", linkedCategory: "advertising", description: "Google AdSense gebruikt cookies voor relevante advertenties. Accepteren staat gepersonaliseerde advertenties toe; weigeren betekent dat advertenties nog steeds kunnen verschijnen maar niet gepersonaliseerd zijn." },
                   ],
                 },
               },
               ru: {
                 consentModal: {
                   title: "Этот сайт использует файлы cookie",
-                  description: 'Мы используем основное хранилище и сторонние сервисы (геолокация по IP для определения языка, GNews для актуальных заголовков) для работы карты. Рекламные и отслеживающие файлы cookie не используются. <a href="/privacy.html" class="cc__link">Политика конфиденциальности</a>.',
+                  description: 'Мы используем основное хранилище и сторонние сервисы (геолокация по IP для определения языка, GNews для актуальных заголовков, Google AdSense для рекламы) для работы карты. <a href="/privacy.html" class="cc__link">Политика конфиденциальности</a>.',
                   acceptAllBtn: "Принять всё",
                   rejectAllBtn: "Отклонить всё",
                   showPreferencesBtn: "Управление настройками",
@@ -277,13 +285,14 @@
                   sections: [
                     { title: "Необходимые", linkedCategory: "necessary", description: "Требуется для работы карты: локальное кэширование данных о вспышке (localStorage) и запоминание языка. Не может быть отключено." },
                     { title: "Функциональность", linkedCategory: "functionality", description: "Определение языка по IP через ipapi.co (ваша приблизительная страна выбирает язык; данные не сохраняются) и GNews для новостей о хантавирусе." },
+                    { title: "Реклама", linkedCategory: "advertising", description: "Google AdSense использует файлы cookie для показа релевантной рекламы. Принятие позволяет персонализированную рекламу; отказ означает, что реклама может появляться, но не будет персонализированной." },
                   ],
                 },
               },
               ja: {
                 consentModal: {
                   title: "このサイトはクッキーを使用しています",
-                  description: 'このマップを運営するために、必須ストレージとサードパーティサービス（言語検出のためのIPジオロケーション、ライブヘッドライン用GNews）を使用しています。広告やトラッキングのクッキーは使用していません。<a href="/privacy.html" class="cc__link">プライバシーポリシー</a>',
+                  description: 'このマップを運営するために、必須ストレージとサードパーティサービス（言語検出のためのIPジオロケーション、ライブヘッドライン用GNews、広告用Google AdSense）を使用しています。<a href="/privacy.html" class="cc__link">プライバシーポリシー</a>',
                   acceptAllBtn: "すべて承認",
                   rejectAllBtn: "すべて拒否",
                   showPreferencesBtn: "設定を管理",
@@ -297,13 +306,14 @@
                   sections: [
                     { title: "必須", linkedCategory: "necessary", description: "マップの機能に必要：アウトブレイクデータのローカルキャッシュ（localStorage）と言語設定の保存。無効にできません。" },
                     { title: "機能", linkedCategory: "functionality", description: "ipapi.coによるIPベースの言語検出（おおよその国が言語を選択；データは保存されません）とGNewsによるハンタウイルスのライブヘッドライン。" },
+                    { title: "広告", linkedCategory: "advertising", description: "Google AdSenseは関連広告を配信するためにCookieを使用します。承認するとパーソナライズ広告が表示されます。拒否した場合も広告は表示されますが、パーソナライズされません。" },
                   ],
                 },
               },
               ko: {
                 consentModal: {
                   title: "이 사이트는 쿠키를 사용합니다",
-                  description: '이 지도를 운영하기 위해 필수 저장소와 타사 서비스(언어 감지를 위한 IP 지리위치, 실시간 헤드라인을 위한 GNews)를 사용합니다. 광고 또는 추적 쿠키는 사용하지 않습니다. <a href="/privacy.html" class="cc__link">개인정보 처리방침</a>',
+                  description: '이 지도를 운영하기 위해 필수 저장소와 타사 서비스(언어 감지를 위한 IP 지리위치, 실시간 헤드라인을 위한 GNews, 광고를 위한 Google AdSense)를 사용합니다. <a href="/privacy.html" class="cc__link">개인정보 처리방침</a>',
                   acceptAllBtn: "모두 수락",
                   rejectAllBtn: "모두 거부",
                   showPreferencesBtn: "기본 설정 관리",
@@ -317,13 +327,14 @@
                   sections: [
                     { title: "필수", linkedCategory: "necessary", description: "지도 기능에 필요합니다: 발생 데이터 로컬 캐싱(localStorage) 및 언어 기본 설정 저장. 비활성화할 수 없습니다." },
                     { title: "기능", linkedCategory: "functionality", description: "ipapi.co를 통한 IP 기반 언어 감지(대략적인 국가가 언어를 선택; 데이터 저장 없음) 및 실시간 한타바이러스 뉴스를 위한 GNews." },
+                    { title: "광고", linkedCategory: "advertising", description: "Google AdSense는 관련 광고를 게재하기 위해 쿠키를 사용합니다. 수락하면 맞춤 광고가 표시됩니다. 거부하면 광고는 계속 표시되지만 개인화되지 않습니다." },
                   ],
                 },
               },
               ar: {
                 consentModal: {
                   title: "يستخدم هذا الموقع ملفات تعريف الارتباط",
-                  description: 'نستخدم التخزين الأساسي وخدمات الطرف الثالث (تحديد الموقع الجغرافي بواسطة IP لاكتشاف اللغة، وGNews للعناوين المباشرة) لتشغيل هذه الخريطة. لا تُستخدم ملفات تعريف ارتباط الإعلانات أو التتبع. <a href="/privacy.html" class="cc__link">سياسة الخصوصية</a>',
+                  description: 'نستخدم التخزين الأساسي وخدمات الطرف الثالث (تحديد الموقع الجغرافي بواسطة IP لاكتشاف اللغة، وGNews للعناوين المباشرة، وGoogle AdSense للإعلانات) لتشغيل هذه الخريطة. <a href="/privacy.html" class="cc__link">سياسة الخصوصية</a>',
                   acceptAllBtn: "قبول الكل",
                   rejectAllBtn: "رفض الكل",
                   showPreferencesBtn: "إدارة التفضيلات",
@@ -337,6 +348,7 @@
                   sections: [
                     { title: "ضروري", linkedCategory: "necessary", description: "مطلوب لعمل الخريطة: تخزين بيانات الفاشية محليًا (localStorage) وحفظ تفضيل اللغة. لا يمكن تعطيله." },
                     { title: "الوظائف", linkedCategory: "functionality", description: "اكتشاف اللغة بواسطة IP عبر ipapi.co (يُستخدم بلدك التقريبي لاختيار اللغة؛ لا يتم تخزين أي بيانات) وGNews لعناوين الهانتافيروس المباشرة." },
+                    { title: "الإعلانات", linkedCategory: "advertising", description: "يستخدم Google AdSense ملفات تعريف الارتباط لعرض إعلانات ذات صلة. القبول يسمح بإعلانات مخصصة؛ الرفض يعني أن الإعلانات قد تظهر مع ذلك لكنها لن تكون مخصصة." },
                   ],
                 },
               },
@@ -361,13 +373,14 @@
       <div class="outbreak-summary-inner">
         <h1>Hantavirus Outbreak 2026 - Live Global Tracker</h1>
         <p>hantamaps.com tracks the 2026 Andes hantavirus outbreak linked to the MV Hondius cruise ship. The interactive map above shows confirmed cases, suspected cases, and countries under potential exposure, updated every 6 hours from WHO, CDC, ECDC, and national health sources.</p>
-        <p class="summary-meta">Last updated: May 12, 2026 &nbsp;|&nbsp; 41 countries tracked &nbsp;|&nbsp; 21 confirmed cases &nbsp;|&nbsp; 3 deaths</p>
+        <p class="summary-meta">Last updated: May 13, 2026 &nbsp;|&nbsp; 41 countries tracked &nbsp;|&nbsp; 22 confirmed cases &nbsp;|&nbsp; 3 deaths</p>
         <div class="summary-groups">
           <div class="summary-group summary-confirmed">
-            <h2>Confirmed Cases (11 countries)</h2>
+            <h2>Confirmed Cases (12 countries)</h2>
             <ul>
               <li>Argentina - 2 cases, 1 death</li>
               <li>South Africa - 2 cases, 1 death</li>
+              <li>Spain - 2 cases</li>
               <li>UK - 1 case</li>
               <li>Netherlands - 1 case</li>
               <li>USA - 1 case</li>
@@ -383,16 +396,16 @@
             <h2>Suspected Cases (7 countries)</h2>
             <ul>
               <li>Germany - 1 case, 1 death</li>
-              <li>Spain - 2 cases</li>
               <li>Canada - 1 case</li>
               <li>Cabo Verde - 1 case</li>
               <li>Iran - 1 case</li>
               <li>Senegal - 1 case</li>
+              <li>Italy - 1 case</li>
               <li>Japan - 1 case</li>
             </ul>
           </div>
           <div class="summary-group summary-monitoring">
-            <h2>Under Monitoring (23 countries)</h2>
+            <h2>Under Monitoring (22 countries)</h2>
             <ul>
               <li>Australia</li>
               <li>Bangladesh</li>
@@ -404,7 +417,6 @@
               <li>Guatemala</li>
               <li>India</li>
               <li>Israel</li>
-              <li>Italy</li>
               <li>Luxembourg</li>
               <li>Montenegro</li>
               <li>New Zealand</li>
@@ -420,7 +432,7 @@
             </ul>
           </div>
         </div>
-        <p class="summary-sources">Data compiled from WHO, CDC, ECDC, PAHO, national health authorities, and verified news reports. <a href="/hantavirus-learn-more.html">Learn more about Andes hantavirus</a> | <a href="/hantavirus-prevention.html">Prevention guide</a></p>
+        <p class="summary-sources">Data compiled from WHO, CDC, ECDC, PAHO, national health authorities, and verified news reports. <a href="/hantavirus-learn-more.html">Learn more about Andes hantavirus</a> | <a href="/hantavirus-prevention.html">Prevention guide</a> | <a href="/about.html">About this site</a></p>
         <p class="summary-disclaimer">Independent tracker using public sources. <a href="/hantavirus-prevention.html">Learn about prevention in our guide</a>, and consult local public health authorities for official medical advice.</p>
         <p class="summary-definitions"><strong>Definitions:</strong> <em>Confirmed:</em> laboratory-confirmed case. <em>Probable/Suspected:</em> meets clinical criteria, lab result pending or inconclusive. <em>Under Monitoring:</em> no cases yet; individuals with possible contact under health surveillance. <em>Affected country:</em> at least one case or monitored individual officially reported.</p>
       </div>

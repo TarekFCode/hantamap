@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-12T20:43:10.337Z",
+  "updatedAt": "2026-05-13T09:48:30.573Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON599",
   "outbreaks": [
     {
@@ -120,7 +120,7 @@
       "longitude": -3.7492,
       "confirmedCases": 2,
       "deaths": 0,
-      "status": "suspected"
+      "status": "confirmed"
     },
     {
       "name": "France",
@@ -278,9 +278,9 @@
       "name": "Italy",
       "latitude": 41.8719,
       "longitude": 12.5674,
-      "confirmedCases": 0,
+      "confirmedCases": 1,
       "deaths": 0,
-      "status": "monitoring"
+      "status": "suspected"
     },
     {
       "name": "Montenegro",

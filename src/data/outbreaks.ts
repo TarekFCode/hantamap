@@ -128,7 +128,7 @@ export const hantavirusOutbreaks: OutbreakDataPoint[] = [
     longitude: -3.7492,
     confirmedCases: 2,
     deaths: 0,
-    status: "suspected",
+    status: "confirmed",
   },
   {
     name: "France",
@@ -286,9 +286,9 @@ export const hantavirusOutbreaks: OutbreakDataPoint[] = [
     name: "Italy",
     latitude: 41.8719,
     longitude: 12.5674,
-    confirmedCases: 0,
+    confirmedCases: 1,
     deaths: 0,
-    status: "monitoring",
+    status: "suspected",
   },
   {
     name: "Montenegro",

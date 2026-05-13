@@ -22,7 +22,27 @@
       "Bash(git ls-tree *)",
       "Bash(gh auth *)",
       "Bash(git config *)",
-      "Bash(node -e \"const p = require\\('./package.json'\\); console.log\\('wrangler:', p.devDependencies?.wrangler || p.dependencies?.wrangler || 'not found'\\)\")"
+      "Bash(node -e \"const p = require\\('./package.json'\\); console.log\\('wrangler:', p.devDependencies?.wrangler || p.dependencies?.wrangler || 'not found'\\)\")",
+      "Bash(curl -s \"https://api.github.com/repos/TarekFCode/hantamap/actions/runs?per_page=3\")",
+      "Bash(python3 -c \"import json,sys; runs=json.load\\(sys.stdin\\).get\\('workflow_runs',[]\\); [print\\(r['conclusion'] or r['status'], r['head_commit']['message'][:50], r['html_url']\\) for r in runs]\")",
+      "Bash(gh run *)",
+      "PowerShell(Invoke-RestMethod \"https://api.github.com/repos/TarekFCode/hantamap/actions/runs?per_page=5\" | Select-Object -ExpandProperty workflow_runs | Select-Object -Property status, conclusion, @{n='msg';e={$_.head_commit.message.Substring\\(0,[Math]::Min\\(50,$_.head_commit.message.Length\\)\\)}}, html_url | Format-List)",
+      "PowerShell($r = Invoke-WebRequest \"https://hantamaps.com/\" -UseBasicParsing; $r.Headers['Cache-Control']; $r.Content | Select-String \"Raw data|summary-meta|formatLastUpdated\" | Select-Object -First 5)",
+      "PowerShell($r = Invoke-WebRequest \"https://hantamaps.com/\" -UseBasicParsing; \\($r.Content | Select-String \"summary-meta|Raw data\"\\).Matches | ForEach-Object { $_.Value })",
+      "PowerShell($r = Invoke-WebRequest \"https://hantamaps.com/\" -UseBasicParsing; $r.Content | Select-String 'src=\"/assets/' | Select-Object -First 5; $r.Headers | Format-List)",
+      "PowerShell($content = \\(Invoke-WebRequest \"https://hantamaps.com/\" -UseBasicParsing\\).Content; if \\($content -match 'src=\"/assets/\\([^\"]+\\)\"'\\) { \"JS bundle: \" + $matches[1] } else { \"No /assets/ script tag found - might be dev build reference\" }; if \\($content -match 'src=\"/src/main'\\) { \"WARNING: Serving raw src/main.tsx - NOT a production build!\" })",
+      "PowerShell($content = \\(Invoke-WebRequest \"https://hantamaps.com/\" -UseBasicParsing\\).Content; $content | Select-String \"rounded|setMinutes|Raw data\" | ForEach-Object { $_.Line.Trim\\(\\) })",
+      "PowerShell($js = \\(Invoke-WebRequest \"https://hantamaps.com/assets/index-ne7hc4hJ.js\" -UseBasicParsing\\).Content; if \\($js -match \"setMinutes\"\\) { \"FOUND: rounding code is live\" } else { \"MISSING: rounding code not in bundle\" }; if \\($js -match \"Raw data\"\\) { \"FOUND: Raw data link still there\" } else { \"GOOD: Raw data link not in bundle\" })",
+      "PowerShell($r = Invoke-WebRequest \"https://hantamaps.com/\" -UseBasicParsing; $r.Headers.GetEnumerator\\(\\) | Where-Object { $_.Key -match \"cf-|cache|age\" } | Format-List)",
+      "PowerShell($html = \\(Invoke-WebRequest \"https://hantamaps.com/\" -UseBasicParsing\\).Content; if \\($html -match 'href=\"/assets/\\([^\"]+\\\\.css\\)\"'\\) { $cssFile = $matches[1]; $css = \\(Invoke-WebRequest \"https://hantamaps.com/assets/$cssFile\" -UseBasicParsing\\).Content; \\($css | Select-String \"language-selector|position:fixed|position: fixed\" -AllMatches\\).Matches | ForEach-Object { $_.Value } })",
+      "PowerShell($html = \\(Invoke-WebRequest \"https://hantamaps.com/\" -UseBasicParsing\\).Content; if \\($html -match 'href=\"/assets/\\([^\"]+\\\\.css\\)\"'\\) { $cssFile = $matches[1]; $css = \\(Invoke-WebRequest \"https://hantamaps.com/assets/$cssFile\" -UseBasicParsing\\).Content; $idx = $css.IndexOf\\(\"language-selector\"\\); $css.Substring\\([Math]::Max\\(0,$idx-20\\), 200\\) })",
+      "PowerShell(Invoke-RestMethod \"https://api.github.com/repos/TarekFCode/hantamap/actions/runs?per_page=3\" | Select-Object -ExpandProperty workflow_runs | Select-Object status, conclusion, @{n='msg';e={$_.head_commit.message.Substring\\(0,[Math]::Min\\(60,$_.head_commit.message.Length\\)\\)}}, created_at | Format-List)",
+      "PowerShell(Invoke-RestMethod \"https://api.github.com/repos/TarekFCode/hantamap/actions/runs?per_page=5\" | Select-Object -ExpandProperty workflow_runs | Select-Object status, conclusion, @{n='msg';e={$_.head_commit.message.Substring\\(0,[Math]::Min\\(60,$_.head_commit.message.Length\\)\\)}}, created_at | Format-List)",
+      "Bash(node -e \"const d=JSON.parse\\(require\\('fs'\\).readFileSync\\('public/data.json','utf8'\\)\\); console.log\\(d.updatedAt\\)\")",
+      "Bash(Get-ChildItem -Path \"c:\\\\Football The Gathering\" -Recurse -File)",
+      "Bash(Select-Object -ExpandProperty FullName)",
+      "Bash(node --input-type=module)",
+      "Bash(node scripts/generate-og-image.js)"
     ]
   }
 }

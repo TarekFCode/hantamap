@@ -1,9 +1,0 @@
-[build]
-  command = "npm run build"
-  publish = "dist"
-
-[functions]
-  directory = "netlify/functions"
-
-[functions."scheduled-update"]
-  schedule = "0 */6 * * *"
