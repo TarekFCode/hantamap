@@ -780,6 +780,9 @@ export default function App() {
         >
           {translateUiText("Prevention Guide", language)}
         </a>
+        <a className="footer-link" href="/about.html">
+          {translateUiText("About", language)}
+        </a>
         <a className="footer-link" href="/privacy.html">
           {translateUiText("Privacy Policy", language)}
         </a>
