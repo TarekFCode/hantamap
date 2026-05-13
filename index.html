@@ -3,6 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        var lang = localStorage.getItem('hantatracker.language') || 'en';
+        var style = document.createElement('style');
+        style.textContent = '.summary-lang{display:none!important}.summary-lang[lang="' + lang + '"]{display:grid!important}';
+        document.head.appendChild(style);
+      })();
+    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta
       name="description"
@@ -560,23 +568,6 @@
         <p>ÙŠØ¬Ù„Ø¨ Ù†Ø¸Ø§Ù…Ù†Ø§ Ø§Ù„Ø¢Ù„ÙŠ Ø¨ÙŠØ§Ù†Ø§Øª Ø§Ù„ØªÙØ´ÙŠ ÙƒÙ„ 6 Ø³Ø§Ø¹Ø§Øª Ù…Ù† WHO ÙˆCDC ÙˆECDC ÙˆØ§Ù„Ø³Ù„Ø·Ø§Øª Ø§Ù„ØµØ­ÙŠØ© Ø§Ù„ÙˆØ·Ù†ÙŠØ©. ÙŠØ¹ÙƒØ³ ÙˆØ¶Ø¹ ÙƒÙ„ Ø¯ÙˆÙ„Ø© Ø£Ø­Ø¯Ø« ØªØµÙ†ÙŠÙ Ø±Ø³Ù…ÙŠ ÙÙŠ ÙˆÙ‚Øª Ø¢Ø®Ø± ØªØ­Ø¯ÙŠØ«.</p>
         <p class="summary-disclaimer">Ù…ØªØªØ¨Ø¹ Ù…Ø³ØªÙ‚Ù„ ØºÙŠØ± ØªØ§Ø¨Ø¹ Ù„Ø£ÙŠ Ø­ÙƒÙˆÙ…Ø© Ø£Ùˆ Ù…Ù†Ø¸Ù…Ø© ØµØ­ÙŠØ©. <a href="/hantavirus-prevention.html">Ø¯Ù„ÙŠÙ„ Ø§Ù„ÙˆÙ‚Ø§ÙŠØ©</a> Â· <a href="/about.html">Ø­ÙˆÙ„ Ø§Ù„Ù…ÙˆÙ‚Ø¹</a> Â· <a href="/privacy.html">Ø§Ù„Ø®ØµÙˆØµÙŠØ©</a></p>
       </div>
-
-      <script>
-        (function () {
-          var lang = localStorage.getItem('hantatracker.language') || 'en';
-          var sections = document.querySelectorAll('.summary-lang');
-          var found = false;
-          sections.forEach(function (el) {
-            if (el.getAttribute('lang') === lang) {
-              el.style.display = '';
-              found = true;
-            } else {
-              el.style.display = 'none';
-            }
-          });
-          if (!found && sections[0]) sections[0].style.display = '';
-        })();
-      </script>
 
     </section>
     <script type="module" src="/src/main.tsx"></script>
