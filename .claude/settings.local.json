@@ -42,7 +42,16 @@
       "Bash(Get-ChildItem -Path \"c:\\\\Football The Gathering\" -Recurse -File)",
       "Bash(Select-Object -ExpandProperty FullName)",
       "Bash(node --input-type=module)",
-      "Bash(node scripts/generate-og-image.js)"
+      "Bash(node scripts/generate-og-image.js)",
+      "WebFetch(domain:en.wikipedia.org)",
+      "WebFetch(domain:www.who.int)",
+      "WebFetch(domain:www.ecdc.europa.eu)",
+      "WebFetch(domain:www.cdc.gov)",
+      "WebFetch(domain:abcnews.com)",
+      "WebFetch(domain:www.aljazeera.com)",
+      "Bash(node -e ' *)",
+      "Bash(node -e \"const fs=require\\('fs'\\);const src=fs.readFileSync\\('./src/data/outbreaks.ts','utf8'\\);const matches=[...src.matchAll\\(/name: \\\\\"\\([^\\\\\"]+\\)\\\\\"[\\\\s\\\\S]{0,200}?confirmedCases: \\(\\\\d+\\),\\\\s*deaths: \\(\\\\d+\\),\\\\s*status: \\\\\"\\([^\\\\\"]+\\)\\\\\"/g\\)];matches.forEach\\(m=>console.log\\(m[4].padEnd\\(12\\),m[2].padStart\\(3\\),'cases',m[3],'deaths -',m[1]\\)\\);\")",
+      "Bash(node --experimental-vm-modules -e \"import\\('./scripts/update-data.js'\\)\")"
     ]
   }
 }

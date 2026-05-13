@@ -208,6 +208,8 @@ export const COUNTRY_CATALOG = [
   { name: "Switzerland", latitude: 46.8182, longitude: 8.2275, aliases: ["Switzerland", "Swiss", "Zurich"] },
   { name: "Ukraine", latitude: 48.3794, longitude: 31.1656, aliases: ["Ukraine", "Ukrainian"] },
   { name: "UK", latitude: 55.3781, longitude: -3.436, aliases: ["UK", "United Kingdom", "United Kingdom of Great Britain and Northern Ireland", "British"] },
+  { name: "Saint Helena", latitude: -15.965, longitude: -5.7089, aliases: ["Saint Helena", "St Helena", "St. Helena"] },
+  { name: "Tristan da Cunha", latitude: -37.1057, longitude: -12.2769, aliases: ["Tristan da Cunha", "Tristan"] },
   { name: "Vatican City", latitude: 41.9029, longitude: 12.4534, aliases: ["Vatican City", "Vatican", "Holy See"] },
 
   // Oceania
@@ -300,11 +302,40 @@ function isMonitoringContextSentence(sentence) {
   );
 }
 
+function isOnShipSentence(sentence) {
+  return /\b(?:aboard|on board|onboard|at sea|on the vessel|while aboard|on the ship)\b/i.test(sentence);
+}
+
 function sentenceLinksStatusToCountry(sentence, countryName, statusPattern) {
   const country = getCountryConfig(countryName);
   const aliasPattern = getAliasPattern(country);
+
+  // Events that happened on the ship should not be attributed to any country
+  if (isOnShipSentence(sentence)) {
+    return false;
+  }
+
+  // Detect nationality/origin/destination references that do NOT indicate a
+  // case located in the country: "from X", "of X", "returned to X",
+  // "repatriated to X", or "[X adjective] [person/entity noun]"
+  const nationalityRef = new RegExp(
+    `\\b(?:from|of|returned?\\s+to|repatriated?\\s+to|flew?\\s+to|traveled?\\s+to|back\\s+to|flew?\\s+back\\s+to)\\s+(?:${aliasPattern})|(?:${aliasPattern})\\b.{0,6}\\b(?:passenger|national|citizen|traveler|traveller|tourist|resident|authorities|authority|government|ministry|officials?|health\\s+\\w+)`,
+    "i",
+  );
+
+  if (nationalityRef.test(sentence)) {
+    // Only match if the status word appears BEFORE the country name,
+    // i.e. "case in [Country]" / "hospitalized in [Country]"
+    const locationPattern = new RegExp(
+      `(?:${statusPattern}).{0,40}(?:${aliasPattern})`,
+      "i",
+    );
+    return locationPattern.test(sentence);
+  }
+
+  // Standard proximity check with tightened window
   const linkedPattern = new RegExp(
-    `(?:${aliasPattern}).{0,90}(?:${statusPattern})|(?:${statusPattern}).{0,90}(?:${aliasPattern})`,
+    `(?:${aliasPattern}).{0,45}(?:${statusPattern})|(?:${statusPattern}).{0,45}(?:${aliasPattern})`,
     "i",
   );
 
@@ -329,6 +360,13 @@ function extractDirectCaseCount(sentences) {
 }
 
 function inferStatus(sentences, countryName) {
+  // Events on the ship are not country-specific cases
+  sentences = sentences.filter((s) => !isOnShipSentence(s));
+
+  if (sentences.length === 0) {
+    return null;
+  }
+
   const monitoringListSentences = sentences.filter(
     (sentence) =>
       isMonitoringContextSentence(sentence) &&
@@ -343,7 +381,7 @@ function inferStatus(sentences, countryName) {
   const confirmedPattern =
     "confirmed (?:case|infection|hantavirus|patient|passenger|person)|lab-confirmed|laboratory confirmed|tested positive|tests? positive|positive for hantavirus|confirmed by PCR";
   const suspectedPattern =
-    "suspected|\\bsymptomatic\\b|fell ill|serious condition|critically ill|intensive care|hospitali[sz]ed|medical(?:ly)? evacuated|evacuat(?:ed|ion)";
+    "suspected|\\bsymptomatic\\b|fell ill|serious condition|critically ill|intensive care|hospitali[sz]ed";
 
   if (
     sentencesToClassify.some((sentence) =>
@@ -377,7 +415,7 @@ function inferStatus(sentences, countryName) {
 }
 
 function inferMinimumCounts(outbreak, status, sentences) {
-  if (status === "monitoring") {
+  if (status !== "confirmed") {
     return outbreak;
   }
 
