@@ -54,7 +54,10 @@
       "Bash(node --experimental-vm-modules -e \"import\\('./scripts/update-data.js'\\)\")",
       "Bash(git pull *)",
       "Bash(git checkout *)",
-      "Bash(curl -s http://localhost:5173)"
+      "Bash(curl -s http://localhost:5173)",
+      "Bash(node --input-type=module --eval ' *)",
+      "Bash(npx vite *)",
+      "Bash(node -e \"const d = JSON.parse\\(require\\('fs'\\).readFileSync\\('public/data.json','utf8'\\)\\); const sg=d.outbreaks.find\\(o=>o.name==='Singapore'\\); const nl=d.outbreaks.find\\(o=>o.name==='Netherlands'\\); const sh=d.outbreaks.find\\(o=>o.name==='Saint Helena'\\); const tc=d.outbreaks.find\\(o=>o.name==='Tristan da Cunha'\\); console.log\\('Singapore:',JSON.stringify\\(sg\\)\\); console.log\\('Netherlands:',JSON.stringify\\(nl\\)\\); console.log\\('Saint Helena:',JSON.stringify\\(sh\\)\\); console.log\\('Tristan da Cunha:',JSON.stringify\\(tc\\)\\);\")"
     ]
   }
 }
