@@ -1090,12 +1090,20 @@ textarea {
 @media (max-width: 900px) {
   .content-layout {
     grid-template-columns: 1fr;
-    grid-template-rows: minmax(0, 62%) minmax(220px, 38%);
+    grid-template-rows: minmax(0, 55%) minmax(280px, 45%);
   }
 
   .country-panel {
     border-top: 1px solid rgba(255, 255, 255, 0.07);
     border-left: 0;
+  }
+
+  .panel-ad-slot {
+    display: none;
+  }
+
+  .country-panel {
+    grid-template-rows: auto auto auto minmax(0, 1fr);
   }
 
   .admin-row,
