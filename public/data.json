@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-13T10:50:16.661Z",
+  "updatedAt": "2026-05-13T11:44:19.780Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON599",
   "outbreaks": [
     {
@@ -7,7 +7,7 @@
       "latitude": 52.1326,
       "longitude": 5.2913,
       "confirmedCases": 2,
-      "deaths": 2,
+      "deaths": 1,
       "status": "confirmed"
     },
     {
@@ -62,7 +62,7 @@
       "name": "Saint Helena",
       "latitude": -15.965,
       "longitude": -5.7089,
-      "confirmedCases": 1,
+      "confirmedCases": 0,
       "deaths": 0,
       "status": "suspected"
     },
@@ -70,7 +70,7 @@
       "name": "Tristan da Cunha",
       "latitude": -37.1057,
       "longitude": -12.2769,
-      "confirmedCases": 1,
+      "confirmedCases": 0,
       "deaths": 0,
       "status": "suspected"
     },
@@ -102,9 +102,9 @@
       "name": "Singapore",
       "latitude": 1.3521,
       "longitude": 103.8198,
-      "confirmedCases": 1,
+      "confirmedCases": 0,
       "deaths": 0,
-      "status": "confirmed"
+      "status": "monitoring"
     },
     {
       "name": "Denmark",

@@ -571,6 +571,13 @@ export function applySourceTextUpdates(outbreaks, sourceText) {
       }
     }
 
+    // Singapore residents were contacts being monitored; they tested negative.
+    // Lock at monitoring to prevent false promotion from contact-trace sentences.
+    if (country.name === "Singapore") {
+      byName.set(country.name, { ...current, confirmedCases: 0, deaths: 0, status: "monitoring" });
+      continue;
+    }
+
     const inferredStatus = inferStatus(sentences, country.name);
 
     if (!inferredStatus) {

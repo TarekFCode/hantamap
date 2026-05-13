@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import maplibregl, { Map } from "maplibre-gl";
 import Admin from "./components/Admin";
+import CountryPanel from "./components/CountryPanel";
 import LanguageSelector from "./components/LanguageSelector";
-import NewsFeed from "./components/NewsFeed";
 import { OutbreakDataPoint, OutbreakStatus } from "./data/outbreaks";
 import {
   fetchSharedOutbreaks,
@@ -758,7 +758,13 @@ export default function App() {
             </span>
           </div>
         </section>
-        <NewsFeed language={language} />
+        <CountryPanel
+          outbreaks={outbreaks}
+          language={language}
+          onCountryClick={(lat, lng) =>
+            mapRef.current?.flyTo({ center: [lng, lat], zoom: 4, duration: 1400 })
+          }
+        />
       </section>
 
       <footer className="page-footer">
