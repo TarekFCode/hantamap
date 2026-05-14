@@ -410,6 +410,23 @@ export const COUNTRY_ISO_CODES: Record<string, string> = {
   Senegal: "SN",
   Chile: "CL",
   Uruguay: "UY",
+  "Saint Helena": "SH",
+  "Tristan da Cunha": "SH",
+  Luxembourg: "LU",
+  Norway: "NO",
+  Guatemala: "GT",
+  India: "IN",
+  Philippines: "PH",
+  Belgium: "BE",
+  Greece: "GR",
+  Italy: "IT",
+  Montenegro: "ME",
+  Portugal: "PT",
+  Australia: "AU",
+  Japan: "JP",
+  Mexico: "MX",
+  "Central African Republic": "CF",
+  Bangladesh: "BD",
 };
 
 export function translateCountryName(name: string, language: SupportedLanguage): string {
