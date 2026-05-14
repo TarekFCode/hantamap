@@ -629,10 +629,10 @@ export default function App() {
   }, [language]);
 
   useEffect(() => {
-    const sections = document.querySelectorAll<HTMLElement>(".summary-lang");
-    sections.forEach((el) => {
-      el.style.display = el.getAttribute("lang") === language ? "grid" : "none";
-    });
+    const styleEl = document.getElementById("summary-lang-style");
+    if (styleEl) {
+      styleEl.textContent = `.summary-lang{display:none!important}.summary-lang[lang="${language}"]{display:grid!important}`;
+    }
   }, [language]);
 
   useEffect(() => {
