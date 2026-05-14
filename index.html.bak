@@ -3,9 +3,6 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script>
-      (function(){var l=localStorage.getItem('hantatracker.language')||'en';var s=document.createElement('style');s.textContent='.summary-lang{display:none!important}.summary-lang[lang="'+l+'"]{display:grid!important}';document.head.appendChild(s);})();
-    </script>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta
       name="description"
@@ -74,7 +71,7 @@
             "name": "hantamaps.com Hantavirus Outbreak Data 2026",
             "description": "Country-level hantavirus outbreak data including confirmed cases, deaths, and confirmed, suspected, or monitoring status. Updated every 6 hours.",
             "url": "https://hantamaps.com/data.json",
-            "dateModified": "2026-05-14",
+            "dateModified": "2026-05-13",
             "distribution": {
               "@type": "DataDownload",
               "encodingFormat": "application/json",
@@ -394,7 +391,7 @@
       </div>
 
       <!-- GERMAN -->
-      <div class="outbreak-summary-inner summary-lang" lang="de">
+      <div class="outbreak-summary-inner summary-lang" lang="de" hidden>
         <h1>Hantavirus-Ausbruch 2026 — Live-Weltkarte</h1>
         <p>hantamaps.com bietet Echtzeit-Tracking des Andes-Hantavirus-Ausbruchs 2026 im Zusammenhang mit dem Expeditionskreuzfahrtschiff MV Hondius. Unsere interaktive Karte wird automatisch alle 6 Stunden mit Daten der WHO, CDC und ECDC aktualisiert.</p>
         <h2>Was ist der MV-Hondius-Hantavirus-Ausbruch?</h2>
@@ -413,7 +410,7 @@
       </div>
 
       <!-- FRENCH -->
-      <div class="outbreak-summary-inner summary-lang" lang="fr">
+      <div class="outbreak-summary-inner summary-lang" lang="fr" hidden>
         <h1>Épidémie de hantavirus 2026 — Carte mondiale en direct</h1>
         <p>hantamaps.com suit en temps réel l'épidémie de virus Andes 2026 liée au navire de croisière expéditionnaire MV Hondius. Notre carte interactive est mise à jour automatiquement toutes les 6 heures à partir des sources officielles de l'OMS, du CDC et du ECDC.</p>
         <h2>Qu'est-ce que l'épidémie de hantavirus du MV Hondius ?</h2>
@@ -432,7 +429,7 @@
       </div>
 
       <!-- SPANISH -->
-      <div class="outbreak-summary-inner summary-lang" lang="es">
+      <div class="outbreak-summary-inner summary-lang" lang="es" hidden>
         <h1>Brote de hantavirus 2026 — Mapa mundial en vivo</h1>
         <p>hantamaps.com realiza un seguimiento en tiempo real del brote de hantavirus Andes 2026 vinculado al crucero de expedición MV Hondius. Nuestro mapa interactivo se actualiza automáticamente cada 6 horas con datos de la OMS, los CDC y el ECDC.</p>
         <h2>¿Qué es el brote de hantavirus del MV Hondius?</h2>
@@ -451,7 +448,7 @@
       </div>
 
       <!-- PORTUGUESE -->
-      <div class="outbreak-summary-inner summary-lang" lang="pt">
+      <div class="outbreak-summary-inner summary-lang" lang="pt" hidden>
         <h1>Surto de hantavírus 2026 — Mapa mundial ao vivo</h1>
         <p>hantamaps.com rastreia em tempo real o surto do vírus Andes 2026 ligado ao navio de cruzeiro de expedição MV Hondius. Nosso mapa interativo é atualizado automaticamente a cada 6 horas com dados da OMS, CDC e ECDC.</p>
         <h2>O que é o surto de hantavírus do MV Hondius?</h2>
@@ -470,7 +467,7 @@
       </div>
 
       <!-- DUTCH -->
-      <div class="outbreak-summary-inner summary-lang" lang="nl">
+      <div class="outbreak-summary-inner summary-lang" lang="nl" hidden>
         <h1>Hantavirusuitbraak 2026 — Live wereldkaart</h1>
         <p>hantamaps.com volgt de Andes-hantavirusuitbraak 2026 in real-time, gelinkt aan het expeditiekruisschip MV Hondius. Onze interactieve kaart wordt automatisch elke 6 uur bijgewerkt met gegevens van de WHO, CDC en ECDC.</p>
         <h2>Wat is de MV Hondius hantavirusuitbraak?</h2>
@@ -489,7 +486,7 @@
       </div>
 
       <!-- RUSSIAN -->
-      <div class="outbreak-summary-inner summary-lang" lang="ru">
+      <div class="outbreak-summary-inner summary-lang" lang="ru" hidden>
         <h1>Вспышка хантавируса 2026 — Живая карта мира</h1>
         <p>hantamaps.com отслеживает вспышку вируса Андес 2026 года в режиме реального времени — вспышку, связанную с экспедиционным круизным судном MV Hondius. Наша интерактивная карта обновляется автоматически каждые 6 часов на основе данных ВОЗ, CDC и ECDC.</p>
         <h2>Что такое вспышка хантавируса на MV Hondius?</h2>
@@ -508,7 +505,7 @@
       </div>
 
       <!-- JAPANESE -->
-      <div class="outbreak-summary-inner summary-lang" lang="ja">
+      <div class="outbreak-summary-inner summary-lang" lang="ja" hidden>
         <h1>2026年ハンタウイルス感染症アウトブレイク — ライブ世界地図</h1>
         <p>hantamaps.comは、遠征クルーズ船MVホンディウスに関連した2026年アンデスウイルス感染症アウトブレイクをリアルタイムで追跡しています。インタラクティブマップは、WHO・CDC・ECDCの公式データを基に6時間ごとに自動更新されます。</p>
         <h2>MVホンディウスのハンタウイルス感染症アウトブレイクとは？</h2>
@@ -527,7 +524,7 @@
       </div>
 
       <!-- KOREAN -->
-      <div class="outbreak-summary-inner summary-lang" lang="ko">
+      <div class="outbreak-summary-inner summary-lang" lang="ko" hidden>
         <h1>2026년 한타바이러스 발생 — 실시간 세계 지도</h1>
         <p>hantamaps.com은 원정 크루즈선 MV 혼디우스와 관련된 2026년 안데스 바이러스 발생을 실시간으로 추적합니다. 인터랙티브 지도는 WHO, CDC, ECDC의 공식 자료를 기반으로 6시간마다 자동 업데이트됩니다.</p>
         <h2>MV 혼디우스 한타바이러스 발생이란?</h2>
@@ -546,7 +543,7 @@
       </div>
 
       <!-- ARABIC -->
-      <div class="outbreak-summary-inner summary-lang" lang="ar" dir="rtl">
+      <div class="outbreak-summary-inner summary-lang" lang="ar" dir="rtl" hidden>
         <h1>تفشي فيروس هانتا 2026 — خريطة عالمية مباشرة</h1>
         <p>يتتبع موقع hantamaps.com في الوقت الفعلي تفشي فيروس الأنديز لعام 2026 المرتبط بسفينة الرحلات الاستكشافية MV Hondius. تُحدَّث خريطتنا التفاعلية تلقائيًا كل 6 ساعات استنادًا إلى بيانات منظمة الصحة العالمية (WHO) ومركز السيطرة على الأمراض (CDC) والمركز الأوروبي للوقاية من الأمراض (ECDC).</p>
         <h2>ما هو تفشي فيروس هانتا على سفينة MV Hondius؟</h2>
@@ -563,6 +560,21 @@
         <p>يجلب نظامنا الآلي بيانات التفشي كل 6 ساعات من WHO وCDC وECDC والسلطات الصحية الوطنية. يعكس وضع كل دولة أحدث تصنيف رسمي في وقت آخر تحديث.</p>
         <p class="summary-disclaimer">متتبع مستقل غير تابع لأي حكومة أو منظمة صحية. <a href="/hantavirus-prevention.html">دليل الوقاية</a> · <a href="/about.html">حول الموقع</a> · <a href="/privacy.html">الخصوصية</a></p>
       </div>
+
+      <script>
+        (function () {
+          var lang = localStorage.getItem('hantatracker.language') || 'en';
+          var sections = document.querySelectorAll('.summary-lang');
+          var found = false;
+          sections.forEach(function (el) {
+            if (el.getAttribute('lang') === lang) {
+              el.removeAttribute('hidden');
+              found = true;
+            }
+          });
+          if (!found) sections[0] && sections[0].removeAttribute('hidden');
+        })();
+      </script>
 
     </section>
     <script type="module" src="/src/main.tsx"></script>

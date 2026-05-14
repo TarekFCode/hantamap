@@ -57,7 +57,14 @@
       "Bash(curl -s http://localhost:5173)",
       "Bash(node --input-type=module --eval ' *)",
       "Bash(npx vite *)",
-      "Bash(node -e \"const d = JSON.parse\\(require\\('fs'\\).readFileSync\\('public/data.json','utf8'\\)\\); const sg=d.outbreaks.find\\(o=>o.name==='Singapore'\\); const nl=d.outbreaks.find\\(o=>o.name==='Netherlands'\\); const sh=d.outbreaks.find\\(o=>o.name==='Saint Helena'\\); const tc=d.outbreaks.find\\(o=>o.name==='Tristan da Cunha'\\); console.log\\('Singapore:',JSON.stringify\\(sg\\)\\); console.log\\('Netherlands:',JSON.stringify\\(nl\\)\\); console.log\\('Saint Helena:',JSON.stringify\\(sh\\)\\); console.log\\('Tristan da Cunha:',JSON.stringify\\(tc\\)\\);\")"
+      "Bash(node -e \"const d = JSON.parse\\(require\\('fs'\\).readFileSync\\('public/data.json','utf8'\\)\\); const sg=d.outbreaks.find\\(o=>o.name==='Singapore'\\); const nl=d.outbreaks.find\\(o=>o.name==='Netherlands'\\); const sh=d.outbreaks.find\\(o=>o.name==='Saint Helena'\\); const tc=d.outbreaks.find\\(o=>o.name==='Tristan da Cunha'\\); console.log\\('Singapore:',JSON.stringify\\(sg\\)\\); console.log\\('Netherlands:',JSON.stringify\\(nl\\)\\); console.log\\('Saint Helena:',JSON.stringify\\(sh\\)\\); console.log\\('Tristan da Cunha:',JSON.stringify\\(tc\\)\\);\")",
+      "Bash(powershell -Command \"\\(Get-Content index.html -Raw\\) -replace 'class=\\\\\"outbreak-summary-inner summary-lang\\\\\" lang=\\\\\"\\([^\\\\\"]+\\)\\\\\" hidden>', 'class=\\\\\"outbreak-summary-inner summary-lang\\\\\" lang=\\\\\"\\\\$1\\\\\" style=\\\\\"display:none\\\\\">' | Set-Content index.html -Encoding utf8\")",
+      "Bash(powershell -Command \"\\(Get-Content index.html -Raw\\) -replace 'lang=\\\\\"ar\\\\\" dir=\\\\\"rtl\\\\\" hidden>', 'lang=\\\\\"ar\\\\\" dir=\\\\\"rtl\\\\\" style=\\\\\"display:none\\\\\">' | Set-Content index.html -Encoding utf8\")",
+      "Bash(ping -n 3 127.0.0.1)",
+      "Bash(curl -s -o nul -w \"%{http_code}\" http://localhost:5173)",
+      "Bash(git show *)",
+      "Bash(python -c ' *)",
+      "Bash(del index.html.bak)"
     ]
   }
 }
