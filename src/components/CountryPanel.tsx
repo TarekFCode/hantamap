@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { OutbreakDataPoint } from "../data/outbreaks";
-import { SupportedLanguage, translateUiText } from "../i18n";
+import { countryMatchesSearch, SupportedLanguage, translateCountryName, translateUiText } from "../i18n";
 
 type Tab = "confirmed" | "suspected" | "monitoring" | "deaths";
 
@@ -41,8 +41,7 @@ export default function CountryPanel({ outbreaks, language, onCountryClick }: Co
       list = [...list].sort((a, b) => b.confirmedCases - a.confirmedCases || a.name.localeCompare(b.name));
     }
     if (search.trim()) {
-      const q = search.toLowerCase();
-      list = list.filter((o) => o.name.toLowerCase().includes(q));
+      list = list.filter((o) => countryMatchesSearch(o.name, search.trim()));
     }
     return list;
   }, [outbreaks, activeTab, search]);
@@ -130,7 +129,7 @@ export default function CountryPanel({ outbreaks, language, onCountryClick }: Co
                 aria-selected={false}
               >
                 <span className="panel-country-dot" style={{ background: STATUS_COLORS[activeTab === "deaths" ? o.status as Tab : activeTab] }} />
-                <span className="panel-country-name">{o.name}</span>
+                <span className="panel-country-name">{translateCountryName(o.name, language)}</span>
                 {statLabel !== null && (
                   <span className="panel-country-stat">
                     {statLabel} <span className="panel-country-stat-label">{statSuffix}</span>

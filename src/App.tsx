@@ -15,6 +15,7 @@ import {
   detectLanguage,
   getSavedLanguage,
   SupportedLanguage,
+  translateCountryName,
   translateUiText,
 } from "./i18n";
 
@@ -217,35 +218,6 @@ function createStatusLineOpacityExpression(outbreaks: OutbreakDataPoint[]) {
   ];
 }
 
-const COUNTRY_ISO_CODES: Record<string, string> = {
-  Argentina: "AR",
-  "South Africa": "ZA",
-  UK: "GB",
-  Netherlands: "NL",
-  USA: "US",
-  Singapore: "SG",
-  Germany: "DE",
-  Switzerland: "CH",
-  Canada: "CA",
-  Denmark: "DK",
-  "New Zealand": "NZ",
-  "Saint Kitts and Nevis": "KN",
-  Sweden: "SE",
-  Turkey: "TR",
-  Spain: "ES",
-  France: "FR",
-  Sudan: "SD",
-  Israel: "IL",
-  Palestine: "PS",
-  Ukraine: "UA",
-  "Cabo Verde": "CV",
-  Georgia: "GE",
-  Iran: "IR",
-  Senegal: "SN",
-  Chile: "CL",
-  Uruguay: "UY",
-};
-
 function formatLastUpdated(isoString: string, language: SupportedLanguage): string {
   try {
     const date = new Date(isoString);
@@ -260,16 +232,6 @@ function formatLastUpdated(isoString: string, language: SupportedLanguage): stri
     }).format(rounded);
   } catch {
     return isoString;
-  }
-}
-
-function translateCountryName(name: string, language: SupportedLanguage): string {
-  const code = COUNTRY_ISO_CODES[name];
-  if (!code) return name;
-  try {
-    return new Intl.DisplayNames([language], { type: "region" }).of(code) ?? name;
-  } catch {
-    return name;
   }
 }
 
@@ -664,6 +626,13 @@ export default function App() {
 
   useEffect(() => {
     languageRef.current = language;
+  }, [language]);
+
+  useEffect(() => {
+    const sections = document.querySelectorAll<HTMLElement>(".summary-lang");
+    sections.forEach((el) => {
+      el.style.display = el.getAttribute("lang") === language ? "grid" : "none";
+    });
   }, [language]);
 
   useEffect(() => {

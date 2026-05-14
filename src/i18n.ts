@@ -383,6 +383,63 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
   },
 };
 
+export const COUNTRY_ISO_CODES: Record<string, string> = {
+  Argentina: "AR",
+  "South Africa": "ZA",
+  UK: "GB",
+  Netherlands: "NL",
+  USA: "US",
+  Singapore: "SG",
+  Germany: "DE",
+  Switzerland: "CH",
+  Canada: "CA",
+  Denmark: "DK",
+  "New Zealand": "NZ",
+  "Saint Kitts and Nevis": "KN",
+  Sweden: "SE",
+  Turkey: "TR",
+  Spain: "ES",
+  France: "FR",
+  Sudan: "SD",
+  Israel: "IL",
+  Palestine: "PS",
+  Ukraine: "UA",
+  "Cabo Verde": "CV",
+  Georgia: "GE",
+  Iran: "IR",
+  Senegal: "SN",
+  Chile: "CL",
+  Uruguay: "UY",
+};
+
+export function translateCountryName(name: string, language: SupportedLanguage): string {
+  const code = COUNTRY_ISO_CODES[name];
+  if (!code) return name;
+  try {
+    return new Intl.DisplayNames([language], { type: "region" }).of(code) ?? name;
+  } catch {
+    return name;
+  }
+}
+
+const ALL_LANGUAGES: SupportedLanguage[] = ["en", "de", "fr", "es", "nl", "ar", "ru", "ja", "pt", "ko"];
+
+export function countryMatchesSearch(name: string, query: string): boolean {
+  const q = query.toLowerCase();
+  if (name.toLowerCase().includes(q)) return true;
+  const code = COUNTRY_ISO_CODES[name];
+  if (!code) return false;
+  for (const lang of ALL_LANGUAGES) {
+    try {
+      const translated = new Intl.DisplayNames([lang], { type: "region" }).of(code);
+      if (translated?.toLowerCase().includes(q)) return true;
+    } catch {
+      // skip
+    }
+  }
+  return false;
+}
+
 function isSupportedLanguage(value: string | null): value is SupportedLanguage {
   return LANGUAGE_OPTIONS.some((language) => language.code === value);
 }
