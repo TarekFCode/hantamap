@@ -139,18 +139,6 @@ function formatPublicDataFile(outbreaks) {
 }
 
 function generateSummaryHtml(outbreaks) {
-  const sorted = {
-    confirmed: [...outbreaks.filter((o) => o.status === "confirmed")].sort(
-      (a, b) => b.deaths - a.deaths || b.confirmedCases - a.confirmedCases,
-    ),
-    suspected: [...outbreaks.filter((o) => o.status === "suspected")].sort(
-      (a, b) => b.deaths - a.deaths || b.confirmedCases - a.confirmedCases,
-    ),
-    monitoring: [...outbreaks.filter((o) => o.status === "monitoring")].sort(
-      (a, b) => a.name.localeCompare(b.name),
-    ),
-  };
-
   const totalCases = outbreaks.reduce((s, o) => s + o.confirmedCases, 0);
   const totalDeaths = outbreaks.reduce((s, o) => s + o.deaths, 0);
   const dateStr = new Date().toLocaleDateString("en-US", {
@@ -159,49 +147,7 @@ function generateSummaryHtml(outbreaks) {
     day: "numeric",
   });
 
-  const countryItem = (c) => {
-    let text = c.name;
-    if (c.confirmedCases > 0)
-      text += ` - ${c.confirmedCases} case${c.confirmedCases !== 1 ? "s" : ""}`;
-    if (c.deaths > 0)
-      text += `, ${c.deaths} death${c.deaths !== 1 ? "s" : ""}`;
-    return `              <li>${text}</li>`;
-  };
-
-  const lines = [
-    `    <section id="outbreak-summary" aria-label="Current outbreak summary">`,
-    `      <div class="outbreak-summary-inner">`,
-    `        <h1>Hantavirus Outbreak 2026 - Live Global Tracker</h1>`,
-    `        <p>hantamaps.com tracks the 2026 Andes hantavirus outbreak linked to the MV Hondius cruise ship. The interactive map above shows confirmed cases, suspected cases, and countries under potential exposure, updated every 6 hours from WHO, CDC, ECDC, and national health sources.</p>`,
-    `        <p class="summary-meta">Last updated: ${dateStr} &nbsp;|&nbsp; ${outbreaks.length} countries tracked &nbsp;|&nbsp; ${totalCases} confirmed cases &nbsp;|&nbsp; ${totalDeaths} deaths</p>`,
-    `        <div class="summary-groups">`,
-    `          <div class="summary-group summary-confirmed">`,
-    `            <h2>Confirmed Cases (${sorted.confirmed.length} countries)</h2>`,
-    `            <ul>`,
-    ...sorted.confirmed.map(countryItem),
-    `            </ul>`,
-    `          </div>`,
-    `          <div class="summary-group summary-suspected">`,
-    `            <h2>Suspected Cases (${sorted.suspected.length} countries)</h2>`,
-    `            <ul>`,
-    ...sorted.suspected.map(countryItem),
-    `            </ul>`,
-    `          </div>`,
-    `          <div class="summary-group summary-monitoring">`,
-    `            <h2>Under Monitoring (${sorted.monitoring.length} countries)</h2>`,
-    `            <ul>`,
-    ...sorted.monitoring.map((c) => `              <li>${c.name}</li>`),
-    `            </ul>`,
-    `          </div>`,
-    `        </div>`,
-    `        <p class="summary-sources">Data compiled from WHO, CDC, ECDC, PAHO, national health authorities, and verified news reports. <a href="/hantavirus-learn-more.html">Learn more about Andes hantavirus</a> | <a href="/hantavirus-prevention.html">Prevention guide</a> | <a href="/about.html">About this site</a></p>`,
-    `        <p class="summary-disclaimer">Independent tracker using public sources. <a href="/hantavirus-prevention.html">Learn about prevention in our guide</a>, and consult local public health authorities for official medical advice.</p>`,
-    `        <p class="summary-definitions"><strong>Definitions:</strong> <em>Confirmed:</em> laboratory-confirmed case. <em>Probable/Suspected:</em> meets clinical criteria, lab result pending or inconclusive. <em>Under Monitoring:</em> no cases yet; individuals with possible contact under health surveillance. <em>Affected country:</em> at least one case or monitored individual officially reported.</p>`,
-    `      </div>`,
-    `    </section>`,
-  ];
-
-  return lines.join("\n");
+  return `        <p>Our automated system fetches outbreak data every 6 hours from WHO disease outbreak news, CDC health alerts, ECDC surveillance reports, and national health authority sources. As of ${dateStr}: <strong>${totalCases} confirmed cases</strong> across ${outbreaks.filter((o) => o.status === "confirmed").length} countries, <strong>${totalDeaths} deaths</strong>. Country status reflects the latest official classification at the time of the last update.</p>`;
 }
 
 function updateSitemapLastmod(xml) {
