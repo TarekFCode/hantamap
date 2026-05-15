@@ -150,6 +150,16 @@ function generateSummaryHtml(outbreaks) {
   return `        <p>Our automated system fetches outbreak data every 6 hours from WHO disease outbreak news, CDC health alerts, ECDC surveillance reports, and national health authority sources. As of ${dateStr}: <strong>${totalCases} confirmed cases</strong> across ${outbreaks.filter((o) => o.status === "confirmed").length} countries, <strong>${totalDeaths} deaths</strong>. Country status reflects the latest official classification at the time of the last update.</p>`;
 }
 
+function updateStatsMarkers(html, outbreaks) {
+  const totalCases = outbreaks.reduce((s, o) => s + o.confirmedCases, 0);
+  const totalDeaths = outbreaks.reduce((s, o) => s + o.deaths, 0);
+  const confirmedCountries = outbreaks.filter((o) => o.status === "confirmed").length;
+  return html
+    .replace(/<!-- CASES -->\d+<!-- \/CASES -->/g, `<!-- CASES -->${totalCases}<!-- /CASES -->`)
+    .replace(/<!-- DEATHS -->\d+<!-- \/DEATHS -->/g, `<!-- DEATHS -->${totalDeaths}<!-- /DEATHS -->`)
+    .replace(/<!-- COUNTRIES -->\d+<!-- \/COUNTRIES -->/g, `<!-- COUNTRIES -->${confirmedCountries}<!-- /COUNTRIES -->`);
+}
+
 function updateSitemapLastmod(xml) {
   const today = new Date().toISOString().split("T")[0];
   return xml.replace(
@@ -238,7 +248,7 @@ async function main() {
   // Always refresh data.json and index.html so timestamp and counts stay current
   await writeFile(publicDataPath, formatPublicDataFile(outbreaks), "utf8");
   const indexHtml = await readFile(indexHtmlPath, "utf8");
-  await writeFile(indexHtmlPath, updateJsonLdDate(updateIndexHtml(indexHtml, outbreaks)), "utf8");
+  await writeFile(indexHtmlPath, updateJsonLdDate(updateStatsMarkers(updateIndexHtml(indexHtml, outbreaks), outbreaks)), "utf8");
   const sitemap = await readFile(sitemapPath, "utf8");
   await writeFile(sitemapPath, updateSitemapLastmod(sitemap), "utf8");
 
