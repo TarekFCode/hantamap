@@ -33,8 +33,7 @@ const TICKER_TEXT: Record<SupportedLanguage, string> = {
   ko: "출처: WHO • MV 혼디우스 크루즈선 발생 • 안데스 바이러스 확인 • 세계 위험도: 낮음 (WHO) • 최신 정보를 확인하세요 •",
   ar: "المصدر: منظمة الصحة العالمية • فاشية السفينة MV Hondius • فيروس الأنديز مؤكد • المخاطرة العالمية: منخفضة (منظمة الصحة العالمية) • ابقَ على اطلاع •",
 };
-const COUNTRIES_URL =
-  "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson";
+const COUNTRIES_URL = "/countries.geojson";
 const OCEAN_GLOBE_POLYGON = {
   type: "FeatureCollection",
   features: [

@@ -116,7 +116,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     cases: "cases",
     About: "About",
     "Privacy Policy": "Privacy Policy",
-    "Learn More": "Learn More",
+    "Learn More": "Learn more about hantavirus",
     "Prevention Guide": "Prevention Guide",
     "Last updated:": "Last updated:",
     "Tap a dot for details": "Tap a dot for details",
