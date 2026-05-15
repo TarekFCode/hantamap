@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 import { applySourceTextUpdates } from "./outbreak-classifier.js";
 
 const WHO_URL =
-  "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON599";
+  "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601";
 const SOURCE_URLS = [
   WHO_URL,
   "https://www.who.int/philippines/news/detail-global/07-05-2026-who-s-response-to-hantavirus-cases-linked-to-a-cruise-ship",
