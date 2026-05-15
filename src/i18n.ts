@@ -119,6 +119,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Learn More": "Learn More",
     "Prevention Guide": "Prevention Guide",
     "Last updated:": "Last updated:",
+    "Tap a dot for details": "Tap a dot for details",
   },
   de: {
     "Live News Feed": "Live-Nachrichten",
@@ -148,6 +149,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Learn More": "Mehr erfahren",
     "Prevention Guide": "Präventionsratgeber",
     "Last updated:": "Zuletzt aktualisiert:",
+    "Tap a dot for details": "Punkt antippen für Details",
   },
   fr: {
     "Live News Feed": "Fil d'actualités",
@@ -177,6 +179,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Learn More": "En savoir plus",
     "Prevention Guide": "Guide de prévention",
     "Last updated:": "Dernière mise à jour :",
+    "Tap a dot for details": "Appuyez sur un point pour les détails",
   },
   es: {
     "Live News Feed": "Noticias en vivo",
@@ -206,6 +209,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Learn More": "Más información",
     "Prevention Guide": "Guía de prevención",
     "Last updated:": "Última actualización:",
+    "Tap a dot for details": "Toca un punto para detalles",
   },
   pt: {
     "Live News Feed": "Notícias ao vivo",
@@ -235,6 +239,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Learn More": "Saiba mais",
     "Prevention Guide": "Guia de prevenção",
     "Last updated:": "Última atualização:",
+    "Tap a dot for details": "Toque num ponto para detalhes",
   },
   nl: {
     "Live News Feed": "Live nieuws",
@@ -264,6 +269,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Learn More": "Meer informatie",
     "Prevention Guide": "Preventiereeks",
     "Last updated:": "Laatste update:",
+    "Tap a dot for details": "Tik op een punt voor details",
   },
   ru: {
     "Live News Feed": "Прямая лента новостей",
@@ -293,6 +299,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Learn More": "Узнать больше",
     "Prevention Guide": "Руководство по профилактике",
     "Last updated:": "Последнее обновление:",
+    "Tap a dot for details": "Нажмите на точку для подробностей",
   },
   ja: {
     "Live News Feed": "ライブニュースフィード",
@@ -322,6 +329,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Learn More": "詳細を見る",
     "Prevention Guide": "予防ガイド",
     "Last updated:": "最終更新：",
+    "Tap a dot for details": "点をタップして詳細を表示",
   },
   ko: {
     "Live News Feed": "실시간 뉴스 피드",
@@ -351,6 +359,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Learn More": "자세히 알아보기",
     "Prevention Guide": "예방 가이드",
     "Last updated:": "마지막 업데이트:",
+    "Tap a dot for details": "점을 탭하여 상세 정보 보기",
   },
   ar: {
     "Live News Feed": "موجز الأخبار المباشر",
@@ -380,6 +389,7 @@ export const TRANSLATIONS: Record<SupportedLanguage, Record<string, string>> = {
     "Learn More": "اعرف المزيد",
     "Prevention Guide": "دليل الوقاية",
     "Last updated:": "آخر تحديث:",
+    "Tap a dot for details": "انقر على نقطة للتفاصيل",
   },
 };
 

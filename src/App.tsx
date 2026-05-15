@@ -22,16 +22,16 @@ import {
 const STYLE_URL = "https://demotiles.maplibre.org/globe.json";
 
 const TICKER_TEXT: Record<SupportedLanguage, string> = {
-  en: "SOURCE: WHO • Last updated May 9 2026 • MV Hondius cruise ship outbreak • Andes virus confirmed • Global risk: LOW per WHO • Stay informed •",
-  de: "QUELLE: WHO • Zuletzt aktualisiert 9. Mai 2026 • MV Hondius Kreuzfahrtschiff-Ausbruch • Andes-Virus bestätigt • Globales Risiko: NIEDRIG laut WHO • Informiert bleiben •",
-  fr: "SOURCE : OMS • Dernière mise à jour 9 mai 2026 • Épidémie sur le MV Hondius • Virus Andes confirmé • Risque mondial : FAIBLE selon l'OMS • Restez informé •",
-  es: "FUENTE: OMS • Última actualización 9 mayo 2026 • Brote del crucero MV Hondius • Virus Andes confirmado • Riesgo global: BAJO según OMS • Manténgase informado •",
-  pt: "FONTE: OMS • Última atualização 9 maio 2026 • Surto do cruzeiro MV Hondius • Vírus Andes confirmado • Risco global: BAIXO segundo OMS • Mantenha-se informado •",
-  nl: "BRON: WHO • Laatste update 9 mei 2026 • MV Hondius cruiseschip uitbraak • Andenvirus bevestigd • Wereldrisico: LAAG volgens WHO • Blijf op de hoogte •",
-  ru: "ИСТОЧНИК: ВОЗ • Последнее обновление 9 мая 2026 • Вспышка на MV Hondius • Вирус Андес подтверждён • Глобальный риск: НИЗКИЙ (ВОЗ) • Будьте в курсе •",
-  ja: "情報源：WHO • 最終更新：2026年5月9日 • MV ホンディウス客船アウトブレイク • アンデスウイルス確認 • 世界リスク：低（WHO） • 最新情報をご確認ください •",
-  ko: "출처: WHO • 최종 업데이트: 2026년 5월 9일 • MV 혼디우스 크루즈선 발생 • 안데스 바이러스 확인 • 세계 위험도: 낮음 (WHO) • 최신 정보를 확인하세요 •",
-  ar: "المصدر: منظمة الصحة العالمية • آخر تحديث 9 مايو 2026 • فاشية السفينة MV Hondius • فيروس الأنديز مؤكد • المخاطرة العالمية: منخفضة (منظمة الصحة العالمية) • ابقَ على اطلاع •",
+  en: "SOURCE: WHO • MV Hondius cruise ship outbreak • Andes virus confirmed • Global risk: LOW per WHO • Stay informed •",
+  de: "QUELLE: WHO • MV Hondius Kreuzfahrtschiff-Ausbruch • Andes-Virus bestätigt • Globales Risiko: NIEDRIG laut WHO • Informiert bleiben •",
+  fr: "SOURCE : OMS • Épidémie sur le MV Hondius • Virus Andes confirmé • Risque mondial : FAIBLE selon l'OMS • Restez informé •",
+  es: "FUENTE: OMS • Brote del crucero MV Hondius • Virus Andes confirmado • Riesgo global: BAJO según OMS • Manténgase informado •",
+  pt: "FONTE: OMS • Surto do cruzeiro MV Hondius • Vírus Andes confirmado • Risco global: BAIXO segundo OMS • Mantenha-se informado •",
+  nl: "BRON: WHO • MV Hondius cruiseschip uitbraak • Andenvirus bevestigd • Wereldrisico: LAAG volgens WHO • Blijf op de hoogte •",
+  ru: "ИСТОЧНИК: ВОЗ • Вспышка на MV Hondius • Вирус Андес подтверждён • Глобальный риск: НИЗКИЙ (ВОЗ) • Будьте в курсе •",
+  ja: "情報源：WHO • MV ホンディウス客船アウトブレイク • アンデスウイルス確認 • 世界リスク：低（WHO） • 最新情報をご確認ください •",
+  ko: "출처: WHO • MV 혼디우스 크루즈선 발생 • 안데스 바이러스 확인 • 세계 위험도: 낮음 (WHO) • 최신 정보를 확인하세요 •",
+  ar: "المصدر: منظمة الصحة العالمية • فاشية السفينة MV Hondius • فيروس الأنديز مؤكد • المخاطرة العالمية: منخفضة (منظمة الصحة العالمية) • ابقَ على اطلاع •",
 };
 const COUNTRIES_URL =
   "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson";
@@ -706,6 +706,9 @@ export default function App() {
       <section className="content-layout">
         <section className="globe-stage" aria-label="Global hantavirus map">
           <div ref={mapContainer} className="map-container" />
+          <div className="map-dot-hint" aria-hidden="true">
+            {translateUiText("Tap a dot for details", language)}
+          </div>
           <button
             className="scroll-down-btn"
             aria-label="Scroll to site information"
