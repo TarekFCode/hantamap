@@ -578,6 +578,13 @@ export function applySourceTextUpdates(outbreaks, sourceText) {
       continue;
     }
 
+    // WHO reclassified the US case as inconclusive on May 13 2026; CDC confirms 0 US cases.
+    // Lock at monitoring to prevent re-promotion from source text mentions.
+    if (country.name === "USA") {
+      byName.set(country.name, { ...current, confirmedCases: 0, deaths: 0, status: "monitoring" });
+      continue;
+    }
+
     const inferredStatus = inferStatus(sentences, country.name);
 
     if (!inferredStatus) {

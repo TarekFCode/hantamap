@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-05-15T10:01:01.329Z",
-  "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON599",
+  "updatedAt": "2026-05-15T13:35:51.436Z",
+  "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
       "name": "Netherlands",
@@ -30,7 +30,7 @@
       "name": "Spain",
       "latitude": 40.4637,
       "longitude": -3.7492,
-      "confirmedCases": 1,
+      "confirmedCases": 2,
       "deaths": 0,
       "status": "confirmed"
     },
@@ -54,9 +54,9 @@
       "name": "USA",
       "latitude": 39.8283,
       "longitude": -98.5795,
-      "confirmedCases": 1,
+      "confirmedCases": 0,
       "deaths": 0,
-      "status": "confirmed"
+      "status": "monitoring"
     },
     {
       "name": "Saint Helena",
