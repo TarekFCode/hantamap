@@ -3,204 +3,265 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Privacy Policy for hantamaps.com — live hantavirus outbreak tracker."
-    />
+    <meta name="description" content="Privacy Policy for hantamaps.com — live hantavirus outbreak tracker." />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href="https://hantamaps.com/privacy.html" />
-    <title>Privacy Policy - hantamaps.com</title>
+    <title>Privacy Policy - Hantamaps.com</title>
     <style>
+      @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&display=swap');
+
+      * { box-sizing: border-box; margin: 0; }
+
       :root {
-        color: #f8fafc;
+        font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", ui-sans-serif, sans-serif;
+        color: #bfcbd8;
         background: #050814;
-        font-family:
-          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-          "Segoe UI", sans-serif;
         line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
       }
 
-      body {
-        margin: 0;
+      body { min-height: 100vh; }
+
+      /* ── NAVBAR ── */
+      nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        height: 52px;
+        padding: 0 20px;
+        background: #060c1a;
+        border-bottom: 1px solid rgba(255,255,255,0.07);
+        position: sticky;
+        top: 0;
+        z-index: 10;
       }
 
-      main {
-        width: min(840px, calc(100% - 32px));
-        margin: 0 auto;
-        padding: 48px 0 64px;
-      }
-
-      a {
-        color: #fca5a5;
-      }
-
-      h1,
-      h2,
-      p {
-        margin: 0;
-      }
-
-      h1 {
-        font-size: clamp(2rem, 5vw, 3rem);
-        line-height: 1.08;
-      }
-
-      h2 {
-        margin-top: 32px;
-        color: #ffffff;
-        font-size: 1.15rem;
-      }
-
-      p,
-      li {
-        color: #d7dee9;
-      }
-
-      p {
-        margin-top: 12px;
-      }
-
-      .back-link {
-        display: inline-flex;
-        margin-bottom: 28px;
-        color: #fecaca;
-        font-weight: 800;
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
         text-decoration: none;
       }
 
-      .policy-card {
-        padding: 28px;
-        background: #0a0f1e;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 8px;
+      .brand h1 {
+        color: #f0f4f8;
+        font-size: clamp(0.95rem, 1.6vw, 1.25rem);
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
       }
 
-      .esc-hint {
-        margin-top: 16px;
-        font-size: 0.8rem;
-        color: #6b7280;
+      .live-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 8px;
+        color: #f87171;
+        background: rgba(220,38,38,0.1);
+        border: 1px solid rgba(220,38,38,0.35);
+        border-radius: 2px;
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      .live-badge::before {
+        content: '';
+        display: block;
+        width: 5px;
+        height: 5px;
+        background: #ef4444;
+        border-radius: 50%;
+        animation: pulse 1.6s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.3; }
+      }
+
+      .nav-back {
+        color: #8b97a8;
+        text-decoration: none;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: color 0.15s;
+      }
+
+      .nav-back:hover { color: #ffffff; }
+
+      /* ── CONTENT ── */
+      main {
+        width: min(840px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 48px 0 80px;
+      }
+
+      .page-title {
+        font-size: clamp(1.6rem, 4vw, 2.4rem);
+        font-weight: 700;
+        color: #f0f4f8;
+        letter-spacing: -0.01em;
+        margin-bottom: 8px;
+      }
+
+      .page-subtitle {
+        font-size: 0.82rem;
+        color: #4b5a6d;
+        margin-bottom: 40px;
+        letter-spacing: 0.04em;
+      }
+
+      .policy-card {
+        padding: 32px;
+        background: #080d1c;
+        border: 1px solid rgba(255,255,255,0.08);
+        border-radius: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+
+      h2 {
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #ef4444;
+        margin-top: 32px;
+        margin-bottom: 10px;
+        font-family: 'JetBrains Mono', monospace;
+      }
+
+      h2:first-child { margin-top: 0; }
+
+      p { color: #9baab8; font-size: 0.9rem; margin-bottom: 10px; }
+      p:last-child { margin-bottom: 0; }
+
+      ul {
+        color: #9baab8;
+        font-size: 0.9rem;
+        padding-left: 20px;
+        margin-bottom: 10px;
+      }
+
+      li { margin-bottom: 6px; }
+
+      a { color: #f87171; }
+      a:hover { color: #ffffff; }
+
+      code {
+        background: rgba(255,255,255,0.06);
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-size: 0.85em;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px 20px;
+        min-height: 28px;
+        padding: 8px 20px;
+        background: #03070f;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        margin-top: 40px;
+      }
+
+      .footer-link {
+        color: #3d4c5e;
+        font-size: 0.6rem;
+        font-weight: 600;
+        text-decoration: none;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .footer-link:hover { color: #8b97a8; }
+      .footer-link.active { color: #8b97a8; }
+
+      @media (max-width: 520px) {
+        .policy-card { padding: 20px 16px; }
+        nav { padding: 0 12px; }
       }
     </style>
   </head>
   <body>
+    <nav>
+      <a class="brand" href="/">
+        <h1>hantamaps.com</h1>
+        <span class="live-badge">LIVE</span>
+      </a>
+      <a class="nav-back" href="/">&#8592; Back to map</a>
+    </nav>
+
     <main>
-      <a class="back-link" href="/">&#8592; Back to hantamaps.com</a>
+      <h1 class="page-title">Privacy Policy</h1>
+      <p class="page-subtitle">Effective 2026-05-12 &nbsp;·&nbsp; hantamaps.com</p>
+
       <article class="policy-card">
-        <h1>Privacy Policy</h1>
-        <p>
-          hantamaps.com is a live hantavirus and Andes virus outbreak tracker
-          operated at <a href="https://hantamaps.com/">https://hantamaps.com/</a>.
-          Your privacy matters. This policy explains what information is collected,
-          how it is used, and what choices you have.
-        </p>
+        <h2>Overview</h2>
+        <p>hantamaps.com is a live hantavirus and Andes virus outbreak tracker. This policy explains what information is collected, how it is used, and what choices you have.</p>
 
         <h2>What We Collect</h2>
-        <p>
-          This website does not collect personally identifiable information. Your
-          language preference and cached outbreak data are stored locally in your
-          browser's <code>localStorage</code> only — nothing is sent to our
-          servers. Basic access logs (IP address, browser type, timestamp) may be
-          retained by our hosting provider, Cloudflare, for security and
-          performance purposes.
-        </p>
+        <p>This website does not collect personally identifiable information. Your language preference and cached outbreak data are stored locally in your browser's <code>localStorage</code> only — nothing is sent to our servers. Basic access logs (IP address, browser type, timestamp) may be retained by our hosting provider, Cloudflare, for security and performance purposes.</p>
 
         <h2>Cookies and Local Storage</h2>
-        <p>
-          We use cookies and <code>localStorage</code> for the following purposes:
-        </p>
+        <p>We use cookies and <code>localStorage</code> for the following purposes:</p>
         <ul>
           <li>Remembering your language preference across visits.</li>
-          <li>
-            Caching outbreak data locally so the map loads faster on return
-            visits.
-          </li>
-          <li>
-            Google AdSense advertising cookies (only if you have consented via
-            the cookie banner).
-          </li>
+          <li>Caching outbreak data locally so the map loads faster on return visits.</li>
+          <li>Google Analytics measurement cookies (only if you have consented via the cookie banner).</li>
+          <li>Google AdSense advertising cookies (only if you have consented via the cookie banner).</li>
         </ul>
-        <p>
-          A cookie consent banner is shown on first visit. You may accept or
-          reject non-essential storage at any time via the banner. Rejecting
-          advertising cookies means ads may still appear but will not be
-          personalised.
-        </p>
+        <p>A cookie consent banner is shown on first visit via Cookiebot. You may accept or reject non-essential cookies at any time. Rejecting advertising cookies means ads may still appear but will not be personalised.</p>
 
         <h2>Third-Party Services</h2>
-        <p>
-          The following third-party services are used and may process data
-          according to their own privacy policies:
-        </p>
+        <p>The following third-party services are used and may process data according to their own privacy policies:</p>
         <ul>
-          <li>
-            <strong>Cloudflare</strong> — hosting, CDN, and DDoS protection.
-            <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noreferrer">Cloudflare Privacy Policy</a>.
-          </li>
-          <li>
-            <strong>ipapi.co</strong> — approximate country detection from your
-            IP address to automatically select a display language. No data is
-            stored by us. Only used if you have not already chosen a language.
-            <a href="https://ipapi.co/privacy/" target="_blank" rel="noreferrer">ipapi.co Privacy Policy</a>.
-          </li>
-          <li>
-            <strong>GNews</strong> — live hantavirus news headlines displayed
-            in the right-side news panel. Article data is fetched client-side.
-            <a href="https://gnews.io/privacy-policy/" target="_blank" rel="noreferrer">GNews Privacy Policy</a>.
-          </li>
-          <li>
-            <strong>MapLibre GL JS / OpenStreetMap tiles</strong> — open-source
-            map rendering. Tile requests may be logged by the tile provider.
-          </li>
-          <li>
-            <strong>Google AdSense</strong>: this site may display ads served
-            by Google AdSense. Google and its partners may use cookies or
-            similar technologies to serve ads based on your prior visits to
-            this or other websites. You can opt out of personalised advertising
-            by visiting
-            <a href="https://www.google.com/settings/ads" target="_blank" rel="noreferrer">Google Ads Settings</a>.
-            Where required by law, consent for advertising cookies will be
-            requested before ads are shown.
-            <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google Privacy Policy</a>.
-          </li>
+          <li><strong>Cloudflare</strong> — hosting, CDN, and DDoS protection. <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noreferrer">Cloudflare Privacy Policy</a>.</li>
+          <li><strong>Google Analytics (GA4)</strong> — anonymous usage analytics including page views, session duration, and approximate location. Consent is required before activation. <a href="https://policies.google.com/privacy" target="_blank" rel="noreferrer">Google Privacy Policy</a>.</li>
+          <li><strong>Cookiebot</strong> — cookie consent management. <a href="https://www.cookiebot.com/en/privacy-policy/" target="_blank" rel="noreferrer">Cookiebot Privacy Policy</a>.</li>
+          <li><strong>ipapi.co</strong> — approximate country detection from your IP address to automatically select a display language. No data is stored by us. Only used if you have not already chosen a language. <a href="https://ipapi.co/privacy/" target="_blank" rel="noreferrer">ipapi.co Privacy Policy</a>.</li>
+          <li><strong>GNews</strong> — live hantavirus news headlines displayed in the news panel. Article data is fetched client-side. <a href="https://gnews.io/privacy-policy/" target="_blank" rel="noreferrer">GNews Privacy Policy</a>.</li>
+          <li><strong>MapLibre GL JS / OpenStreetMap tiles</strong> — open-source map rendering. Tile requests may be logged by the tile provider.</li>
+          <li><strong>Google AdSense</strong> — this site may display ads served by Google. Google and its partners may use cookies to serve ads based on your prior visits to this or other websites. You can opt out at <a href="https://www.google.com/settings/ads" target="_blank" rel="noreferrer">Google Ads Settings</a>.</li>
         </ul>
-        <p>
-          We do not use social media trackers or analytics platforms such as
-          Google Analytics.
-        </p>
 
         <h2>Data Sources</h2>
-        <p>
-          Outbreak data is sourced from publicly available reports published by
-          the World Health Organization (WHO), the CDC, the European Centre for
-          Disease Prevention and Control (ECDC), PAHO, and national health
-          ministries. No private or patient-level data is ever collected or
-          displayed.
-        </p>
+        <p>Outbreak data is sourced from publicly available reports by the World Health Organization (WHO), CDC, ECDC, PAHO, and national health ministries. No private or patient-level data is ever collected or displayed.</p>
 
         <h2>Security</h2>
-        <p>
-          The site is served over HTTPS via Cloudflare. No user accounts, login
-          forms, or payment flows exist on this website. There is no backend
-          database storing personal information.
-        </p>
+        <p>The site is served over HTTPS via Cloudflare. No user accounts, login forms, or payment flows exist on this website. There is no backend database storing personal information.</p>
 
         <h2>Changes to This Policy</h2>
-        <p>
-          This Privacy Policy is effective as of 2026-05-12. We may update it
-          to reflect changes in services or legal requirements. Material changes
-          will be noted on this page with an updated effective date.
-        </p>
+        <p>This policy is effective as of 2026-05-12. We may update it to reflect changes in services or legal requirements. Material changes will be noted on this page with an updated effective date.</p>
 
         <h2>Contact</h2>
-        <p>
-          Questions or concerns about this policy can be sent to
-          <a href="mailto:hantamapmail@gmail.com">hantamapmail@gmail.com</a>.
-        </p>
+        <p>Questions about this policy: <a href="mailto:hantamapmail@gmail.com">hantamapmail@gmail.com</a></p>
       </article>
-      <p class="esc-hint">Press <kbd>Esc</kbd> to return to the map.</p>
     </main>
+
+    <footer>
+      <a class="footer-link" href="/">Map</a>
+      <a class="footer-link" href="/hantavirus-learn-more.html">Learn more about hantavirus</a>
+      <a class="footer-link" href="/hantavirus-prevention.html">Prevention</a>
+      <a class="footer-link" href="/about.html">About</a>
+      <a class="footer-link active" href="/privacy.html">Privacy</a>
+    </footer>
+
     <script>
-      document.addEventListener("keydown", function (e) {
+      document.addEventListener("keydown", function(e) {
         if (e.key === "Escape") window.location.href = "/";
       });
     </script>
