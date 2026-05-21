@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-20T19:55:42.790Z",
+  "updatedAt": "2026-05-21T11:56:31.301Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -366,6 +366,14 @@
       "name": "Poland",
       "latitude": 51.9194,
       "longitude": 19.1451,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Democratic Republic of the Congo",
+      "latitude": -4.0383,
+      "longitude": 21.7587,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"

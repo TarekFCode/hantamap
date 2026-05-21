@@ -378,4 +378,12 @@ export const hantavirusOutbreaks: OutbreakDataPoint[] = [
     deaths: 0,
     status: "monitoring",
   },
+  {
+    name: "Democratic Republic of the Congo",
+    latitude: -4.0383,
+    longitude: 21.7587,
+    confirmedCases: 0,
+    deaths: 0,
+    status: "monitoring",
+  },
 ];
