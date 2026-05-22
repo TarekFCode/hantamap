@@ -1,9 +1,15 @@
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const response = await env.ASSETS.fetch(request);
 
-    if (url.pathname.match(/\.(js|css|png|jpg|jpeg|svg|ico|woff|woff2|ttf|eot|webp)(\?.*)?$/)) {
+    let response;
+    try {
+      response = await env.ASSETS.fetch(request);
+    } catch {
+      return new Response("Not found", { status: 404 });
+    }
+
+    if (url.pathname.match(/\.(js|css|png|jpg|jpeg|svg|ico|woff|woff2|ttf|eot|webp|geojson)(\?.*)?$/)) {
       return response;
     }
 
