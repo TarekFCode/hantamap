@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-17T08:35:00.156Z",
+  "updatedAt": "2026-05-22T10:37:24.278Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -350,6 +350,30 @@
       "name": "China",
       "latitude": 35.8617,
       "longitude": 104.1954,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Russia",
+      "latitude": 61.524,
+      "longitude": 105.3188,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Poland",
+      "latitude": 51.9194,
+      "longitude": 19.1451,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Democratic Republic of the Congo",
+      "latitude": -4.0383,
+      "longitude": 21.7587,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
