@@ -420,8 +420,6 @@ export const COUNTRY_ISO_CODES: Record<string, string> = {
   Senegal: "SN",
   Chile: "CL",
   Uruguay: "UY",
-  "Saint Helena": "SH",
-  "Tristan da Cunha": "SH",
   Luxembourg: "LU",
   Norway: "NO",
   Guatemala: "GT",
@@ -437,9 +435,48 @@ export const COUNTRY_ISO_CODES: Record<string, string> = {
   Mexico: "MX",
   "Central African Republic": "CF",
   Bangladesh: "BD",
+  China: "CN",
+  Russia: "RU",
+  Poland: "PL",
+  "Democratic Republic of the Congo": "CD",
+};
+
+const COUNTRY_NAME_OVERRIDES: Partial<Record<string, Record<SupportedLanguage, string>>> = {
+  "UK": {
+    en: "UK", de: "Vereinigtes Königreich", fr: "Royaume-Uni", es: "Reino Unido",
+    pt: "Reino Unido", nl: "Verenigd Koninkrijk", ru: "Великобритания",
+    ja: "イギリス", ko: "영국", ar: "المملكة المتحدة",
+  },
+  "USA": {
+    en: "USA", de: "USA", fr: "États-Unis", es: "EE. UU.",
+    pt: "EUA", nl: "VS", ru: "США",
+    ja: "アメリカ", ko: "미국", ar: "الولايات المتحدة",
+  },
+  "Saint Helena": {
+    en: "Saint Helena", de: "St. Helena", fr: "Sainte-Hélène", es: "Santa Elena",
+    pt: "Santa Helena", nl: "Sint-Helena", ru: "Остров Святой Елены",
+    ja: "セントヘレナ", ko: "세인트헬레나", ar: "سانت هيلينا",
+  },
+  "Tristan da Cunha": {
+    en: "Tristan da Cunha", de: "Tristan da Cunha", fr: "Tristan da Cunha", es: "Tristán de Acuña",
+    pt: "Tristão da Cunha", nl: "Tristan da Cunha", ru: "Тристан-да-Кунья",
+    ja: "トリスタン・ダ・クーニャ", ko: "트리스탄다쿠냐", ar: "تريستان دا كونا",
+  },
+  "Palestine": {
+    en: "Palestine", de: "Palästina", fr: "Palestine", es: "Palestina",
+    pt: "Palestina", nl: "Palestina", ru: "Палестина",
+    ja: "パレスチナ", ko: "팔레스타인", ar: "فلسطين",
+  },
+  "Democratic Republic of the Congo": {
+    en: "DR Congo", de: "DR Kongo", fr: "RD Congo", es: "RD Congo",
+    pt: "RD Congo", nl: "DR Congo", ru: "ДР Конго",
+    ja: "コンゴ民主共和国", ko: "콩고 민주 공화국", ar: "الكونغو الديمقراطية",
+  },
 };
 
 export function translateCountryName(name: string, language: SupportedLanguage): string {
+  const override = COUNTRY_NAME_OVERRIDES[name];
+  if (override) return override[language] ?? name;
   const code = COUNTRY_ISO_CODES[name];
   if (!code) return name;
   try {
