@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-22T18:22:12.367Z",
+  "updatedAt": "2026-05-23T08:01:43.497Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -376,7 +376,7 @@
       "longitude": 21.7587,
       "confirmedCases": 0,
       "deaths": 0,
-      "status": "monitoring"
+      "status": "suspected"
     }
   ]
 }
