@@ -386,4 +386,12 @@ export const hantavirusOutbreaks: OutbreakDataPoint[] = [
     deaths: 0,
     status: "suspected",
   },
+  {
+    name: "Kenya",
+    latitude: -0.0236,
+    longitude: 37.9062,
+    confirmedCases: 0,
+    deaths: 0,
+    status: "monitoring",
+  },
 ];

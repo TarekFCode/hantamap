@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-29T20:40:47.025Z",
+  "updatedAt": "2026-05-30T08:43:00.488Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -377,6 +377,14 @@
       "confirmedCases": 0,
       "deaths": 0,
       "status": "suspected"
+    },
+    {
+      "name": "Kenya",
+      "latitude": -0.0236,
+      "longitude": 37.9062,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
     }
   ]
 }
