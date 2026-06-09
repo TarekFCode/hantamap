@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-09T14:37:10.149Z",
+  "updatedAt": "2026-06-09T20:01:45.114Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -94,9 +94,9 @@
       "name": "Canada",
       "latitude": 56.1304,
       "longitude": -106.3468,
-      "confirmedCases": 0,
+      "confirmedCases": 1,
       "deaths": 0,
-      "status": "monitoring"
+      "status": "confirmed"
     },
     {
       "name": "Singapore",
