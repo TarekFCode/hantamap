@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-10T15:21:06.531Z",
+  "updatedAt": "2026-06-10T20:22:18.121Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -390,9 +390,9 @@
       "name": "Ivory Coast",
       "latitude": 7.54,
       "longitude": -5.5471,
-      "confirmedCases": 0,
+      "confirmedCases": 1,
       "deaths": 0,
-      "status": "monitoring"
+      "status": "confirmed"
     }
   ]
 }

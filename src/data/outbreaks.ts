@@ -398,8 +398,8 @@ export const hantavirusOutbreaks: OutbreakDataPoint[] = [
     name: "Ivory Coast",
     latitude: 7.54,
     longitude: -5.5471,
-    confirmedCases: 0,
+    confirmedCases: 1,
     deaths: 0,
-    status: "monitoring",
+    status: "confirmed",
   },
 ];
