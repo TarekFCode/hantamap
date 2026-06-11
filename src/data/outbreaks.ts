@@ -402,4 +402,12 @@ export const hantavirusOutbreaks: OutbreakDataPoint[] = [
     deaths: 0,
     status: "confirmed",
   },
+  {
+    name: "Bahamas",
+    latitude: 25.0343,
+    longitude: -77.3963,
+    confirmedCases: 1,
+    deaths: 0,
+    status: "confirmed",
+  },
 ];

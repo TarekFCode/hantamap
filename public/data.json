@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-11T15:45:14.134Z",
+  "updatedAt": "2026-06-11T20:13:59.377Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -390,6 +390,14 @@
       "name": "Ivory Coast",
       "latitude": 7.54,
       "longitude": -5.5471,
+      "confirmedCases": 1,
+      "deaths": 0,
+      "status": "confirmed"
+    },
+    {
+      "name": "Bahamas",
+      "latitude": 25.0343,
+      "longitude": -77.3963,
       "confirmedCases": 1,
       "deaths": 0,
       "status": "confirmed"
