@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-24T08:58:00.083Z",
+  "updatedAt": "2026-06-24T14:15:23.463Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -406,6 +406,14 @@
       "name": "Lebanon",
       "latitude": 33.8547,
       "longitude": 35.8623,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Uganda",
+      "latitude": 1.3733,
+      "longitude": 32.2903,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
