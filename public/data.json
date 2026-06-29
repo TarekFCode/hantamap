@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-28T19:10:41.818Z",
+  "updatedAt": "2026-06-29T02:54:14.458Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -414,6 +414,14 @@
       "name": "Uganda",
       "latitude": 1.3733,
       "longitude": 32.2903,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Venezuela",
+      "latitude": 6.4238,
+      "longitude": -66.5897,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
