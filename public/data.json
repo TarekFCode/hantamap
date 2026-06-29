@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-06-29T15:36:55.288Z",
+  "updatedAt": "2026-06-29T19:49:22.175Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -422,6 +422,14 @@
       "name": "Venezuela",
       "latitude": 6.4238,
       "longitude": -66.5897,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Brazil",
+      "latitude": -14.235,
+      "longitude": -51.9253,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
