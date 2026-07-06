@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-06T10:05:55.728Z",
+  "updatedAt": "2026-07-06T15:19:46.424Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -430,6 +430,14 @@
       "name": "Brazil",
       "latitude": -14.235,
       "longitude": -51.9253,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Yemen",
+      "latitude": 15.5527,
+      "longitude": 48.5164,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
