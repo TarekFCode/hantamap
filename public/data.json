@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-07-16T19:01:35.016Z",
+  "updatedAt": "2026-07-17T02:07:04.286Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -438,6 +438,14 @@
       "name": "Yemen",
       "latitude": 15.5527,
       "longitude": 48.5164,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Cambodia",
+      "latitude": 12.5657,
+      "longitude": 104.991,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
