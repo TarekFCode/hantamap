@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-06T08:24:25.183Z",
+  "updatedAt": "2026-08-06T13:50:50.260Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -454,6 +454,14 @@
       "name": "Saudi Arabia",
       "latitude": 23.8859,
       "longitude": 45.0792,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Austria",
+      "latitude": 47.5162,
+      "longitude": 14.5501,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
