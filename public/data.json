@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-10T18:47:55.967Z",
+  "updatedAt": "2026-08-11T01:13:57.941Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -470,6 +470,14 @@
       "name": "Nigeria",
       "latitude": 9.082,
       "longitude": 8.6753,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Colombia",
+      "latitude": 4.5709,
+      "longitude": -74.2973,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
