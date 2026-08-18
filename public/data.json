@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-18T00:53:11.558Z",
+  "updatedAt": "2026-08-18T06:32:25.893Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -494,6 +494,14 @@
       "name": "Indonesia",
       "latitude": -0.7893,
       "longitude": 113.9213,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Thailand",
+      "latitude": 15.87,
+      "longitude": 100.9925,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
