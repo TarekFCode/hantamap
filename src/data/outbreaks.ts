@@ -514,4 +514,12 @@ export const hantavirusOutbreaks: OutbreakDataPoint[] = [
     deaths: 0,
     status: "monitoring",
   },
+  {
+    name: "Bosnia and Herzegovina",
+    latitude: 43.9159,
+    longitude: 17.6791,
+    confirmedCases: 0,
+    deaths: 0,
+    status: "monitoring",
+  },
 ];

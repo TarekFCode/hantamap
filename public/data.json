@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-27T06:43:23.346Z",
+  "updatedAt": "2026-08-27T21:36:00.982Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -502,6 +502,14 @@
       "name": "Thailand",
       "latitude": 15.87,
       "longitude": 100.9925,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Bosnia and Herzegovina",
+      "latitude": 43.9159,
+      "longitude": 17.6791,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
