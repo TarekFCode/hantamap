@@ -522,4 +522,12 @@ export const hantavirusOutbreaks: OutbreakDataPoint[] = [
     deaths: 0,
     status: "monitoring",
   },
+  {
+    name: "Cyprus",
+    latitude: 35.1264,
+    longitude: 33.4299,
+    confirmedCases: 0,
+    deaths: 0,
+    status: "monitoring",
+  },
 ];

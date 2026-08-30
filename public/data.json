@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-08-30T15:52:50.385Z",
+  "updatedAt": "2026-08-30T20:23:39.342Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -510,6 +510,14 @@
       "name": "Bosnia and Herzegovina",
       "latitude": 43.9159,
       "longitude": 17.6791,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Cyprus",
+      "latitude": 35.1264,
+      "longitude": 33.4299,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
