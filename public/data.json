@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-08T10:26:03.802Z",
+  "updatedAt": "2026-09-08T15:50:07.371Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -526,6 +526,14 @@
       "name": "Guyana",
       "latitude": 4.8604,
       "longitude": -58.9302,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Lithuania",
+      "latitude": 55.1694,
+      "longitude": 23.8813,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
