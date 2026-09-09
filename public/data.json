@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-09T10:36:33.410Z",
+  "updatedAt": "2026-09-09T15:45:44.242Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -534,6 +534,14 @@
       "name": "Lithuania",
       "latitude": 55.1694,
       "longitude": 23.8813,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Egypt",
+      "latitude": 26.8206,
+      "longitude": 30.8025,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
