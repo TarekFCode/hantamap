@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-15T02:57:51.032Z",
+  "updatedAt": "2026-09-15T10:51:34.979Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -542,6 +542,14 @@
       "name": "Egypt",
       "latitude": 26.8206,
       "longitude": 30.8025,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Barbados",
+      "latitude": 13.1939,
+      "longitude": -59.5432,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
