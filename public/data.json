@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-09-18T20:16:55.304Z",
+  "updatedAt": "2026-09-19T02:43:06.547Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -550,6 +550,14 @@
       "name": "Barbados",
       "latitude": 13.1939,
       "longitude": -59.5432,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Fiji",
+      "latitude": -17.7134,
+      "longitude": 178.065,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
