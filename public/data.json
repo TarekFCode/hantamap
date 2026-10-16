@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-16T15:55:33.820Z",
+  "updatedAt": "2026-10-16T20:23:30.618Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -374,17 +374,17 @@
       "name": "Democratic Republic of the Congo",
       "latitude": -4.0383,
       "longitude": 21.7587,
-      "confirmedCases": 0,
+      "confirmedCases": 1,
       "deaths": 0,
-      "status": "suspected"
+      "status": "confirmed"
     },
     {
       "name": "Kenya",
       "latitude": -0.0236,
       "longitude": 37.9062,
-      "confirmedCases": 0,
+      "confirmedCases": 1,
       "deaths": 0,
-      "status": "monitoring"
+      "status": "confirmed"
     },
     {
       "name": "Ivory Coast",
