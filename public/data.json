@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-16T10:32:17.550Z",
+  "updatedAt": "2026-10-16T15:55:33.820Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -558,6 +558,14 @@
       "name": "Fiji",
       "latitude": -17.7134,
       "longitude": 178.065,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Zimbabwe",
+      "latitude": -19.0154,
+      "longitude": 29.1549,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
