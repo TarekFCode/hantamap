@@ -578,4 +578,12 @@ export const hantavirusOutbreaks: OutbreakDataPoint[] = [
     deaths: 0,
     status: "monitoring",
   },
+  {
+    name: "Vatican City",
+    latitude: 41.9029,
+    longitude: 12.4534,
+    confirmedCases: 0,
+    deaths: 0,
+    status: "monitoring",
+  },
 ];

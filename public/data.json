@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-10-16T20:23:30.618Z",
+  "updatedAt": "2026-10-17T02:36:12.934Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -566,6 +566,14 @@
       "name": "Zimbabwe",
       "latitude": -19.0154,
       "longitude": 29.1549,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Vatican City",
+      "latitude": 41.9029,
+      "longitude": 12.4534,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
