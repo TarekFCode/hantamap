@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-18T14:56:56.084Z",
+  "updatedAt": "2026-11-18T23:47:36.547Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -574,6 +574,14 @@
       "name": "Vatican City",
       "latitude": 41.9029,
       "longitude": 12.4534,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Rwanda",
+      "latitude": -1.9403,
+      "longitude": 29.8739,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
