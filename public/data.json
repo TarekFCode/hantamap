@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-11-19T05:31:42.665Z",
+  "updatedAt": "2026-11-19T15:04:23.134Z",
   "source": "https://www.who.int/emergencies/disease-outbreak-news/item/2026-DON601",
   "outbreaks": [
     {
@@ -582,6 +582,14 @@
       "name": "Rwanda",
       "latitude": -1.9403,
       "longitude": 29.8739,
+      "confirmedCases": 0,
+      "deaths": 0,
+      "status": "monitoring"
+    },
+    {
+      "name": "Myanmar",
+      "latitude": 21.9162,
+      "longitude": 95.956,
       "confirmedCases": 0,
       "deaths": 0,
       "status": "monitoring"
